@@ -28,7 +28,7 @@ react dropdown component
 
 ## Example
 
-online example: http://react-component.github.io/tree/build/examples/
+online example: http://react-component.github.io/dropdown/build/examples/
 
 
 ## Usage
