@@ -9,8 +9,6 @@ webpackJsonp([0,1],[
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
-	// use jsx to render html, do not modify simple.html
 	'use strict';
 	
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -19,6 +17,7 @@ webpackJsonp([0,1],[
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
 	
+	// use jsx to render html, do not modify simple.html
 	__webpack_require__(2);
 	__webpack_require__(6);
 	
@@ -408,8 +407,6 @@ webpackJsonp([0,1],[
 	
 	var React = __webpack_require__(8);
 	var rcUtil = __webpack_require__(11);
-	var joinClasses = rcUtil.joinClasses;
-	var classSet = rcUtil.classSet;
 	var createChainedFunction = rcUtil.createChainedFunction;
 	var Popup = __webpack_require__(22);
 	var domAlign = __webpack_require__(30);
@@ -2887,7 +2884,7 @@ webpackJsonp([0,1],[
 
 	module.exports = {
 		"name": "rc-dropdown",
-		"version": "0.5.0",
+		"version": "0.8.0",
 		"description": "dropdown ui component for react",
 		"keywords": [
 			"react",
