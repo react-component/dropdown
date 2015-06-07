@@ -22,14 +22,17 @@ react dropdown component
 [download-image]: https://img.shields.io/npm/dm/rc-dropdown.svg?style=flat-square
 [download-url]: https://npmjs.org/package/rc-dropdown
 
-## install
+## Screenshot
 
-[![rc-dropdown](https://nodei.co/npm/rc-dropdown.png)](https://npmjs.org/package/rc-dropdown)
+![](https://t.alipayobjects.com/images/rmsweb/T1bWpgXgBaXXXXXXXX.png)
 
 ## Example
 
 online example: http://react-component.github.io/dropdown/build/examples/
 
+## install
+
+[![rc-dropdown](https://nodei.co/npm/rc-dropdown.png)](https://npmjs.org/package/rc-dropdown)
 
 ## Usage
 
@@ -41,6 +44,73 @@ var dropdown = require('rc-dropdown');
 ## API
 
 ### props
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th style="width: 100px;">name</th>
+        <th style="width: 50px;">type</th>
+        <th style="width: 50px;">default</th>
+        <th>description</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>className</td>
+          <td>String</td>
+          <td></td>
+          <td>additional css class of root dom node</td>
+        </tr>
+        <tr>
+          <td>prefixCls</td>
+          <td>String</td>
+          <td>rc-dropdown</td>
+          <td>prefix class name</td>
+        </tr>
+        <tr>
+          <td>transitionName</td>
+          <td>String</td>
+          <td></td>
+          <td>same as https://github.com/react-component/css-transition-group</td>
+        </tr>
+        <tr>
+          <td>onVisibleChange</td>
+          <td>Function</td>
+          <td></td>
+          <td>call when visible is changed</td>
+        </tr>
+        <tr>
+          <td>visible</td>
+          <td>boolean</td>
+          <td></td>
+          <td>whether tooltip is visible</td>
+        </tr>
+        <tr>
+          <td>defaultVisible</td>
+          <td>boolean</td>
+          <td></td>
+          <td>whether tooltip is visible initially</td>
+        </tr>
+        <tr>
+          <td>trigger</td>
+          <td>Array</td>
+          <td></td>
+          <td>one of ['click', 'hover', 'focus']  </td>
+        </tr>
+        <tr>
+          <td>placement</td>
+          <td>String|Object</td>
+          <td></td>
+          <td>one of ['left','right','top','bottom'] or alignConfig of [dom-align](https://github.com/yiminghe/dom-align) </td>
+        </tr>
+        <tr>
+          <td>overlay</td>
+          <td>React.Element</td>
+          <td></td>
+          <td>popup content</td>
+        </tr>
+    </tbody>
+</table>
 
 
 ## Development

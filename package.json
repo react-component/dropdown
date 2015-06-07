@@ -1,6 +1,6 @@
 {
   "name": "rc-dropdown",
-  "version": "0.5.0",
+  "version": "0.8.0",
   "description": "dropdown ui component for react",
   "keywords": [
     "react",
@@ -17,8 +17,8 @@
   },
   "licenses": "MIT",
   "spm": {},
-  "config":{
-    "port":8006
+  "config": {
+    "port": 8006
   },
   "scripts": {
     "build": "rc-tools run build",
@@ -37,6 +37,7 @@
     "async": "~0.9.0",
     "expect.js": "~0.3.1",
     "precommit-hook": "^1.0.7",
+    "rc-menu": "~3.2.3",
     "rc-server": "3.x",
     "rc-style": "1.0.x",
     "rc-tools": "3.x",
@@ -46,6 +47,8 @@
     "precommit"
   ],
   "dependencies": {
+    "dom-align": "~1.0.8",
+    "rc-css-transition-group": "~2.1.4",
     "rc-util": "^2.0.0"
   }
 }
