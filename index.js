@@ -1,4 +1,4 @@
 
-var Dropdown = require('./src/Dropdown');
+var Dropdown = require('./src/');
 
 module.exports = Dropdown;

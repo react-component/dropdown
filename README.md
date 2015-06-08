@@ -37,7 +37,7 @@ online example: http://react-component.github.io/dropdown/build/examples/
 ## Usage
 
 ```js
-var dropdown = require('rc-dropdown');
+var Dropdown = require('rc-dropdown');
 // use dropdown
 ```
 
@@ -64,14 +64,20 @@ var dropdown = require('rc-dropdown');
         <tr>
           <td>prefixCls</td>
           <td>String</td>
-          <td>rc-dropdown</td>
+          <td>rc-tooltip</td>
           <td>prefix class name</td>
         </tr>
         <tr>
           <td>transitionName</td>
           <td>String</td>
           <td></td>
-          <td>same as https://github.com/react-component/css-transition-group</td>
+          <td>dropdown menu's animation css class name</td>
+        </tr>
+        <tr>
+          <td>animation</td>
+          <td>String</td>
+          <td></td>
+          <td>part of dropdown menu's animation css class name</td>
         </tr>
         <tr>
           <td>onVisibleChange</td>
@@ -92,22 +98,10 @@ var dropdown = require('rc-dropdown');
           <td>whether tooltip is visible initially</td>
         </tr>
         <tr>
-          <td>trigger</td>
-          <td>Array</td>
-          <td></td>
-          <td>one of ['click', 'hover', 'focus']  </td>
-        </tr>
-        <tr>
-          <td>placement</td>
-          <td>String|Object</td>
-          <td></td>
-          <td>one of ['left','right','top','bottom'] or alignConfig of [dom-align](https://github.com/yiminghe/dom-align) </td>
-        </tr>
-        <tr>
           <td>overlay</td>
-          <td>React.Element</td>
+          <td>rc-menu</td>
           <td></td>
-          <td>popup content</td>
+          <td>[rc-menu](https://github.com/react-component/menu) element</td>
         </tr>
     </tbody>
 </table>
