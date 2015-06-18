@@ -7,6 +7,7 @@ var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;
 var Simulate = TestUtils.Simulate;
 require('../assets/index.css');
+var $ = require('jquery');
 
 describe('dropdown', function () {
   var div;
@@ -39,11 +40,12 @@ describe('dropdown', function () {
       <button className="my-button">open</button>
     </Dropdown>, div);
     expect(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-button')[0]).to.be.ok();
-    expect(React.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'rc-dropdown')[0]).style.display).to.be('none');
+    expect(React.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'rc-dropdown')[0])).not.to.be.ok();
     Simulate.click(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-button')[0]);
-    expect(React.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'rc-dropdown')[0]).style.display).not.to.be('none');
+    expect($(React.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'rc-dropdown')[0])).css('display')).not.to.be('none');
     expect(clicked).not.to.be.ok();
     Simulate.click(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-menuitem')[0]);
     expect(clicked).to.be('1');
+    expect($(React.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'rc-dropdown')[0])).css('display')).to.be('none');
   });
 });
