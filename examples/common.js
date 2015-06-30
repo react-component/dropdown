@@ -264,7 +264,6 @@
 	 */
 	var React = __webpack_require__(4);
 	var rcUtil = __webpack_require__(7);
-	var contains = rcUtil.Dom.contains;
 	var createChainedFunction = rcUtil.createChainedFunction;
 	var Popup = __webpack_require__(19);
 	
@@ -281,7 +280,7 @@
 	    if ('visible' in props) {
 	      this.state.visible = !!props.visible;
 	    }
-	    ['toggle', 'show', 'hide', 'handleDocumentClick'].forEach(function (m) {
+	    ['toggle', 'show', 'hide'].forEach(function (m) {
 	      _this[m] = _this[m].bind(_this);
 	    });
 	  }
@@ -289,39 +288,18 @@
 	  _inherits(Tooltip, _React$Component);
 	
 	  _createClass(Tooltip, [{
+	    key: 'getPopupDomNode',
+	    value: function getPopupDomNode() {
+	      // for test
+	      return this.refs.popup ? this.refs.popup.getPopupDomNode() : this.popupInstance.getPopupDomNode();
+	    }
+	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
 	      if ('visible' in nextProps) {
 	        this.setState({
 	          visible: !!nextProps.visible
 	        });
-	      }
-	    }
-	  }, {
-	    key: 'handleDocumentClick',
-	    value: function handleDocumentClick(e) {
-	      var targetDomNode = React.findDOMNode(this).firstChild;
-	      var popupDomNode = this.getPopupDomNode();
-	      var target = e.target;
-	      if (target !== targetDomNode && target !== popupDomNode && !contains(popupDomNode, target) && !contains(targetDomNode, target)) {
-	        this.setVisible(false);
-	      }
-	    }
-	  }, {
-	    key: 'monitorDocumentClick',
-	    value: function monitorDocumentClick(prevState) {
-	      var state = this.state;
-	      if (this.props.trigger.indexOf('click') !== -1) {
-	        if (state.visible && !prevState.visible) {
-	          if (!this.documentClickHander) {
-	            this.documentClickHander = rcUtil.Dom.addEventListener(document, 'click', this.handleDocumentClick);
-	          }
-	        } else if (prevState.visible && !state.visible) {
-	          if (this.documentClickHander) {
-	            this.documentClickHander.remove();
-	            this.documentClickHander = null;
-	          }
-	        }
 	      }
 	    }
 	  }, {
@@ -341,34 +319,24 @@
 	      }
 	      var props = this.props;
 	      var state = this.state;
+	      var ref = {};
+	      if (!props.renderPopupToBody) {
+	        ref.ref = 'popup';
+	      }
 	      return React.createElement(
 	        Popup,
-	        { prefixCls: props.prefixCls,
-	          ref: props.renderPopupToBody ? null : 'popup',
+	        _extends({ prefixCls: props.prefixCls
+	        }, ref, {
 	          visible: state.visible,
+	          trigger: props.trigger,
 	          placement: props.placement,
 	          animation: props.animation,
 	          wrap: this,
+	          onClickOutside: this.hide,
 	          style: props.overlayStyle,
-	          transitionName: props.transitionName },
+	          transitionName: props.transitionName }),
 	        props.overlay
 	      );
-	    }
-	  }, {
-	    key: 'getPopupDomNode',
-	    value: function getPopupDomNode() {
-	      return this.popupDomNode || React.findDOMNode(this.refs.popup);
-	    }
-	  }, {
-	    key: 'renderToolTip',
-	    value: function renderToolTip(callback) {
-	      if (this.props.renderPopupToBody) {
-	        React.render(this.getPopupElement(), this.getTipContainer(), function () {
-	          callback(this);
-	        });
-	      } else {
-	        callback(this.refs.popup);
-	      }
 	    }
 	  }, {
 	    key: 'toggle',
@@ -383,13 +351,12 @@
 	  }, {
 	    key: 'setVisible',
 	    value: function setVisible(visible) {
-	      var _this2 = this;
-	
-	      this.setState({
-	        visible: visible
-	      }, function () {
-	        _this2.props.onVisibleChange(_this2.state.visible);
-	      });
+	      if (this.state.visible !== visible) {
+	        this.setState({
+	          visible: visible
+	        });
+	        this.props.onVisibleChange(visible);
+	      }
 	    }
 	  }, {
 	    key: 'show',
@@ -408,17 +375,22 @@
 	    }
 	  }, {
 	    key: 'componentDidUpdate',
-	    value: function componentDidUpdate(prevProps, prevState) {
-	      var _this3 = this;
-	
+	    value: function componentDidUpdate() {
 	      if (!this.popupRendered) {
 	        return;
 	      }
-	      prevState = prevState || {};
-	      this.renderToolTip(function (tooltip) {
-	        _this3.popupDomNode = tooltip.getRootNode();
-	      });
-	      this.monitorDocumentClick(prevState);
+	      if (this.props.renderPopupToBody) {
+	        this.popupInstance = React.render(this.getPopupElement(), this.getTipContainer());
+	      }
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      if (this.tipContainer) {
+	        React.unmountComponentAtNode(this.tipContainer);
+	        document.body.removeChild(this.tipContainer);
+	        this.tipContainer = null;
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -1368,22 +1340,26 @@
 	  _inherits(Popup, _React$Component);
 	
 	  _createClass(Popup, [{
-	    key: 'getRootNode',
-	    value: function getRootNode() {
+	    key: 'getPopupDomNode',
+	    value: function getPopupDomNode() {
 	      return React.findDOMNode(this.refs.popup);
 	    }
 	  }, {
 	    key: 'alignRootNode',
-	    value: function alignRootNode() {
+	    value: function alignRootNode(prevProps) {
 	      var props = this.props;
-	      if (props.visible) {
+	      if (props.visible && !prevProps.visible) {
 	        var targetDomNode = React.findDOMNode(props.wrap).firstChild;
-	        var popupDomNode = this.getRootNode();
+	        var popupDomNode = this.getPopupDomNode();
 	        var placement = props.placement;
 	        var points;
 	        if (placement && placement.points) {
+	          var originalClassName = utils.getToolTipClassByPlacement(props.prefixCls, placement);
 	          var align = domAlign(popupDomNode, targetDomNode, placement);
-	          popupDomNode.className = utils.getToolTipClassByPlacement(props.prefixCls, align);
+	          var nextClassName = utils.getToolTipClassByPlacement(props.prefixCls, align);
+	          if (nextClassName !== originalClassName) {
+	            popupDomNode.className = popupDomNode.className.replace(originalClassName, nextClassName);
+	          }
 	        } else {
 	          points = ['cr', 'cl'];
 	          if (placement === 'right') {
@@ -1408,7 +1384,7 @@
 	        transitionName = props.prefixCls + '-' + props.animation;
 	      }
 	      if (transitionName) {
-	        var domNode = this.getRootNode();
+	        var domNode = this.getPopupDomNode();
 	        if (props.visible && !prevProps.visible) {
 	          anim(domNode, transitionName + '-enter');
 	        } else if (!props.visible && prevProps.visible) {
@@ -1420,7 +1396,7 @@
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate(prevProps) {
 	      prevProps = prevProps || {};
-	      this.alignRootNode();
+	      this.alignRootNode(prevProps);
 	      this.animateRootNode(prevProps);
 	    }
 	  }, {
@@ -1437,17 +1413,29 @@
 	        className += ' ' + props.className;
 	      }
 	      var style = this.props.style;
+	      var maskStyle = {
+	        position: 'fixed',
+	        left: 0,
+	        top: 0,
+	        background: '#000',
+	        opacity: 0,
+	        filter: 'alpha(opacity=0)',
+	        width: '100%',
+	        height: '100%',
+	        zIndex: '-1'
+	      };
 	      if (!props.visible) {
 	        className += ' ' + props.prefixCls + '-hidden';
+	        maskStyle.display = 'none';
 	      }
 	      var arrowClassName = props.prefixCls + '-arrow';
 	      var innerClassname = props.prefixCls + '-inner';
 	      return React.createElement(
 	        'div',
 	        { className: className,
-	          key: 'popup',
 	          ref: 'popup',
 	          style: style },
+	        props.trigger.indexOf('click') !== -1 ? React.createElement('div', { style: maskStyle, onClick: props.onClickOutside }) : null,
 	        React.createElement('div', { className: arrowClassName }),
 	        React.createElement(
 	          'div',
@@ -1642,7 +1630,7 @@
 	    if (typeof placement === 'string') {
 	      return prefixCls + ' ' + prefixCls + '-placement-' + placement;
 	    } else {
-	      var offset = placement.offset;
+	      var offset = placement.offset || [0, 0];
 	      var offsetClass = '';
 	      if (offset && offset.length) {
 	        offsetClass = prefixCls + '-placement-offset-x-' + offset[0] + ' ' + prefixCls + '-placement-offset-y-' + offset[1];
