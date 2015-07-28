@@ -3,19 +3,19 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(52);
+	module.exports = __webpack_require__(53);
 
 
 /***/ },
 
-/***/ 52:
+/***/ 53:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	var Dropdown = __webpack_require__(2);
-	var Menu = __webpack_require__(38);
-	__webpack_require__(48);
+	var Menu = __webpack_require__(39);
+	__webpack_require__(49);
 	
 	function onClick(key) {
 	  console.log(key + ' selected');
@@ -31,13 +31,13 @@ webpackJsonp([1],{
 	  ),
 	  React.createElement(
 	    Menu.Item,
-	    { key: '1' },
+	    { key: "1" },
 	    'one'
 	  ),
 	  React.createElement(Menu.Divider, null),
 	  React.createElement(
 	    Menu.Item,
-	    { key: '2' },
+	    { key: "2" },
 	    'two'
 	  )
 	);
@@ -50,7 +50,7 @@ webpackJsonp([1],{
 	    null,
 	    React.createElement(
 	      Dropdown,
-	      { trigger: 'click', overlay: menu, animation: 'slide-up' },
+	      { trigger: "click", overlay: menu, animation: "slide-up" },
 	      React.createElement(
 	        'button',
 	        null,

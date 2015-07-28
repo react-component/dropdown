@@ -12,8 +12,8 @@ webpackJsonp([0],[
 	'use strict';
 	
 	var Dropdown = __webpack_require__(2);
-	var Menu = __webpack_require__(38);
-	__webpack_require__(48);
+	var Menu = __webpack_require__(39);
+	__webpack_require__(49);
 	
 	var Test = React.createClass({
 	  displayName: 'Test',
@@ -55,12 +55,12 @@ webpackJsonp([0],[
 	      { style: { width: 140 }, multiple: true, onSelect: this.handleSelect, onDeselect: this.handleDeselect },
 	      React.createElement(
 	        Menu.Item,
-	        { key: '1' },
+	        { key: "1" },
 	        'one'
 	      ),
 	      React.createElement(
 	        Menu.Item,
-	        { key: '2' },
+	        { key: "2" },
 	        'two'
 	      ),
 	      React.createElement(Menu.Divider, null),
@@ -83,11 +83,11 @@ webpackJsonp([0],[
 	
 	    return React.createElement(
 	      Dropdown,
-	      { trigger: 'click',
+	      { trigger: "click",
 	        onVisibleChange: this.handleVisibleChange,
 	        visible: this.state.visible,
 	        closeOnSelect: false,
-	        overlay: menu, animation: 'slide-up' },
+	        overlay: menu, animation: "slide-up" },
 	      React.createElement(
 	        'button',
 	        null,
