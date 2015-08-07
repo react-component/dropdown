@@ -20,9 +20,16 @@ class Dropdown extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-    this.state = {
-      visible: this.props.visible
-    };
+    this.handleVisibleChange = this.handleVisibleChange.bind(this);
+    if ('visible' in this.props) {
+      this.state = {
+        visible: this.props.visible
+      };
+    } else {
+      this.state = {
+        visible: this.props.defaultVisible
+      };
+    }
   }
 
   componentWillReceiveProps(props) {
@@ -34,9 +41,17 @@ class Dropdown extends React.Component {
   }
 
   handleClick() {
-    if (this.props.closeOnSelect) {
+    if (!('visible' in this.props)) {
       this.setState({
         visible: false
+      });
+    }
+  }
+
+  handleVisibleChange(v) {
+    if (!('visible' in this.props)) {
+      this.setState({
+        visible: v
       });
     }
   }
@@ -45,13 +60,14 @@ class Dropdown extends React.Component {
     var props = this.props;
     return React.cloneElement(props.overlay, {
       prefixCls: `${props.prefixCls}-menu`,
-      onClick: rcUtil.createChainedFunction(this.handleClick, props.overlay.props.onClick)
+      onClick: rcUtil.createChainedFunction(props.overlay.props.onClick, this.handleClick)
     });
   }
 
   render() {
     var props = assign({}, this.props);
     props.visible = this.state.visible;
+    props.onVisibleChange = rcUtil.createChainedFunction(props.onVisibleChange, this.handleVisibleChange);
     props.overlay = this.getMenuElement();
     return <Tooltip {...props}/>;
   }
@@ -60,7 +76,7 @@ class Dropdown extends React.Component {
 Dropdown.defaultProps = {
   prefixCls: 'rc-dropdown',
   renderPopupToBody: false,
-  closeOnSelect: true,
+  defaultVisible: false,
   placement: {
     points: ['tl', 'bl']
   }
