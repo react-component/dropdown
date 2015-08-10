@@ -17,7 +17,9 @@ webpackJsonp([1],{
 	var Menu = __webpack_require__(34);
 	__webpack_require__(44);
 	
-	function onClick(key) {
+	function onClick(_ref) {
+	  var key = _ref.key;
+	
 	  console.log(key + ' selected');
 	}
 	

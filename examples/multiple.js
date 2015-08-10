@@ -31,15 +31,16 @@ webpackJsonp([0],[
 	    });
 	  },
 	
-	  handleSelect: function handleSelect(selected) {
-	    this.selected.push(selected);
+	  handleSelect: function handleSelect(_ref) {
+	    var selectedKeys = _ref.selectedKeys;
+	
+	    this.selected = selectedKeys;
 	  },
 	
-	  handleDeselect: function handleDeselect(key) {
-	    var index = this.selected.indexOf(key);
-	    if (index !== -1) {
-	      this.selected.splice(index, 1);
-	    }
+	  handleDeselect: function handleDeselect(_ref2) {
+	    var selectedKeys = _ref2.selectedKeys;
+	
+	    this.selected = selectedKeys;
 	  },
 	
 	  confirm: function confirm() {
