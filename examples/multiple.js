@@ -18,15 +18,12 @@ var Test = React.createClass({
     });
   },
 
-  handleSelect(selected) {
-    this.selected.push(selected);
+  handleSelect({selectedKeys}) {
+    this.selected = selectedKeys;
   },
 
-  handleDeselect(key) {
-    var index = this.selected.indexOf(key);
-    if (index !== -1) {
-      this.selected.splice(index, 1);
-    }
+  handleDeselect({selectedKeys}) {
+    this.selected = selectedKeys;
   },
 
   confirm() {
@@ -37,7 +34,7 @@ var Test = React.createClass({
   },
 
   render() {
-    var menu = <Menu style={{width: 140}} multiple={true} onSelect ={this.handleSelect} onDeselect={this.handleDeselect}>
+    var menu = <Menu style={{width: 140}} multiple={true} onSelect={this.handleSelect} onDeselect={this.handleDeselect}>
       <Menu.Item key="1">one</Menu.Item>
       <Menu.Item key="2">two</Menu.Item>
       <Menu.Divider/>
@@ -48,15 +45,16 @@ var Test = React.createClass({
             color: '#000',
             'pointerEvents': 'visible'
           }}
-          onClick={this.confirm}>确定</button>
+          onClick={this.confirm}>确定
+        </button>
       </Menu.Item>
     </Menu>;
 
     return <Dropdown trigger="click"
-      onVisibleChange={this.handleVisibleChange}
-      visible={this.state.visible}
-      closeOnSelect={false}
-      overlay={menu} animation="slide-up">
+                     onVisibleChange={this.handleVisibleChange}
+                     visible={this.state.visible}
+                     closeOnSelect={false}
+                     overlay={menu} animation="slide-up">
       <button>open</button>
     </Dropdown>;
   }

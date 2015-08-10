@@ -4,7 +4,7 @@ var Dropdown = require('rc-dropdown');
 var Menu = require('rc-menu');
 require('rc-dropdown/assets/index.css');
 
-function onClick(key) {
+function onClick({key}) {
   console.log(`${key} selected`);
 }
 

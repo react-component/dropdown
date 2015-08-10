@@ -41,7 +41,7 @@
     "expect.js": "~0.3.1",
     "jquery": "~1.11.3",
     "precommit-hook": "^1.0.7",
-    "rc-menu": "~3.4.0",
+    "rc-menu": "4.x",
     "rc-server": "3.x",
     "rc-tools": "3.x",
     "react": "^0.13.0"
