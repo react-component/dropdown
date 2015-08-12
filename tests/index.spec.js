@@ -25,7 +25,7 @@ describe('dropdown', function () {
   it('simply works', function () {
     var clicked;
 
-    function onClick(key) {
+    function onClick({key}) {
       clicked = key;
     }
 
