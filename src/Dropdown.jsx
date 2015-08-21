@@ -42,25 +42,11 @@ const Dropdown = React.createClass({
     };
   },
 
-  componentDidMount() {
-    this.componentDidUpdate(null, {});
-  },
-
   componentWillReceiveProps(props) {
     if ('visible' in props) {
       this.setState({
         visible: props.visible,
       });
-    }
-  },
-
-  componentDidUpdate(prevProps, prevState) {
-    if (!prevState.visible && this.state.visible && this.props.minOverlayWidthMatchTrigger) {
-      const overlayNode = React.findDOMNode(this.refs.tooltip.popupInstance);
-      const rootNode = React.findDOMNode(this);
-      if (rootNode.offsetWidth > overlayNode.offsetWidth) {
-        overlayNode.style.width = rootNode.offsetWidth + 'px';
-      }
     }
   },
 
@@ -99,9 +85,20 @@ const Dropdown = React.createClass({
     return (<Tooltip {...this.props}
       ref="tooltip"
       visible={this.state.visible}
+      afterVisibleChange={this.afterVisibleChange}
       overlay={this.getMenuElement()}
       onVisibleChange={this.onVisibleChange}
       />);
+  },
+
+  afterVisibleChange(visible) {
+    if (visible && this.props.minOverlayWidthMatchTrigger) {
+      const overlayNode = React.findDOMNode(this.refs.tooltip.popupInstance);
+      const rootNode = React.findDOMNode(this);
+      if (rootNode.offsetWidth > overlayNode.offsetWidth) {
+        overlayNode.style.width = rootNode.offsetWidth + 'px';
+      }
+    }
   },
 });
 
