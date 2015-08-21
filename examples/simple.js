@@ -33,7 +33,7 @@ webpackJsonp([1],{
 	
 	var menu = React.createElement(
 	  _rcMenu2['default'],
-	  { style: { width: 140 }, onSelect: onSelect },
+	  { onSelect: onSelect },
 	  React.createElement(
 	    _rcMenu2['default'].Item,
 	    { disabled: true },
@@ -63,7 +63,7 @@ webpackJsonp([1],{
 	      { trigger: 'click', overlay: menu, animation: 'slide-up' },
 	      React.createElement(
 	        'button',
-	        null,
+	        { style: { width: 100 } },
 	        'open'
 	      )
 	    )
