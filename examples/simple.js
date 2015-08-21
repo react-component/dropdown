@@ -3,42 +3,50 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(48);
+	module.exports = __webpack_require__(55);
 
 
 /***/ },
 
-/***/ 48:
+/***/ 55:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Dropdown = __webpack_require__(2);
-	var Menu = __webpack_require__(34);
-	__webpack_require__(44);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	function onClick(_ref) {
+	var _rcDropdown = __webpack_require__(2);
+	
+	var _rcDropdown2 = _interopRequireDefault(_rcDropdown);
+	
+	var _rcMenu = __webpack_require__(33);
+	
+	var _rcMenu2 = _interopRequireDefault(_rcMenu);
+	
+	__webpack_require__(54);
+	
+	function onSelect(_ref) {
 	  var key = _ref.key;
 	
 	  console.log(key + ' selected');
 	}
 	
 	var menu = React.createElement(
-	  Menu,
-	  { style: { width: 140 }, onClick: onClick },
+	  _rcMenu2['default'],
+	  { style: { width: 140 }, onSelect: onSelect },
 	  React.createElement(
-	    Menu.Item,
+	    _rcMenu2['default'].Item,
 	    { disabled: true },
 	    'disabled'
 	  ),
 	  React.createElement(
-	    Menu.Item,
+	    _rcMenu2['default'].Item,
 	    { key: '1' },
 	    'one'
 	  ),
-	  React.createElement(Menu.Divider, null),
+	  React.createElement(_rcMenu2['default'].Divider, null),
 	  React.createElement(
-	    Menu.Item,
+	    _rcMenu2['default'].Item,
 	    { key: '2' },
 	    'two'
 	  )
@@ -51,7 +59,7 @@ webpackJsonp([1],{
 	    'div',
 	    null,
 	    React.createElement(
-	      Dropdown,
+	      _rcDropdown2['default'],
 	      { trigger: 'click', overlay: menu, animation: 'slide-up' },
 	      React.createElement(
 	        'button',

@@ -11,9 +11,17 @@ webpackJsonp([0],[
 
 	'use strict';
 	
-	var Dropdown = __webpack_require__(2);
-	var Menu = __webpack_require__(34);
-	__webpack_require__(44);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _rcDropdown = __webpack_require__(2);
+	
+	var _rcDropdown2 = _interopRequireDefault(_rcDropdown);
+	
+	var _rcMenu = __webpack_require__(33);
+	
+	var _rcMenu2 = _interopRequireDefault(_rcMenu);
+	
+	__webpack_require__(54);
 	
 	var Test = React.createClass({
 	  displayName: 'Test',
@@ -25,20 +33,14 @@ webpackJsonp([0],[
 	    };
 	  },
 	
-	  handleVisibleChange: function handleVisibleChange(visible) {
+	  onVisibleChange: function onVisibleChange(visible) {
 	    this.setState({
 	      visible: visible
 	    });
 	  },
 	
-	  handleSelect: function handleSelect(_ref) {
+	  saveSelected: function saveSelected(_ref) {
 	    var selectedKeys = _ref.selectedKeys;
-	
-	    this.selected = selectedKeys;
-	  },
-	
-	  handleDeselect: function handleDeselect(_ref2) {
-	    var selectedKeys = _ref2.selectedKeys;
 	
 	    this.selected = selectedKeys;
 	  },
@@ -52,21 +54,21 @@ webpackJsonp([0],[
 	
 	  render: function render() {
 	    var menu = React.createElement(
-	      Menu,
-	      { style: { width: 140 }, multiple: true, onSelect: this.handleSelect, onDeselect: this.handleDeselect },
+	      _rcMenu2['default'],
+	      { style: { width: 140 }, multiple: true, onSelect: this.saveSelected, onDeselect: this.saveSelected },
 	      React.createElement(
-	        Menu.Item,
+	        _rcMenu2['default'].Item,
 	        { key: '1' },
 	        'one'
 	      ),
 	      React.createElement(
-	        Menu.Item,
+	        _rcMenu2['default'].Item,
 	        { key: '2' },
 	        'two'
 	      ),
-	      React.createElement(Menu.Divider, null),
+	      React.createElement(_rcMenu2['default'].Divider, null),
 	      React.createElement(
-	        Menu.Item,
+	        _rcMenu2['default'].Item,
 	        { disabled: true },
 	        React.createElement(
 	          'button',
@@ -83,9 +85,9 @@ webpackJsonp([0],[
 	    );
 	
 	    return React.createElement(
-	      Dropdown,
+	      _rcDropdown2['default'],
 	      { trigger: 'click',
-	        onVisibleChange: this.handleVisibleChange,
+	        onVisibleChange: this.onVisibleChange,
 	        visible: this.state.visible,
 	        closeOnSelect: false,
 	        overlay: menu, animation: 'slide-up' },

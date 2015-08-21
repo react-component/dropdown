@@ -229,23 +229,21 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.js"></script>
 <![endif]-->
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
-  
+  <link rel="stylesheet" href="common.css" />
 </head>
 
 <body>
     <div class="container">
         <div class="header">
-            <h1>rc-dropdown@1.2.0</h1>
+            <h1>rc-dropdown@1.3.0</h1>
             <p>dropdown ui component for react</p>
         </div>
         <div class="example" id="__react-content"></div>
         <script src="common.js?nowrap"></script>
         <script src="multiple.js?nowrap"></script>
-        <div class="highlight"><pre><code><span class="xml">'use strict';
-
-var Dropdown = require('rc-dropdown');
-var Menu = require('rc-menu');
-require('rc-dropdown/assets/index.css');
+        <div class="highlight"><pre><code><span class="xml">import Dropdown from 'rc-dropdown';
+import Menu from 'rc-menu';
+import 'rc-dropdown/assets/index.css';
 
 var Test = React.createClass({
   getInitialState() {
@@ -255,17 +253,13 @@ var Test = React.createClass({
     };
   },
 
-  handleVisibleChange(visible) {
+  onVisibleChange(visible) {
     this.setState({
       visible: visible
     });
   },
 
-  handleSelect({selectedKeys}) {
-    this.selected = selectedKeys;
-  },
-
-  handleDeselect({selectedKeys}) {
+  saveSelected({selectedKeys}) {
     this.selected = selectedKeys;
   },
 
@@ -277,7 +271,7 @@ var Test = React.createClass({
   },
 
   render() {
-    var menu = <span class="hljs-tag">&lt;<span class="hljs-title">Menu</span> <span class="hljs-attribute">style</span>=</span></span><span class="hljs-expression">{{<span class="hljs-variable">width</span>: 140}}</span><span class="xml"><span class="hljs-tag"> <span class="hljs-attribute">multiple</span>=<span class="hljs-value">{true}</span> <span class="hljs-attribute">onSelect</span>=<span class="hljs-value">{this.handleSelect}</span> <span class="hljs-attribute">onDeselect</span>=<span class="hljs-value">{this.handleDeselect}</span>&gt;</span>
+    var menu = <span class="hljs-tag">&lt;<span class="hljs-title">Menu</span> <span class="hljs-attribute">style</span>=</span></span><span class="hljs-expression">{{<span class="hljs-variable">width</span>: 140}}</span><span class="xml"><span class="hljs-tag"> <span class="hljs-attribute">multiple</span>=<span class="hljs-value">{true}</span> <span class="hljs-attribute">onSelect</span>=<span class="hljs-value">{this.saveSelected}</span> <span class="hljs-attribute">onDeselect</span>=<span class="hljs-value">{this.saveSelected}</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">Menu.Item</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>&gt;</span>one<span class="hljs-tag">&lt;/<span class="hljs-title">Menu.Item</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">Menu.Item</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span>&gt;</span>two<span class="hljs-tag">&lt;/<span class="hljs-title">Menu.Item</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">Menu.Divider</span>/&gt;</span>
@@ -294,7 +288,7 @@ var Test = React.createClass({
     <span class="hljs-tag">&lt;/<span class="hljs-title">Menu</span>&gt;</span>;
 
     return <span class="hljs-tag">&lt;<span class="hljs-title">Dropdown</span> <span class="hljs-attribute">trigger</span>=<span class="hljs-value">"click"</span>
-                     <span class="hljs-attribute">onVisibleChange</span>=<span class="hljs-value">{this.handleVisibleChange}</span>
+                     <span class="hljs-attribute">onVisibleChange</span>=<span class="hljs-value">{this.onVisibleChange}</span>
                      <span class="hljs-attribute">visible</span>=<span class="hljs-value">{this.state.visible}</span>
                      <span class="hljs-attribute">closeOnSelect</span>=<span class="hljs-value">{false}</span>
                      <span class="hljs-attribute">overlay</span>=<span class="hljs-value">{menu}</span> <span class="hljs-attribute">animation</span>=<span class="hljs-value">"slide-up"</span>&gt;</span>
