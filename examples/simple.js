@@ -6,7 +6,7 @@ function onSelect({key}) {
   console.log(`${key} selected`);
 }
 
-var menu = <Menu style={{width:140}} onSelect={onSelect}>
+var menu = <Menu onSelect={onSelect}>
   <Menu.Item disabled>disabled</Menu.Item>
   <Menu.Item key="1">one</Menu.Item>
   <Menu.Divider/>
@@ -16,7 +16,7 @@ var menu = <Menu style={{width:140}} onSelect={onSelect}>
 React.render(<div style={{margin:20}}>
   <div>
     <Dropdown trigger="click" overlay={menu} animation="slide-up">
-      <button>open</button>
+      <button style={{width:100}}>open</button>
     </Dropdown>
   </div>
 </div>, document.getElementById('__react-content'));

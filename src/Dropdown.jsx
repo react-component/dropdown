@@ -13,8 +13,13 @@ import Tooltip from 'rc-tooltip';
  */
 
 const Dropdown = React.createClass({
+  propTypes: {
+    minOverlayWidthMatchTrigger: React.PropTypes.bool,
+  },
+
   getDefaultProps() {
     return {
+      minOverlayWidthMatchTrigger: true,
       prefixCls: 'rc-dropdown',
       defaultVisible: false,
       onVisibleChange() {
@@ -37,11 +42,25 @@ const Dropdown = React.createClass({
     };
   },
 
+  componentDidMount() {
+    this.componentDidUpdate(null, {});
+  },
+
   componentWillReceiveProps(props) {
     if ('visible' in props) {
       this.setState({
         visible: props.visible,
       });
+    }
+  },
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.visible && this.state.visible && this.props.minOverlayWidthMatchTrigger) {
+      const overlayNode = React.findDOMNode(this.refs.tooltip.popupInstance);
+      const rootNode = React.findDOMNode(this);
+      if (rootNode.offsetWidth > overlayNode.offsetWidth) {
+        overlayNode.style.width = rootNode.offsetWidth + 'px';
+      }
     }
   },
 
