@@ -1,3 +1,2 @@
-'use strict';
-
-module.exports = require('./Dropdown');
+import Dropdown from './Dropdown';
+export default Dropdown;

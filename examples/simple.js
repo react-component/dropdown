@@ -1,14 +1,12 @@
-'use strict';
+import Dropdown from 'rc-dropdown';
+import Menu from 'rc-menu';
+import 'rc-dropdown/assets/index.less';
 
-var Dropdown = require('rc-dropdown');
-var Menu = require('rc-menu');
-require('rc-dropdown/assets/index.css');
-
-function onClick({key}) {
+function onSelect({key}) {
   console.log(`${key} selected`);
 }
 
-var menu = <Menu style={{width:140}} onClick={onClick}>
+var menu = <Menu style={{width:140}} onSelect={onSelect}>
   <Menu.Item disabled>disabled</Menu.Item>
   <Menu.Item key="1">one</Menu.Item>
   <Menu.Divider/>

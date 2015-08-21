@@ -1,8 +1,6 @@
-'use strict';
-
-var Dropdown = require('rc-dropdown');
-var Menu = require('rc-menu');
-require('rc-dropdown/assets/index.css');
+import Dropdown from 'rc-dropdown';
+import Menu from 'rc-menu';
+import 'rc-dropdown/assets/index.less';
 
 var Test = React.createClass({
   getInitialState() {
@@ -12,17 +10,13 @@ var Test = React.createClass({
     };
   },
 
-  handleVisibleChange(visible) {
+  onVisibleChange(visible) {
     this.setState({
       visible: visible
     });
   },
 
-  handleSelect({selectedKeys}) {
-    this.selected = selectedKeys;
-  },
-
-  handleDeselect({selectedKeys}) {
+  saveSelected({selectedKeys}) {
     this.selected = selectedKeys;
   },
 
@@ -34,7 +28,7 @@ var Test = React.createClass({
   },
 
   render() {
-    var menu = <Menu style={{width: 140}} multiple={true} onSelect={this.handleSelect} onDeselect={this.handleDeselect}>
+    var menu = <Menu style={{width: 140}} multiple={true} onSelect={this.saveSelected} onDeselect={this.saveSelected}>
       <Menu.Item key="1">one</Menu.Item>
       <Menu.Item key="2">two</Menu.Item>
       <Menu.Divider/>
@@ -51,7 +45,7 @@ var Test = React.createClass({
     </Menu>;
 
     return <Dropdown trigger="click"
-                     onVisibleChange={this.handleVisibleChange}
+                     onVisibleChange={this.onVisibleChange}
                      visible={this.state.visible}
                      closeOnSelect={false}
                      overlay={menu} animation="slide-up">

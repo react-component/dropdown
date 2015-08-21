@@ -6,7 +6,7 @@ var Menu = require('rc-menu');
 var React = require('react/addons');
 var TestUtils = React.addons.TestUtils;
 var Simulate = TestUtils.Simulate;
-require('../assets/index.css');
+require('../assets/index.less');
 var $ = require('jquery');
 
 describe('dropdown', function () {
@@ -44,8 +44,8 @@ describe('dropdown', function () {
     Simulate.click(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-button')[0]);
     expect($(React.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'rc-dropdown')[0])).css('display')).not.to.be('none');
     expect(clicked).not.to.be.ok();
-    Simulate.click(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-menuitem')[0]);
+    Simulate.click(TestUtils.scryRenderedDOMComponentsWithClass(dropdown.refs.tooltip.popupInstance, 'my-menuitem')[0]);
     expect(clicked).to.be('1');
-    expect($(React.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'rc-dropdown')[0])).css('display')).to.be('none');
+    expect($(React.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown.refs.tooltip.popupInstance, 'rc-dropdown')[0])).css('display')).to.be('none');
   });
 });
