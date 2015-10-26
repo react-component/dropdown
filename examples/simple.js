@@ -1,6 +1,8 @@
 import Dropdown from 'rc-dropdown';
 import Menu from 'rc-menu';
 import 'rc-dropdown/assets/index.less';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 function onSelect({key}) {
   console.log(`${key} selected`);
@@ -13,7 +15,8 @@ var menu = <Menu onSelect={onSelect}>
   <Menu.Item key="2">two</Menu.Item>
 </Menu>;
 
-React.render(<div style={{margin:20}}>
+ReactDOM.render(<div style={{margin:20}}>
+  <div style={{height:100}}/>
   <div>
     <Dropdown trigger="click" overlay={menu} animation="slide-up">
       <button style={{width:100}}>open</button>

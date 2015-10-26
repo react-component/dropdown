@@ -3,8 +3,9 @@
 var expect = require('expect.js');
 var Dropdown = require('../');
 var Menu = require('rc-menu');
-var React = require('react/addons');
-var TestUtils = React.addons.TestUtils;
+import React from 'react';
+import ReactDOM from 'react-dom';
+var TestUtils = require('react-addons-test-utils');
 var Simulate = TestUtils.Simulate;
 require('../assets/index.less');
 var $ = require('jquery');
@@ -19,7 +20,7 @@ describe('dropdown', function () {
   });
 
   afterEach(function () {
-    React.unmountComponentAtNode(div);
+    ReactDOM.unmountComponentAtNode(div);
   });
 
   it('simply works', function () {
@@ -36,16 +37,16 @@ describe('dropdown', function () {
       <Menu.Divider/>
       <Menu.Item key="2">two</Menu.Item>
     </Menu>;
-    var dropdown = React.render(<Dropdown trigger="click" overlay={menu}>
+    var dropdown = ReactDOM.render(<Dropdown trigger="click" overlay={menu}>
       <button className="my-button">open</button>
     </Dropdown>, div);
     expect(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-button')[0]).to.be.ok();
-    expect(React.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'rc-dropdown')[0])).not.to.be.ok();
+    expect(ReactDOM.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'rc-dropdown')[0])).not.to.be.ok();
     Simulate.click(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-button')[0]);
-    expect($(React.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'rc-dropdown')[0])).css('display')).not.to.be('none');
+    expect($(ReactDOM.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'rc-dropdown')[0])).css('display')).not.to.be('none');
     expect(clicked).not.to.be.ok();
-    Simulate.click(TestUtils.scryRenderedDOMComponentsWithClass(dropdown.refs.tooltip.popupInstance, 'my-menuitem')[0]);
+    Simulate.click($(dropdown.refs.tooltip.popupDomNode).find('.my-menuitem')[0]);
     expect(clicked).to.be('1');
-    expect($(React.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown.refs.tooltip.popupInstance, 'rc-dropdown')[0])).css('display')).to.be('none');
+    expect($(dropdown.refs.tooltip.popupDomNode).css('display')).to.be('none');
   });
 });

@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Tooltip from 'rc-tooltip';
 
 /*
@@ -24,9 +25,7 @@ const Dropdown = React.createClass({
       defaultVisible: false,
       onVisibleChange() {
       },
-      placement: {
-        points: ['tl', 'bl'],
-      },
+      placement: 'bottomLeft',
     };
   },
 
@@ -81,6 +80,16 @@ const Dropdown = React.createClass({
     });
   },
 
+  afterVisibleChange(visible) {
+    if (visible && this.props.minOverlayWidthMatchTrigger) {
+      const overlayNode = this.refs.tooltip.popupDomNode;
+      const rootNode = ReactDOM.findDOMNode(this);
+      if (rootNode.offsetWidth > overlayNode.offsetWidth) {
+        overlayNode.style.width = rootNode.offsetWidth + 'px';
+      }
+    }
+  },
+
   render() {
     return (<Tooltip {...this.props}
       ref="tooltip"
@@ -89,16 +98,6 @@ const Dropdown = React.createClass({
       overlay={this.getMenuElement()}
       onVisibleChange={this.onVisibleChange}
       />);
-  },
-
-  afterVisibleChange(visible) {
-    if (visible && this.props.minOverlayWidthMatchTrigger) {
-      const overlayNode = React.findDOMNode(this.refs.tooltip.popupInstance);
-      const rootNode = React.findDOMNode(this);
-      if (rootNode.offsetWidth > overlayNode.offsetWidth) {
-        overlayNode.style.width = rootNode.offsetWidth + 'px';
-      }
-    }
   },
 });
 

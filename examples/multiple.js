@@ -1,6 +1,8 @@
 import Dropdown from 'rc-dropdown';
 import Menu from 'rc-menu';
 import 'rc-dropdown/assets/index.less';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 var Test = React.createClass({
   getInitialState() {
@@ -54,6 +56,6 @@ var Test = React.createClass({
   }
 });
 
-React.render(<div style={{margin: 20}}>
+ReactDOM.render(<div style={{margin: 20}}>
   <Test/>
 </div>, document.getElementById('__react-content'));

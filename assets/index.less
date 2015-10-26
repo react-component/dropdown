@@ -18,7 +18,6 @@
   font-size: 12px;
   font-weight: normal;
   line-height: 1.5;
-  padding-top: 3px;
 
   &-hidden {
     display: none;
@@ -119,7 +118,7 @@
     display: block !important;
   }
 
-  &-slide-up-enter {
+  &-slide-up-enter,&-slide-up-appear {
     .effect();
     opacity: 0;
     animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
@@ -133,13 +132,25 @@
     animation-play-state: paused;
   }
 
-  &-slide-up-enter&-slide-up-enter-active {
+  &-slide-up-enter&-slide-up-enter-active&-placement-bottomLeft,
+  &-slide-up-appear&-slide-up-appear-active&-placement-bottomLeft {
     animation-name: rcDropdownSlideUpIn;
     animation-play-state: running;
   }
 
-  &-slide-up-leave&-slide-up-leave-active {
+  &-slide-up-enter&-slide-up-enter-active&-placement-topLeft,
+  &-slide-up-appear&-slide-up-appear-active&-placement-topLeft {
+    animation-name: rcDropdownSlideDownIn;
+    animation-play-state: running;
+  }
+
+  &-slide-up-leave&-slide-up-leave-active&-placement-bottomLeft {
     animation-name: rcDropdownSlideUpOut;
+    animation-play-state: running;
+  }
+
+  &-slide-up-leave&-slide-up-leave-active&-placement-topLeft {
+    animation-name: rcDropdownSlideDownOut;
     animation-play-state: running;
   }
 
@@ -164,6 +175,31 @@
     100% {
       opacity: 0;
       transform-origin: 0% 0%;
+      transform: scaleY(0);
+    }
+  }
+
+  @keyframes rcDropdownSlideDownIn {
+    0% {
+      opacity: 0;
+      transform-origin: 0% 100%;
+      transform: scaleY(0);
+    }
+    100% {
+      opacity: 1;
+      transform-origin: 0% 100%;
+      transform: scaleY(1);
+    }
+  }
+  @keyframes rcDropdownSlideDownOut {
+    0% {
+      opacity: 1;
+      transform-origin: 0% 100%;
+      transform: scaleY(1);
+    }
+    100% {
+      opacity: 0;
+      transform-origin: 0% 100%;
       transform: scaleY(0);
     }
   }
