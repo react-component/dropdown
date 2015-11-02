@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import Tooltip from 'rc-tooltip';
+import Trigger from 'rc-trigger';
+import placements from './placements';
 
 /*
 
@@ -15,7 +16,15 @@ import Tooltip from 'rc-tooltip';
 
 const Dropdown = React.createClass({
   propTypes: {
-    minOverlayWidthMatchTrigger: React.PropTypes.bool,
+    minOverlayWidthMatchTrigger: PropTypes.bool,
+    onVisibleChange: PropTypes.func,
+    prefixCls: PropTypes.string,
+    children: PropTypes.any,
+    transitionName: PropTypes.string,
+    animation: PropTypes.any,
+    align: PropTypes.object,
+    placement: PropTypes.string,
+    trigger: PropTypes.array,
   },
 
   getDefaultProps() {
@@ -80,9 +89,13 @@ const Dropdown = React.createClass({
     });
   },
 
+  getPopupDomNode() {
+    return this.refs.trigger.getPopupDomNode();
+  },
+
   afterVisibleChange(visible) {
     if (visible && this.props.minOverlayWidthMatchTrigger) {
-      const overlayNode = this.refs.tooltip.popupDomNode;
+      const overlayNode = this.getPopupDomNode();
       const rootNode = ReactDOM.findDOMNode(this);
       if (rootNode.offsetWidth > overlayNode.offsetWidth) {
         overlayNode.style.width = rootNode.offsetWidth + 'px';
@@ -91,13 +104,23 @@ const Dropdown = React.createClass({
   },
 
   render() {
-    return (<Tooltip {...this.props}
-      ref="tooltip"
-      visible={this.state.visible}
-      afterVisibleChange={this.afterVisibleChange}
-      overlay={this.getMenuElement()}
-      onVisibleChange={this.onVisibleChange}
-      />);
+    const {prefixCls, children,
+      transitionName, animation,
+      align, placement,
+      trigger} = this.props;
+    return (<Trigger prefixCls={prefixCls}
+                     ref="trigger"
+                     builtinPlacements={placements}
+                     action={trigger}
+                     popupPlacement={placement}
+                     popupAlign={align}
+                     popupTransitionName={transitionName}
+                     popupAnimation={animation}
+                     popupVisible={this.state.visible}
+                     afterPopupVisibleChange={this.afterVisibleChange}
+                     popup={this.getMenuElement()}
+                     onPopupVisibleChange={this.onVisibleChange}
+      >{children}</Trigger>);
   },
 });
 

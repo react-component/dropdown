@@ -45,8 +45,8 @@ describe('dropdown', function () {
     Simulate.click(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-button')[0]);
     expect($(ReactDOM.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'rc-dropdown')[0])).css('display')).not.to.be('none');
     expect(clicked).not.to.be.ok();
-    Simulate.click($(dropdown.refs.tooltip.popupDomNode).find('.my-menuitem')[0]);
+    Simulate.click($(dropdown.getPopupDomNode()).find('.my-menuitem')[0]);
     expect(clicked).to.be('1');
-    expect($(dropdown.refs.tooltip.popupDomNode).css('display')).to.be('none');
+    expect($(dropdown.getPopupDomNode()).css('display')).to.be('none');
   });
 });
