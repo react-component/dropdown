@@ -33,6 +33,7 @@ const Dropdown = React.createClass({
     return {
       minOverlayWidthMatchTrigger: true,
       prefixCls: 'rc-dropdown',
+      trigger: ['hover'],
       overlayClassName: '',
       overlayStyle: {},
       defaultVisible: false,
