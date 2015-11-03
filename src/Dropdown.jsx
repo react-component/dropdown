@@ -21,8 +21,10 @@ const Dropdown = React.createClass({
     prefixCls: PropTypes.string,
     children: PropTypes.any,
     transitionName: PropTypes.string,
+    overlayClassName: PropTypes.string,
     animation: PropTypes.any,
     align: PropTypes.object,
+    overlayStyle: PropTypes.object,
     placement: PropTypes.string,
     trigger: PropTypes.array,
   },
@@ -31,6 +33,8 @@ const Dropdown = React.createClass({
     return {
       minOverlayWidthMatchTrigger: true,
       prefixCls: 'rc-dropdown',
+      overlayClassName: '',
+      overlayStyle: {},
       defaultVisible: false,
       onVisibleChange() {
       },
@@ -107,9 +111,12 @@ const Dropdown = React.createClass({
     const {prefixCls, children,
       transitionName, animation,
       align, placement,
+      overlayClassName, overlayStyle,
       trigger} = this.props;
     return (<Trigger prefixCls={prefixCls}
                      ref="trigger"
+                     popupClassName={overlayClassName}
+                     popupStyle={overlayStyle}
                      builtinPlacements={placements}
                      action={trigger}
                      popupPlacement={placement}
