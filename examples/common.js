@@ -170,8 +170,10 @@
 	    prefixCls: _react.PropTypes.string,
 	    children: _react.PropTypes.any,
 	    transitionName: _react.PropTypes.string,
+	    overlayClassName: _react.PropTypes.string,
 	    animation: _react.PropTypes.any,
 	    align: _react.PropTypes.object,
+	    overlayStyle: _react.PropTypes.object,
 	    placement: _react.PropTypes.string,
 	    trigger: _react.PropTypes.array
 	  },
@@ -180,6 +182,8 @@
 	    return {
 	      minOverlayWidthMatchTrigger: true,
 	      prefixCls: 'rc-dropdown',
+	      overlayClassName: '',
+	      overlayStyle: {},
 	      defaultVisible: false,
 	      onVisibleChange: function onVisibleChange() {},
 	      placement: 'bottomLeft'
@@ -259,12 +263,16 @@
 	    var animation = _props.animation;
 	    var align = _props.align;
 	    var placement = _props.placement;
+	    var overlayClassName = _props.overlayClassName;
+	    var overlayStyle = _props.overlayStyle;
 	    var trigger = _props.trigger;
 	
 	    return _react2['default'].createElement(
 	      _rcTrigger2['default'],
 	      { prefixCls: prefixCls,
 	        ref: 'trigger',
+	        popupClassName: overlayClassName,
+	        popupStyle: overlayStyle,
 	        builtinPlacements: _placements2['default'],
 	        action: trigger,
 	        popupPlacement: placement,
