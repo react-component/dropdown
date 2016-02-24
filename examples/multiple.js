@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import Dropdown from 'rc-dropdown';
-import Menu from 'rc-menu';
+import Menu, {Item as MenuItem, Divider} from 'rc-menu';
 import 'rc-dropdown/assets/index.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -33,10 +33,10 @@ const Test = React.createClass({
   render() {
     const menu = (
       <Menu style={{ width: 140 }} multiple onSelect={this.saveSelected} onDeselect={this.saveSelected}>
-        <Menu.Item key="1">one</Menu.Item>
-        <Menu.Item key="2">two</Menu.Item>
-        <Menu.Divider/>
-        <Menu.Item disabled>
+        <MenuItem key="1">one</MenuItem>
+        <MenuItem key="2">two</MenuItem>
+        <Divider />
+        <MenuItem disabled>
           <button
             style={{
               cursor: 'pointer',
@@ -45,12 +45,12 @@ const Test = React.createClass({
             }}
             onClick={this.confirm}>确定
           </button>
-        </Menu.Item>
+        </MenuItem>
       </Menu>
     );
 
     return (
-      <Dropdown trigger="click"
+      <Dropdown trigger={['click']}
                 onVisibleChange={this.onVisibleChange}
                 visible={this.state.visible}
                 closeOnSelect={false}

@@ -1,7 +1,7 @@
 /* eslint-disable func-names */
 const expect = require('expect.js');
 const Dropdown = require('../');
-const Menu = require('rc-menu');
+import Menu, {Item as MenuItem, Divider} from 'rc-menu';
 import React from 'react';
 import ReactDOM from 'react-dom';
 const TestUtils = require('react-addons-test-utils');
@@ -31,14 +31,14 @@ describe('dropdown', function() {
 
     const menu = (
       <Menu style={{width: 140}} onClick={onClick}>
-        <Menu.Item key="1">
+        <MenuItem key="1">
           <span className="my-menuitem">one</span>
-        </Menu.Item>
-        <Menu.Divider/>
-        <Menu.Item key="2">two</Menu.Item>
+        </MenuItem>
+        <Divider />
+        <MenuItem key="2">two</MenuItem>
       </Menu>
     );
-    const dropdown = ReactDOM.render(<Dropdown trigger="click" overlay={menu}>
+    const dropdown = ReactDOM.render(<Dropdown trigger={['click']} overlay={menu}>
       <button className="my-button">open</button>
     </Dropdown>, div);
     expect(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-button')[0]).to.be.ok();
