@@ -3,14 +3,15 @@ webpackJsonp([1],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(240);
+	module.exports = __webpack_require__(225);
 
 
 /***/ },
 
-/***/ 240:
+/***/ 225:
 /***/ function(module, exports, __webpack_require__) {
 
+	/* eslint-disable no-console */
 	'use strict';
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -19,11 +20,11 @@ webpackJsonp([1],{
 	
 	var _rcDropdown2 = _interopRequireDefault(_rcDropdown);
 	
-	var _rcMenu = __webpack_require__(205);
+	var _rcMenu = __webpack_require__(210);
 	
 	var _rcMenu2 = _interopRequireDefault(_rcMenu);
 	
-	__webpack_require__(239);
+	__webpack_require__(224);
 	
 	var _react = __webpack_require__(5);
 	
@@ -43,18 +44,18 @@ webpackJsonp([1],{
 	  _rcMenu2['default'],
 	  { onSelect: onSelect },
 	  _react2['default'].createElement(
-	    _rcMenu2['default'].Item,
+	    _rcMenu.Item,
 	    { disabled: true },
 	    'disabled'
 	  ),
 	  _react2['default'].createElement(
-	    _rcMenu2['default'].Item,
+	    _rcMenu.Item,
 	    { key: '1' },
 	    'one'
 	  ),
-	  _react2['default'].createElement(_rcMenu2['default'].Divider, null),
+	  _react2['default'].createElement(_rcMenu.Divider, null),
 	  _react2['default'].createElement(
-	    _rcMenu2['default'].Item,
+	    _rcMenu.Item,
 	    { key: '2' },
 	    'two'
 	  )
@@ -69,7 +70,7 @@ webpackJsonp([1],{
 	    null,
 	    _react2['default'].createElement(
 	      _rcDropdown2['default'],
-	      { trigger: 'click', overlay: menu, animation: 'slide-up' },
+	      { trigger: ['click'], overlay: menu, animation: 'slide-up' },
 	      _react2['default'].createElement(
 	        'button',
 	        { style: { width: 100 } },

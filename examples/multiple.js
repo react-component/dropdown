@@ -9,6 +9,7 @@ webpackJsonp([0],[
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* eslint-disable no-console */
 	'use strict';
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -17,11 +18,11 @@ webpackJsonp([0],[
 	
 	var _rcDropdown2 = _interopRequireDefault(_rcDropdown);
 	
-	var _rcMenu = __webpack_require__(205);
+	var _rcMenu = __webpack_require__(210);
 	
 	var _rcMenu2 = _interopRequireDefault(_rcMenu);
 	
-	__webpack_require__(239);
+	__webpack_require__(224);
 	
 	var _react = __webpack_require__(5);
 	
@@ -65,18 +66,18 @@ webpackJsonp([0],[
 	      _rcMenu2['default'],
 	      { style: { width: 140 }, multiple: true, onSelect: this.saveSelected, onDeselect: this.saveSelected },
 	      _react2['default'].createElement(
-	        _rcMenu2['default'].Item,
+	        _rcMenu.Item,
 	        { key: '1' },
 	        'one'
 	      ),
 	      _react2['default'].createElement(
-	        _rcMenu2['default'].Item,
+	        _rcMenu.Item,
 	        { key: '2' },
 	        'two'
 	      ),
-	      _react2['default'].createElement(_rcMenu2['default'].Divider, null),
+	      _react2['default'].createElement(_rcMenu.Divider, null),
 	      _react2['default'].createElement(
-	        _rcMenu2['default'].Item,
+	        _rcMenu.Item,
 	        { disabled: true },
 	        _react2['default'].createElement(
 	          'button',
@@ -94,11 +95,12 @@ webpackJsonp([0],[
 	
 	    return _react2['default'].createElement(
 	      _rcDropdown2['default'],
-	      { trigger: 'click',
+	      { trigger: ['click'],
 	        onVisibleChange: this.onVisibleChange,
 	        visible: this.state.visible,
 	        closeOnSelect: false,
-	        overlay: menu, animation: 'slide-up' },
+	        overlay: menu,
+	        animation: 'slide-up' },
 	      _react2['default'].createElement(
 	        'button',
 	        null,
