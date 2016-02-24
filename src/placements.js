@@ -9,13 +9,13 @@ export const placements = {
   topLeft: {
     points: ['bl', 'tl'],
     overflow: autoAdjustOverflow,
-    offset: [0, -3],
+    offset: [0, -4],
     targetOffset,
   },
   bottomLeft: {
     points: ['tl', 'bl'],
     overflow: autoAdjustOverflow,
-    offset: [0, 3],
+    offset: [0, 4],
     targetOffset,
   },
 };
