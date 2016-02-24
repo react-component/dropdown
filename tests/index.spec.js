@@ -1,43 +1,44 @@
-'use strict';
-
-var expect = require('expect.js');
-var Dropdown = require('../');
-var Menu = require('rc-menu');
+/* eslint-disable func-names */
+const expect = require('expect.js');
+const Dropdown = require('../');
+const Menu = require('rc-menu');
 import React from 'react';
 import ReactDOM from 'react-dom';
-var TestUtils = require('react-addons-test-utils');
-var Simulate = TestUtils.Simulate;
+const TestUtils = require('react-addons-test-utils');
+const Simulate = TestUtils.Simulate;
 require('../assets/index.less');
-var $ = require('jquery');
+const $ = require('jquery');
 
-describe('dropdown', function () {
-  var div;
-  beforeEach(function () {
+describe('dropdown', function() {
+  let div;
+  beforeEach(function() {
     if (!div) {
       div = document.createElement('div');
       document.body.appendChild(div);
     }
   });
 
-  afterEach(function () {
+  afterEach(function() {
     ReactDOM.unmountComponentAtNode(div);
   });
 
-  it('simply works', function () {
-    var clicked;
+  it('simply works', function() {
+    let clicked;
 
     function onClick({key}) {
       clicked = key;
     }
 
-    var menu = <Menu style={{width: 140}} onClick={onClick}>
-      <Menu.Item key="1">
-        <span className="my-menuitem">one</span>
-      </Menu.Item>
-      <Menu.Divider/>
-      <Menu.Item key="2">two</Menu.Item>
-    </Menu>;
-    var dropdown = ReactDOM.render(<Dropdown trigger="click" overlay={menu}>
+    const menu = (
+      <Menu style={{width: 140}} onClick={onClick}>
+        <Menu.Item key="1">
+          <span className="my-menuitem">one</span>
+        </Menu.Item>
+        <Menu.Divider/>
+        <Menu.Item key="2">two</Menu.Item>
+      </Menu>
+    );
+    const dropdown = ReactDOM.render(<Dropdown trigger="click" overlay={menu}>
       <button className="my-button">open</button>
     </Dropdown>, div);
     expect(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-button')[0]).to.be.ok();
