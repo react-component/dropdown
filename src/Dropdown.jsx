@@ -27,6 +27,7 @@ const Dropdown = React.createClass({
     overlayStyle: PropTypes.object,
     placement: PropTypes.string,
     trigger: PropTypes.array,
+    getPopupContainer: PropTypes.func,
   },
 
   getDefaultProps() {
@@ -128,6 +129,7 @@ const Dropdown = React.createClass({
                      afterPopupVisibleChange={this.afterVisibleChange}
                      popup={this.getMenuElement()}
                      onPopupVisibleChange={this.onVisibleChange}
+                     getPopupContainer={this.props.getPopupContainer}
       >{children}</Trigger>);
   },
 });
