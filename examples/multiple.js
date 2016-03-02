@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import Dropdown from 'rc-dropdown';
-import Menu, {Item as MenuItem, Divider} from 'rc-menu';
+import Menu, { Item as MenuItem, Divider } from 'rc-menu';
 import 'rc-dropdown/assets/index.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -15,11 +15,11 @@ const Test = React.createClass({
 
   onVisibleChange(visible) {
     this.setState({
-      visible: visible,
+      visible,
     });
   },
 
-  saveSelected({selectedKeys}) {
+  saveSelected({ selectedKeys }) {
     this.selected = selectedKeys;
   },
 
@@ -32,7 +32,12 @@ const Test = React.createClass({
 
   render() {
     const menu = (
-      <Menu style={{ width: 140 }} multiple onSelect={this.saveSelected} onDeselect={this.saveSelected}>
+      <Menu
+        style={{ width: 140 }}
+        multiple
+        onSelect={this.saveSelected}
+        onDeselect={this.saveSelected}
+      >
         <MenuItem key="1">one</MenuItem>
         <MenuItem key="2">two</MenuItem>
         <Divider />
@@ -41,21 +46,24 @@ const Test = React.createClass({
             style={{
               cursor: 'pointer',
               color: '#000',
-              'pointerEvents': 'visible',
+              pointerEvents: 'visible',
             }}
-            onClick={this.confirm}>确定
+            onClick={this.confirm}
+          >确定
           </button>
         </MenuItem>
       </Menu>
     );
 
     return (
-      <Dropdown trigger={['click']}
-                onVisibleChange={this.onVisibleChange}
-                visible={this.state.visible}
-                closeOnSelect={false}
-                overlay={menu}
-                animation="slide-up">
+      <Dropdown
+        trigger={['click']}
+        onVisibleChange={this.onVisibleChange}
+        visible={this.state.visible}
+        closeOnSelect={false}
+        overlay={menu}
+        animation="slide-up"
+      >
         <button>open</button>
       </Dropdown>
     );

@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 import Dropdown from 'rc-dropdown';
-import Menu, {Item as MenuItem, Divider} from 'rc-menu';
+import Menu, { Item as MenuItem, Divider } from 'rc-menu';
 import 'rc-dropdown/assets/index.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-function onSelect({key}) {
+function onSelect({ key }) {
   console.log(`${key} selected`);
 }
 
