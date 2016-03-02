@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>multiple.js - example - rc-dropdown@1.4.4</title>
+  <title>multiple.js - example - rc-dropdown@1.4.6</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-dropdown@1.4.4</h1>
+    <h1>rc-dropdown@1.4.6</h1>
 
     <p>dropdown ui component for react</p>
   </div>
@@ -265,11 +265,11 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <script src="common.js?nowrap"></script>
   <script src="multiple.js?nowrap"></script>
   <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* eslint-disable no-console */</span>
-import Dropdown from <span class="hljs-string">'rc-dropdown'</span>;
-import Menu, {Item as MenuItem, Divider} from <span class="hljs-string">'rc-menu'</span>;
-import <span class="hljs-string">'rc-dropdown/assets/index.css'</span>;
-import React from <span class="hljs-string">'react'</span>;
-import ReactDOM from <span class="hljs-string">'react-dom'</span>;
+<span class="hljs-keyword">import</span> Dropdown <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-dropdown'</span>;
+<span class="hljs-keyword">import</span> Menu, { Item <span class="hljs-keyword">as</span> MenuItem, Divider } <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-menu'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'rc-dropdown/assets/index.css'</span>;
+<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 
 <span class="hljs-keyword">const</span> Test = React.createClass({
   getInitialState() {
@@ -281,11 +281,11 @@ import ReactDOM from <span class="hljs-string">'react-dom'</span>;
 
   onVisibleChange(visible) {
     <span class="hljs-keyword">this</span>.setState({
-      visible: visible,
+      visible,
     });
   },
 
-  saveSelected({selectedKeys}) {
+  saveSelected({ selectedKeys }) {
     <span class="hljs-keyword">this</span>.selected = selectedKeys;
   },
 
@@ -298,7 +298,12 @@ import ReactDOM from <span class="hljs-string">'react-dom'</span>;
 
   render() {
     <span class="hljs-keyword">const</span> menu = (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Menu</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">width:</span> <span class="hljs-attribute">140</span> }} <span class="hljs-attribute">multiple</span> <span class="hljs-attribute">onSelect</span>=<span class="hljs-value">{this.saveSelected}</span> <span class="hljs-attribute">onDeselect</span>=<span class="hljs-value">{this.saveSelected}</span>&gt;</span>
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Menu</span>
+        <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">width:</span> <span class="hljs-attribute">140</span> }}
+        <span class="hljs-attribute">multiple</span>
+        <span class="hljs-attribute">onSelect</span>=<span class="hljs-value">{this.saveSelected}</span>
+        <span class="hljs-attribute">onDeselect</span>=<span class="hljs-value">{this.saveSelected}</span>
+      &gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">MenuItem</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>&gt;</span>one<span class="hljs-tag">&lt;/<span class="hljs-title">MenuItem</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">MenuItem</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span>&gt;</span>two<span class="hljs-tag">&lt;/<span class="hljs-title">MenuItem</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">Divider</span> /&gt;</span>
@@ -307,28 +312,31 @@ import ReactDOM from <span class="hljs-string">'react-dom'</span>;
             <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span>
               <span class="hljs-attribute">cursor:</span> '<span class="hljs-attribute">pointer</span>',
               <span class="hljs-attribute">color:</span> '#<span class="hljs-attribute">000</span>',
-              '<span class="hljs-attribute">pointerEvents</span>'<span class="hljs-attribute">:</span> '<span class="hljs-attribute">visible</span>',
+              <span class="hljs-attribute">pointerEvents:</span> '<span class="hljs-attribute">visible</span>',
             }}
-            <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.confirm}</span>&gt;</span>确定
+            <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.confirm}</span>
+          &gt;</span>确定
           <span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">MenuItem</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">Menu</span>&gt;</span>
-    );
+    )</span>;
 
-    return (
-      <span class="hljs-tag">&lt;<span class="hljs-title">Dropdown</span> <span class="hljs-attribute">trigger</span>=<span class="hljs-value">{['click']}</span>
-                <span class="hljs-attribute">onVisibleChange</span>=<span class="hljs-value">{this.onVisibleChange}</span>
-                <span class="hljs-attribute">visible</span>=<span class="hljs-value">{this.state.visible}</span>
-                <span class="hljs-attribute">closeOnSelect</span>=<span class="hljs-value">{false}</span>
-                <span class="hljs-attribute">overlay</span>=<span class="hljs-value">{menu}</span>
-                <span class="hljs-attribute">animation</span>=<span class="hljs-value">"slide-up"</span>&gt;</span>
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Dropdown</span>
+        <span class="hljs-attribute">trigger</span>=<span class="hljs-value">{['click']}</span>
+        <span class="hljs-attribute">onVisibleChange</span>=<span class="hljs-value">{this.onVisibleChange}</span>
+        <span class="hljs-attribute">visible</span>=<span class="hljs-value">{this.state.visible}</span>
+        <span class="hljs-attribute">closeOnSelect</span>=<span class="hljs-value">{false}</span>
+        <span class="hljs-attribute">overlay</span>=<span class="hljs-value">{menu}</span>
+        <span class="hljs-attribute">animation</span>=<span class="hljs-value">"slide-up"</span>
+      &gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">button</span>&gt;</span>open<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">Dropdown</span>&gt;</span>
-    );
+    )</span>;
   },
 });
 
-ReactDOM.render(<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">margin:</span> <span class="hljs-attribute">20</span> }}&gt;</span>
+ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">margin:</span> <span class="hljs-attribute">20</span> }}&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-title">Test</span>/&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>, document.getElementById('__react-content'));
 </span></code></pre></div>
