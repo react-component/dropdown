@@ -119,8 +119,9 @@ const Dropdown = React.createClass({
       align, placement, getPopupContainer,
       showAction, hideAction,
       overlayClassName, overlayStyle,
-      trigger } = this.props;
+      trigger, ...otherProps } = this.props;
     return (<Trigger
+      {...otherProps}
       prefixCls={prefixCls}
       ref="trigger"
       popupClassName={overlayClassName}
