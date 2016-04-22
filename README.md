@@ -56,7 +56,7 @@ var Dropdown = require('rc-dropdown');
     </thead>
     <tbody>
         <tr>
-          <td>className</td>
+          <td>overlayClassName</td>
           <td>String</td>
           <td></td>
           <td>additional css class of root dom node</td>
