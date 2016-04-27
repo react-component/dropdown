@@ -129,7 +129,6 @@ const Dropdown = React.createClass({
       builtinPlacements={placements}
       action={trigger}
       showAction={showAction}
-      showAction={showAction}
       hideAction={hideAction}
       popupPlacement={placement}
       popupAlign={align}
