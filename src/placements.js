@@ -12,8 +12,20 @@ export const placements = {
     offset: [0, -4],
     targetOffset,
   },
+  topCenter: {
+    points: ['bc', 'tc'],
+    overflow: autoAdjustOverflow,
+    offset: [0, -4],
+    targetOffset,
+  },
   bottomLeft: {
     points: ['tl', 'bl'],
+    overflow: autoAdjustOverflow,
+    offset: [0, 4],
+    targetOffset,
+  },
+  bottomCenter: {
+    points: ['tc', 'bc'],
     overflow: autoAdjustOverflow,
     offset: [0, 4],
     targetOffset,
