@@ -18,6 +18,12 @@ export const placements = {
     offset: [0, -4],
     targetOffset,
   },
+  topRight: {
+    points: ['br', 'tr'],
+    overflow: autoAdjustOverflow,
+    offset: [0, -4],
+    targetOffset,
+  },
   bottomLeft: {
     points: ['tl', 'bl'],
     overflow: autoAdjustOverflow,
@@ -26,6 +32,12 @@ export const placements = {
   },
   bottomCenter: {
     points: ['tc', 'bc'],
+    overflow: autoAdjustOverflow,
+    offset: [0, 4],
+    targetOffset,
+  },
+  bottomRight: {
+    points: ['tr', 'br'],
     overflow: autoAdjustOverflow,
     offset: [0, 4],
     targetOffset,
