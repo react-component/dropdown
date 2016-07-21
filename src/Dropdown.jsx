@@ -60,10 +60,10 @@ const Dropdown = React.createClass({
     };
   },
 
-  componentWillReceiveProps(props) {
-    if ('visible' in props) {
+  componentWillReceiveProps({ visible }) {
+    if (visible !== undefined) {
       this.setState({
-        visible: props.visible,
+        visible,
       });
     }
   },
@@ -71,24 +71,20 @@ const Dropdown = React.createClass({
   onClick(e) {
     const props = this.props;
     const overlayProps = props.overlay.props;
-    if (!('visible' in props)) {
-      this.setState({
-        visible: false,
-      });
-    }
+    this.onVisibleChange(false);
     if (overlayProps.onClick) {
       overlayProps.onClick(e);
     }
   },
 
-  onVisibleChange(v) {
+  onVisibleChange(visible) {
     const props = this.props;
     if (!('visible' in props)) {
       this.setState({
-        visible: v,
+        visible,
       });
     }
-    props.onVisibleChange(v);
+    props.onVisibleChange(visible);
   },
 
   getMenuElement() {
@@ -114,12 +110,14 @@ const Dropdown = React.createClass({
   },
 
   render() {
-    const { prefixCls, children,
+    const {
+      prefixCls, children,
       transitionName, animation,
       align, placement, getPopupContainer,
       showAction, hideAction,
       overlayClassName, overlayStyle,
-      trigger, ...otherProps } = this.props;
+      trigger, ...otherProps,
+    } = this.props;
     return (<Trigger
       {...otherProps}
       prefixCls={prefixCls}

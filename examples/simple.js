@@ -9,6 +9,10 @@ function onSelect({ key }) {
   console.log(`${key} selected`);
 }
 
+function onVisibleChange(visible) {
+  console.log(visible);
+}
+
 const menu = (
   <Menu onSelect={onSelect}>
     <MenuItem disabled>disabled</MenuItem>
@@ -21,7 +25,12 @@ const menu = (
 ReactDOM.render(<div style={{ margin: 20 }}>
   <div style={{ height: 100 }}/>
   <div>
-    <Dropdown trigger={['click']} overlay={menu} animation="slide-up">
+    <Dropdown
+      trigger={['click']}
+      overlay={menu}
+      animation="slide-up"
+      onVisibleChange={onVisibleChange}
+    >
       <button style={{ width: 100 }}>open</button>
     </Dropdown>
   </div>
