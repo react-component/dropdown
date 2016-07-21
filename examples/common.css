@@ -128,26 +128,38 @@
           animation-play-state: paused;
 }
 .rc-dropdown-slide-up-enter.rc-dropdown-slide-up-enter-active.rc-dropdown-placement-bottomLeft,
-.rc-dropdown-slide-up-appear.rc-dropdown-slide-up-appear-active.rc-dropdown-placement-bottomLeft {
+.rc-dropdown-slide-up-appear.rc-dropdown-slide-up-appear-active.rc-dropdown-placement-bottomLeft,
+.rc-dropdown-slide-up-enter.rc-dropdown-slide-up-enter-active.rc-dropdown-placement-bottomCenter,
+.rc-dropdown-slide-up-appear.rc-dropdown-slide-up-appear-active.rc-dropdown-placement-bottomCenter,
+.rc-dropdown-slide-up-enter.rc-dropdown-slide-up-enter-active.rc-dropdown-placement-bottomRight,
+.rc-dropdown-slide-up-appear.rc-dropdown-slide-up-appear-active.rc-dropdown-placement-bottomRight {
   -webkit-animation-name: rcDropdownSlideUpIn;
           animation-name: rcDropdownSlideUpIn;
   -webkit-animation-play-state: running;
           animation-play-state: running;
 }
 .rc-dropdown-slide-up-enter.rc-dropdown-slide-up-enter-active.rc-dropdown-placement-topLeft,
-.rc-dropdown-slide-up-appear.rc-dropdown-slide-up-appear-active.rc-dropdown-placement-topLeft {
+.rc-dropdown-slide-up-appear.rc-dropdown-slide-up-appear-active.rc-dropdown-placement-topLeft,
+.rc-dropdown-slide-up-enter.rc-dropdown-slide-up-enter-active.rc-dropdown-placement-topCenter,
+.rc-dropdown-slide-up-appear.rc-dropdown-slide-up-appear-active.rc-dropdown-placement-topCenter,
+.rc-dropdown-slide-up-enter.rc-dropdown-slide-up-enter-active.rc-dropdown-placement-topRight,
+.rc-dropdown-slide-up-appear.rc-dropdown-slide-up-appear-active.rc-dropdown-placement-topRight {
   -webkit-animation-name: rcDropdownSlideDownIn;
           animation-name: rcDropdownSlideDownIn;
   -webkit-animation-play-state: running;
           animation-play-state: running;
 }
-.rc-dropdown-slide-up-leave.rc-dropdown-slide-up-leave-active.rc-dropdown-placement-bottomLeft {
+.rc-dropdown-slide-up-leave.rc-dropdown-slide-up-leave-active.rc-dropdown-placement-bottomLeft,
+.rc-dropdown-slide-up-leave.rc-dropdown-slide-up-leave-active.rc-dropdown-placement-bottomCenter,
+.rc-dropdown-slide-up-leave.rc-dropdown-slide-up-leave-active.rc-dropdown-placement-bottomRight {
   -webkit-animation-name: rcDropdownSlideUpOut;
           animation-name: rcDropdownSlideUpOut;
   -webkit-animation-play-state: running;
           animation-play-state: running;
 }
-.rc-dropdown-slide-up-leave.rc-dropdown-slide-up-leave-active.rc-dropdown-placement-topLeft {
+.rc-dropdown-slide-up-leave.rc-dropdown-slide-up-leave-active.rc-dropdown-placement-topLeft,
+.rc-dropdown-slide-up-leave.rc-dropdown-slide-up-leave-active.rc-dropdown-placement-topCenter,
+.rc-dropdown-slide-up-leave.rc-dropdown-slide-up-leave-active.rc-dropdown-placement-topRight {
   -webkit-animation-name: rcDropdownSlideDownOut;
           animation-name: rcDropdownSlideDownOut;
   -webkit-animation-play-state: running;

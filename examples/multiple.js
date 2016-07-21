@@ -15,23 +15,23 @@ webpackJsonp([0],[
 	
 	var _rcDropdown2 = _interopRequireDefault(_rcDropdown);
 	
-	var _rcMenu = __webpack_require__(212);
+	var _rcMenu = __webpack_require__(209);
 	
 	var _rcMenu2 = _interopRequireDefault(_rcMenu);
 	
-	__webpack_require__(226);
+	__webpack_require__(227);
 	
 	var _react = __webpack_require__(5);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(162);
+	var _reactDom = __webpack_require__(37);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Test = _react2["default"].createClass({
+	var Test = _react2.default.createClass({
 	  displayName: 'Test',
 	  getInitialState: function getInitialState() {
 	    this.selected = [];
@@ -56,29 +56,29 @@ webpackJsonp([0],[
 	    });
 	  },
 	  render: function render() {
-	    var menu = _react2["default"].createElement(
-	      _rcMenu2["default"],
+	    var menu = _react2.default.createElement(
+	      _rcMenu2.default,
 	      {
 	        style: { width: 140 },
 	        multiple: true,
 	        onSelect: this.saveSelected,
 	        onDeselect: this.saveSelected
 	      },
-	      _react2["default"].createElement(
+	      _react2.default.createElement(
 	        _rcMenu.Item,
 	        { key: '1' },
 	        'one'
 	      ),
-	      _react2["default"].createElement(
+	      _react2.default.createElement(
 	        _rcMenu.Item,
 	        { key: '2' },
 	        'two'
 	      ),
-	      _react2["default"].createElement(_rcMenu.Divider, null),
-	      _react2["default"].createElement(
+	      _react2.default.createElement(_rcMenu.Divider, null),
+	      _react2.default.createElement(
 	        _rcMenu.Item,
 	        { disabled: true },
-	        _react2["default"].createElement(
+	        _react2.default.createElement(
 	          'button',
 	          {
 	            style: {
@@ -93,8 +93,8 @@ webpackJsonp([0],[
 	      )
 	    );
 	
-	    return _react2["default"].createElement(
-	      _rcDropdown2["default"],
+	    return _react2.default.createElement(
+	      _rcDropdown2.default,
 	      {
 	        trigger: ['click'],
 	        onVisibleChange: this.onVisibleChange,
@@ -103,7 +103,7 @@ webpackJsonp([0],[
 	        overlay: menu,
 	        animation: 'slide-up'
 	      },
-	      _react2["default"].createElement(
+	      _react2.default.createElement(
 	        'button',
 	        null,
 	        'open'
@@ -113,10 +113,10 @@ webpackJsonp([0],[
 	}); /* eslint-disable no-console */
 	
 	
-	_reactDom2["default"].render(_react2["default"].createElement(
+	_reactDom2.default.render(_react2.default.createElement(
 	  'div',
 	  { style: { margin: 20 } },
-	  _react2["default"].createElement(Test, null)
+	  _react2.default.createElement(Test, null)
 	), document.getElementById('__react-content'));
 
 /***/ }
