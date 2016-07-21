@@ -81,14 +81,14 @@ const Dropdown = React.createClass({
     }
   },
 
-  onVisibleChange(v) {
+  onVisibleChange(v, e) {
     const props = this.props;
     if (!('visible' in props)) {
       this.setState({
         visible: v,
       });
     }
-    props.onVisibleChange(v);
+    props.onVisibleChange(v, e);
   },
 
   getMenuElement() {
