@@ -71,20 +71,18 @@ const Dropdown = React.createClass({
   onClick(e) {
     const props = this.props;
     const overlayProps = props.overlay.props;
-    this.onVisibleChange(false);
+    this.onVisibleChange(false, e);
     if (overlayProps.onClick) {
       overlayProps.onClick(e);
     }
   },
 
-  onVisibleChange(visible) {
+  onVisibleChange(visible, e) {
     const props = this.props;
     if (!('visible' in props)) {
-      this.setState({
-        visible,
-      });
+      this.setState({ visible });
     }
-    props.onVisibleChange(visible);
+    props.onVisibleChange(visible, e);
   },
 
   getMenuElement() {
