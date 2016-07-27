@@ -155,7 +155,6 @@
 	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 	
 	/*
-	
 	 var MenuItem = Menu.Item;
 	
 	 var menu = <Menu><MenuItem>1</MenuItem></Menu>;
@@ -163,7 +162,7 @@
 	 <DropDown trigger="click" animationName="" overlay={<>} onSelect={}>
 	 <button>open</button>
 	 </DropDown>
-	 */
+	*/
 	
 	var Dropdown = _react2.default.createClass({
 	  displayName: 'Dropdown',
@@ -223,7 +222,12 @@
 	  onClick: function onClick(e) {
 	    var props = this.props;
 	    var overlayProps = props.overlay.props;
-	    this.onVisibleChange(false);
+	    // do no call onVisibleChange, if you need click to hide, use onClick and control visible
+	    if (!('visible' in props)) {
+	      this.setState({
+	        visible: false
+	      });
+	    }
 	    if (overlayProps.onClick) {
 	      overlayProps.onClick(e);
 	    }
