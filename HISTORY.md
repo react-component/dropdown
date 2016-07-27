@@ -1,6 +1,10 @@
 # History
 ----
 
+## 1.5.0 / 2016-07-27
+
+-
+
 ## 1.4.5 / 2016-03-02
 
 - if exists getPopupContainer it will be passed to Trigger component

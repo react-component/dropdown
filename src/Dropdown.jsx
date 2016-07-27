@@ -4,7 +4,6 @@ import Trigger from 'rc-trigger';
 import placements from './placements';
 
 /*
-
  var MenuItem = Menu.Item;
 
  var menu = <Menu><MenuItem>1</MenuItem></Menu>;
@@ -12,7 +11,7 @@ import placements from './placements';
  <DropDown trigger="click" animationName="" overlay={<>} onSelect={}>
  <button>open</button>
  </DropDown>
- */
+*/
 
 const Dropdown = React.createClass({
   propTypes: {
@@ -71,7 +70,12 @@ const Dropdown = React.createClass({
   onClick(e) {
     const props = this.props;
     const overlayProps = props.overlay.props;
-    this.onVisibleChange(false);
+    // do no call onVisibleChange, if you need click to hide, use onClick and control visible
+    if (!('visible' in props)) {
+      this.setState({
+        visible: false,
+      });
+    }
     if (overlayProps.onClick) {
       overlayProps.onClick(e);
     }
