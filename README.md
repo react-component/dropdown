@@ -98,6 +98,18 @@ var Dropdown = require('rc-dropdown');
           <td>whether tooltip is visible initially</td>
         </tr>
         <tr>
+          <td>trigger</td>
+          <td>Array</td>
+          <td>['hover']</td>
+          <td>which actions cause dropdown shown. enum of 'hover','click','focus'</td>
+        </tr>
+        <tr>
+          <td>disabled</td>
+          <td>boolean</td>
+          <td>false</td>
+          <td>whether to disable all the trigger</td>
+        </tr>
+        <tr>
           <td>overlay</td>
           <td>rc-menu</td>
           <td></td>
