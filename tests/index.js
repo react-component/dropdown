@@ -24,9 +24,14 @@ describe('dropdown', () => {
 
   it('simply works', () => {
     let clicked;
+    let overlayClicked;
 
     function onClick({ key }) {
       clicked = key;
+    }
+
+    function onOverlayClick({ key }) {
+      overlayClicked = key;
     }
 
     const menu = (
@@ -38,9 +43,11 @@ describe('dropdown', () => {
         <MenuItem key="2">two</MenuItem>
       </Menu>
     );
-    const dropdown = ReactDOM.render(<Dropdown trigger={['click']} overlay={menu}>
-      <button className="my-button">open</button>
-    </Dropdown>, div);
+    const dropdown = ReactDOM.render(
+      <Dropdown trigger={['click']} overlay={menu}onOverlayClick={onOverlayClick}>
+        <button className="my-button">open</button>
+      </Dropdown>, div
+    );
     expect(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-button')[0]).to.be.ok();
     expect(ReactDOM.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown,
       'rc-dropdown')[0])).not.to.be.ok();
@@ -50,6 +57,7 @@ describe('dropdown', () => {
     expect(clicked).not.to.be.ok();
     Simulate.click($(dropdown.getPopupDomNode()).find('.my-menuitem')[0]);
     expect(clicked).to.be('1');
+    expect(overlayClicked).to.be('1');
     expect($(dropdown.getPopupDomNode()).css('display')).to.be('none');
   });
 });

@@ -76,6 +76,9 @@ const Dropdown = React.createClass({
         visible: false,
       });
     }
+    if (props.onOverlayClick) {
+      props.onOverlayClick(e);
+    }
     if (overlayProps.onClick) {
       overlayProps.onClick(e);
     }
