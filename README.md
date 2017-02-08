@@ -101,7 +101,7 @@ var Dropdown = require('rc-dropdown');
           <td>overlay</td>
           <td>rc-menu</td>
           <td></td>
-          <td>[rc-menu](https://github.com/react-component/menu) element</td>
+          <td><a href="https://github.com/react-component/menu">rc-menu</a> element</td>
         </tr>
     </tbody>
 </table>
