@@ -55,6 +55,6 @@
     "lint"
   ],
   "dependencies": {
-    "rc-trigger": "1.x"
+    "rc-trigger": "1.8.3"
   }
 }
