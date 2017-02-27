@@ -25,6 +25,7 @@ const Dropdown = React.createClass({
     align: PropTypes.object,
     overlayStyle: PropTypes.object,
     placement: PropTypes.string,
+    disabled: PropTypes.boolean,
     trigger: PropTypes.array,
     showAction: PropTypes.array,
     hideAction: PropTypes.array,
@@ -120,7 +121,7 @@ const Dropdown = React.createClass({
       align, placement, getPopupContainer,
       showAction, hideAction,
       overlayClassName, overlayStyle,
-      trigger, ...otherProps,
+      disabled, trigger, ...otherProps,
     } = this.props;
     return (<Trigger
       {...otherProps}
@@ -129,9 +130,9 @@ const Dropdown = React.createClass({
       popupClassName={overlayClassName}
       popupStyle={overlayStyle}
       builtinPlacements={placements}
-      action={trigger}
-      showAction={showAction}
-      hideAction={hideAction}
+      action={disabled ? [] : trigger}
+      showAction={disabled ? [] : showAction}
+      hideAction={disabled ? [] : hideAction}
       popupPlacement={placement}
       popupAlign={align}
       popupTransitionName={transitionName}
