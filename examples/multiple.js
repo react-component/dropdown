@@ -2,33 +2,32 @@
 import Dropdown from 'rc-dropdown';
 import Menu, { Item as MenuItem, Divider } from 'rc-menu';
 import 'rc-dropdown/assets/index.less';
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-const Test = React.createClass({
-  getInitialState() {
-    this.selected = [];
-    return {
-      visible: false,
-    };
-  },
+class Test extends Component {
+  state = {
+    visible: false,
+  };
 
-  onVisibleChange(visible) {
+  onVisibleChange = (visible) => {
     this.setState({
       visible,
     });
-  },
+  }
 
-  saveSelected({ selectedKeys }) {
+  selected = [];
+
+  saveSelected = ({ selectedKeys }) => {
     this.selected = selectedKeys;
-  },
+  }
 
-  confirm() {
+  confirm = () => {
     console.log(this.selected);
     this.setState({
       visible: false,
     });
-  },
+  }
 
   render() {
     const menu = (
@@ -67,8 +66,8 @@ const Test = React.createClass({
         <button>open</button>
       </Dropdown>
     );
-  },
-});
+  }
+}
 
 ReactDOM.render(<div style={{ margin: 20 }}>
   <Test/>
