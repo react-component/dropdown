@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Trigger from 'rc-trigger';
@@ -14,8 +14,8 @@ import placements from './placements';
  </DropDown>
 */
 
-const Dropdown = React.createClass({
-  propTypes: {
+class Dropdown extends Component {
+  static propTypes = {
     minOverlayWidthMatchTrigger: PropTypes.bool,
     onVisibleChange: PropTypes.func,
     prefixCls: PropTypes.string,
@@ -30,35 +30,36 @@ const Dropdown = React.createClass({
     showAction: PropTypes.array,
     hideAction: PropTypes.array,
     getPopupContainer: PropTypes.func,
-  },
+    visible: PropTypes.bool,
+    defaultVisible: PropTypes.bool,
+  };
 
-  getDefaultProps() {
-    return {
-      minOverlayWidthMatchTrigger: true,
-      prefixCls: 'rc-dropdown',
-      trigger: ['hover'],
-      showAction: [],
-      hideAction: [],
-      overlayClassName: '',
-      overlayStyle: {},
-      defaultVisible: false,
-      onVisibleChange() {
-      },
-      placement: 'bottomLeft',
-    };
-  },
+  static defaultProps = {
+    minOverlayWidthMatchTrigger: true,
+    prefixCls: 'rc-dropdown',
+    trigger: ['hover'],
+    showAction: [],
+    hideAction: [],
+    overlayClassName: '',
+    overlayStyle: {},
+    defaultVisible: false,
+    onVisibleChange() {
+    },
+    placement: 'bottomLeft',
+  }
 
-  getInitialState() {
-    const props = this.props;
+  constructor(props) {
+    super(props);
     if ('visible' in props) {
-      return {
+      this.state = {
         visible: props.visible,
       };
+    } else {
+      this.state = {
+        visible: props.defaultVisible,
+      };
     }
-    return {
-      visible: props.defaultVisible,
-    };
-  },
+  }
 
   componentWillReceiveProps({ visible }) {
     if (visible !== undefined) {
@@ -66,9 +67,9 @@ const Dropdown = React.createClass({
         visible,
       });
     }
-  },
+  }
 
-  onClick(e) {
+  onClick = (e) => {
     const props = this.props;
     const overlayProps = props.overlay.props;
     // do no call onVisibleChange, if you need click to hide, use onClick and control visible
@@ -80,9 +81,9 @@ const Dropdown = React.createClass({
     if (overlayProps.onClick) {
       overlayProps.onClick(e);
     }
-  },
+  }
 
-  onVisibleChange(visible) {
+  onVisibleChange = (visible) => {
     const props = this.props;
     if (!('visible' in props)) {
       this.setState({
@@ -90,7 +91,7 @@ const Dropdown = React.createClass({
       });
     }
     props.onVisibleChange(visible);
-  },
+  }
 
   getMenuElement() {
     const props = this.props;
@@ -98,13 +99,13 @@ const Dropdown = React.createClass({
       prefixCls: `${props.prefixCls}-menu`,
       onClick: this.onClick,
     });
-  },
+  }
 
   getPopupDomNode() {
     return this.refs.trigger.getPopupDomNode();
-  },
+  }
 
-  afterVisibleChange(visible) {
+  afterVisibleChange = (visible) => {
     if (visible && this.props.minOverlayWidthMatchTrigger) {
       const overlayNode = this.getPopupDomNode();
       const rootNode = ReactDOM.findDOMNode(this);
@@ -112,7 +113,7 @@ const Dropdown = React.createClass({
         overlayNode.style.width = `${rootNode.offsetWidth}px`;
       }
     }
-  },
+  }
 
   render() {
     const {
@@ -143,7 +144,7 @@ const Dropdown = React.createClass({
       onPopupVisibleChange={this.onVisibleChange}
       getPopupContainer={getPopupContainer}
     >{children}</Trigger>);
-  },
-});
+  }
+}
 
 export default Dropdown;
