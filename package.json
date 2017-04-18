@@ -55,6 +55,7 @@
     "lint"
   ],
   "dependencies": {
+    "prop-types": "^15.5.8",
     "rc-trigger": "1.x"
   }
 }
