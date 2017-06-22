@@ -69,6 +69,8 @@ class Test extends Component {
   }
 }
 
-ReactDOM.render(<div style={{ margin: 20 }}>
-  <Test/>
-</div>, document.getElementById('__react-content'));
+ReactDOM.render(
+  <div style={{ margin: 20 }}>
+    <Test />
+  </div>
+, document.getElementById('__react-content'));

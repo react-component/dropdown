@@ -22,16 +22,18 @@ const menu = (
   </Menu>
 );
 
-ReactDOM.render(<div style={{ margin: 20 }}>
-  <div style={{ height: 100 }}/>
-  <div>
-    <Dropdown
-      trigger={['click']}
-      overlay={menu}
-      animation="slide-up"
-      onVisibleChange={onVisibleChange}
-    >
-      <button style={{ width: 100 }}>open</button>
-    </Dropdown>
+ReactDOM.render(
+  <div style={{ margin: 20 }}>
+    <div style={{ height: 100 }}/>
+    <div>
+      <Dropdown
+        trigger={['click']}
+        overlay={menu}
+        animation="slide-up"
+        onVisibleChange={onVisibleChange}
+      >
+        <button style={{ width: 100 }}>open</button>
+      </Dropdown>
+    </div>
   </div>
-</div>, document.getElementById('__react-content'));
+, document.getElementById('__react-content'));

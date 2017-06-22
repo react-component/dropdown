@@ -4,17 +4,7 @@ import ReactDOM from 'react-dom';
 import Trigger from 'rc-trigger';
 import placements from './placements';
 
-/*
- var MenuItem = Menu.Item;
-
- var menu = <Menu><MenuItem>1</MenuItem></Menu>;
-
- <DropDown trigger="click" animationName="" overlay={<>} onSelect={}>
- <button>open</button>
- </DropDown>
-*/
-
-class Dropdown extends Component {
+export default class Dropdown extends Component {
   static propTypes = {
     minOverlayWidthMatchTrigger: PropTypes.bool,
     onVisibleChange: PropTypes.func,
@@ -124,27 +114,29 @@ class Dropdown extends Component {
       overlayClassName, overlayStyle,
       trigger, ...otherProps,
     } = this.props;
-    return (<Trigger
-      {...otherProps}
-      prefixCls={prefixCls}
-      ref="trigger"
-      popupClassName={overlayClassName}
-      popupStyle={overlayStyle}
-      builtinPlacements={placements}
-      action={trigger}
-      showAction={showAction}
-      hideAction={hideAction}
-      popupPlacement={placement}
-      popupAlign={align}
-      popupTransitionName={transitionName}
-      popupAnimation={animation}
-      popupVisible={this.state.visible}
-      afterPopupVisibleChange={this.afterVisibleChange}
-      popup={this.getMenuElement()}
-      onPopupVisibleChange={this.onVisibleChange}
-      getPopupContainer={getPopupContainer}
-    >{children}</Trigger>);
+    return (
+      <Trigger
+        {...otherProps}
+        prefixCls={prefixCls}
+        ref="trigger"
+        popupClassName={overlayClassName}
+        popupStyle={overlayStyle}
+        builtinPlacements={placements}
+        action={trigger}
+        showAction={showAction}
+        hideAction={hideAction}
+        popupPlacement={placement}
+        popupAlign={align}
+        popupTransitionName={transitionName}
+        popupAnimation={animation}
+        popupVisible={this.state.visible}
+        afterPopupVisibleChange={this.afterVisibleChange}
+        popup={this.getMenuElement()}
+        onPopupVisibleChange={this.onVisibleChange}
+        getPopupContainer={getPopupContainer}
+      >
+        {children}
+      </Trigger>
+    );
   }
 }
-
-export default Dropdown;
