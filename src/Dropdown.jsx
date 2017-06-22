@@ -16,6 +16,7 @@ export default class Dropdown extends Component {
     align: PropTypes.object,
     overlayStyle: PropTypes.object,
     placement: PropTypes.string,
+    overlay: PropTypes.node,
     trigger: PropTypes.array,
     showAction: PropTypes.array,
     hideAction: PropTypes.array,
@@ -84,11 +85,15 @@ export default class Dropdown extends Component {
   }
 
   getMenuElement() {
-    const props = this.props;
-    return React.cloneElement(props.overlay, {
-      prefixCls: `${props.prefixCls}-menu`,
+    const { overlay, prefixCls } = this.props;
+    const extraOverlayProps = {
+      prefixCls: `${prefixCls}-menu`,
       onClick: this.onClick,
-    });
+    };
+    if (typeof overlay.type === 'string') {
+      delete extraOverlayProps.prefixCls;
+    }
+    return React.cloneElement(overlay, extraOverlayProps);
   }
 
   getPopupDomNode() {
