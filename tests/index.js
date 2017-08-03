@@ -52,4 +52,25 @@ describe('dropdown', () => {
     expect(clicked).to.be('1');
     expect($(dropdown.getPopupDomNode()).css('display')).to.be('none');
   });
+
+  it('re-align works', () => {
+    const menu = (
+      <Menu>
+        <MenuItem key="1">one</MenuItem>
+      </Menu>
+    );
+    const dropdown = ReactDOM.render(
+      <Dropdown trigger={['click']} placement="bottomRight" overlay={menu}>
+        <button className="my-btn" style={{ width: 500, height: 20, marginLeft: 100 }}>
+          open
+        </button>
+      </Dropdown>
+    , div);
+    const myBtn = TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-btn')[0];
+    const myBtnNode = ReactDOM.findDOMNode(myBtn);
+    Simulate.click(myBtn);
+    const targetOffset = $(myBtnNode).offset();
+    const popupOffset = $(dropdown.getPopupDomNode()).offset();
+    expect(popupOffset.left).to.be(targetOffset.left);
+  });
 });
