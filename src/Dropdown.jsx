@@ -106,6 +106,7 @@ export default class Dropdown extends Component {
       const rootNode = ReactDOM.findDOMNode(this);
       if (rootNode.offsetWidth > overlayNode.offsetWidth) {
         overlayNode.style.width = `${rootNode.offsetWidth}px`;
+        this.refs.trigger._component.alignInstance.forceAlign();
       }
     }
   }
