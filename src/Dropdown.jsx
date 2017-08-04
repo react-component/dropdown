@@ -69,6 +69,9 @@ export default class Dropdown extends Component {
         visible: false,
       });
     }
+    if (props.onOverlayClick) {
+      props.onOverlayClick(e);
+    }
     if (overlayProps.onClick) {
       overlayProps.onClick(e);
     }
