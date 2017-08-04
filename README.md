@@ -103,6 +103,12 @@ var Dropdown = require('rc-dropdown');
           <td></td>
           <td><a href="https://github.com/react-component/menu">rc-menu</a> element</td>
         </tr>
+        <tr>
+          <td>onOverlayClick</td>
+          <td>function(e)</td>
+          <td></td>
+          <td>call when overlay is clicked</td>
+        </tr>
     </tbody>
 </table>
 

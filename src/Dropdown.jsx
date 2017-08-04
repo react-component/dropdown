@@ -8,6 +8,7 @@ export default class Dropdown extends Component {
   static propTypes = {
     minOverlayWidthMatchTrigger: PropTypes.bool,
     onVisibleChange: PropTypes.func,
+    onOverlayClick: PropTypes.func,
     prefixCls: PropTypes.string,
     children: PropTypes.any,
     transitionName: PropTypes.string,
@@ -109,7 +110,11 @@ export default class Dropdown extends Component {
       const rootNode = ReactDOM.findDOMNode(this);
       if (rootNode.offsetWidth > overlayNode.offsetWidth) {
         overlayNode.style.width = `${rootNode.offsetWidth}px`;
-        this.refs.trigger._component.alignInstance.forceAlign();
+        if (this.refs.trigger &&
+            this.refs.trigger._component &&
+            this.refs.trigger._component.alignInstance) {
+          this.refs.trigger._component.alignInstance.forceAlign();
+        }
       }
     }
   }

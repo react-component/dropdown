@@ -44,10 +44,10 @@ describe('dropdown', () => {
       </Menu>
     );
     const dropdown = ReactDOM.render(
-      <Dropdown trigger={['click']} overlay={menu}onOverlayClick={onOverlayClick}>
+      <Dropdown trigger={['click']} overlay={menu} onOverlayClick={onOverlayClick}>
         <button className="my-button">open</button>
-      </Dropdown>, div
-    );
+      </Dropdown>
+    , div);
     expect(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-button')[0]).to.be.ok();
     expect(ReactDOM.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown,
       'rc-dropdown')[0])).not.to.be.ok();
