@@ -310,6 +310,7 @@
 	Dropdown.propTypes = {
 	  minOverlayWidthMatchTrigger: _propTypes2.default.bool,
 	  onVisibleChange: _propTypes2.default.func,
+	  onOverlayClick: _propTypes2.default.func,
 	  prefixCls: _propTypes2.default.string,
 	  children: _propTypes2.default.any,
 	  transitionName: _propTypes2.default.string,
@@ -352,6 +353,9 @@
 	        visible: false
 	      });
 	    }
+	    if (props.onOverlayClick) {
+	      props.onOverlayClick(e);
+	    }
 	    if (overlayProps.onClick) {
 	      overlayProps.onClick(e);
 	    }
@@ -373,6 +377,9 @@
 	      var rootNode = _reactDom2.default.findDOMNode(_this2);
 	      if (rootNode.offsetWidth > overlayNode.offsetWidth) {
 	        overlayNode.style.width = rootNode.offsetWidth + 'px';
+	        if (_this2.refs.trigger && _this2.refs.trigger._component && _this2.refs.trigger._component.alignInstance) {
+	          _this2.refs.trigger._component.alignInstance.forceAlign();
+	        }
 	      }
 	    }
 	  };
@@ -1132,45 +1139,43 @@
 	var warning = emptyFunction;
 	
 	if (process.env.NODE_ENV !== 'production') {
-	  (function () {
-	    var printWarning = function printWarning(format) {
-	      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	        args[_key - 1] = arguments[_key];
+	  var printWarning = function printWarning(format) {
+	    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	      args[_key - 1] = arguments[_key];
+	    }
+	
+	    var argIndex = 0;
+	    var message = 'Warning: ' + format.replace(/%s/g, function () {
+	      return args[argIndex++];
+	    });
+	    if (typeof console !== 'undefined') {
+	      console.error(message);
+	    }
+	    try {
+	      // --- Welcome to debugging React ---
+	      // This error was thrown as a convenience so that you can use this stack
+	      // to find the callsite that caused this warning to fire.
+	      throw new Error(message);
+	    } catch (x) {}
+	  };
+	
+	  warning = function warning(condition, format) {
+	    if (format === undefined) {
+	      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+	    }
+	
+	    if (format.indexOf('Failed Composite propType: ') === 0) {
+	      return; // Ignore CompositeComponent proptype check.
+	    }
+	
+	    if (!condition) {
+	      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+	        args[_key2 - 2] = arguments[_key2];
 	      }
 	
-	      var argIndex = 0;
-	      var message = 'Warning: ' + format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      });
-	      if (typeof console !== 'undefined') {
-	        console.error(message);
-	      }
-	      try {
-	        // --- Welcome to debugging React ---
-	        // This error was thrown as a convenience so that you can use this stack
-	        // to find the callsite that caused this warning to fire.
-	        throw new Error(message);
-	      } catch (x) {}
-	    };
-	
-	    warning = function warning(condition, format) {
-	      if (format === undefined) {
-	        throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-	      }
-	
-	      if (format.indexOf('Failed Composite propType: ') === 0) {
-	        return; // Ignore CompositeComponent proptype check.
-	      }
-	
-	      if (!condition) {
-	        for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-	          args[_key2 - 2] = arguments[_key2];
-	        }
-	
-	        printWarning.apply(undefined, [format].concat(args));
-	      }
-	    };
-	  })();
+	      printWarning.apply(undefined, [format].concat(args));
+	    }
+	  };
 	}
 	
 	module.exports = warning;
@@ -18856,18 +18861,11 @@
 	
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
 	 *
-	 * Licensed under the Apache License, Version 2.0 (the "License");
-	 * you may not use this file except in compliance with the License.
-	 * You may obtain a copy of the License at
-	 *
-	 * http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
 	 * @typechecks
 	 */
@@ -23732,37 +23730,23 @@
 	
 	var _LazyRenderBox2 = _interopRequireDefault(_LazyRenderBox);
 	
+	var _utils = __webpack_require__(309);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var Popup = function (_Component) {
 	  (0, _inherits3['default'])(Popup, _Component);
 	
-	  function Popup() {
-	    var _ref;
-	
-	    var _temp, _this, _ret;
-	
+	  function Popup(props) {
 	    (0, _classCallCheck3['default'])(this, Popup);
 	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
+	    var _this = (0, _possibleConstructorReturn3['default'])(this, (Popup.__proto__ || Object.getPrototypeOf(Popup)).call(this, props));
 	
-	    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3['default'])(this, (_ref = Popup.__proto__ || Object.getPrototypeOf(Popup)).call.apply(_ref, [this].concat(args))), _this), _this.onAlign = function (popupDomNode, align) {
-	      var props = _this.props;
-	      var currentAlignClassName = props.getClassNameFromAlign(align);
-	      // FIX: https://github.com/react-component/trigger/issues/56
-	      // FIX: https://github.com/react-component/tooltip/issues/79
-	      if (_this.currentAlignClassName !== currentAlignClassName) {
-	        _this.currentAlignClassName = currentAlignClassName;
-	        popupDomNode.className = _this.getClassName(currentAlignClassName);
-	      }
-	      props.onAlign(popupDomNode, align);
-	    }, _this.getTarget = function () {
-	      return _this.props.getRootDomNode();
-	    }, _this.saveAlign = function (align) {
-	      _this.alignInstance = align;
-	    }, _temp), (0, _possibleConstructorReturn3['default'])(_this, _ret);
+	    _initialiseProps.call(_this);
+	
+	    _this.savePopupRef = _utils.saveRef.bind(_this, 'popupInstance');
+	    _this.saveAlignRef = _utils.saveRef.bind(_this, 'alignInstance');
+	    return _this;
 	  }
 	
 	  (0, _createClass3['default'])(Popup, [{
@@ -23773,7 +23757,7 @@
 	  }, {
 	    key: 'getPopupDomNode',
 	    value: function getPopupDomNode() {
-	      return _reactDom2['default'].findDOMNode(this.refs.popup);
+	      return _reactDom2['default'].findDOMNode(this.popupInstance);
 	    }
 	  }, {
 	    key: 'getMaskTransitionName',
@@ -23804,7 +23788,8 @@
 	  }, {
 	    key: 'getPopupElement',
 	    value: function getPopupElement() {
-	      var props = this.props;
+	      var savePopupRef = this.savePopupRef,
+	          props = this.props;
 	      var align = props.align,
 	          style = props.style,
 	          visible = props.visible,
@@ -23820,7 +23805,7 @@
 	      var popupInnerProps = {
 	        className: className,
 	        prefixCls: prefixCls,
-	        ref: 'popup',
+	        ref: savePopupRef,
 	        onMouseEnter: props.onMouseEnter,
 	        onMouseLeave: props.onMouseLeave,
 	        style: newStyle
@@ -23839,7 +23824,7 @@
 	            {
 	              target: this.getTarget,
 	              key: 'popup',
-	              ref: this.saveAlign,
+	              ref: this.saveAlignRef,
 	              monitorWindowResize: true,
 	              align: align,
 	              onAlign: this.onAlign
@@ -23868,7 +23853,7 @@
 	          {
 	            target: this.getTarget,
 	            key: 'popup',
-	            ref: this.saveAlign,
+	            ref: this.saveAlignRef,
 	            monitorWindowResize: true,
 	            xVisible: visible,
 	            childrenProps: { visible: 'xVisible' },
@@ -23953,6 +23938,27 @@
 	  prefixCls: _propTypes2['default'].string,
 	  onMouseLeave: _propTypes2['default'].func
 	};
+	
+	var _initialiseProps = function _initialiseProps() {
+	  var _this2 = this;
+	
+	  this.onAlign = function (popupDomNode, align) {
+	    var props = _this2.props;
+	    var currentAlignClassName = props.getClassNameFromAlign(align);
+	    // FIX: https://github.com/react-component/trigger/issues/56
+	    // FIX: https://github.com/react-component/tooltip/issues/79
+	    if (_this2.currentAlignClassName !== currentAlignClassName) {
+	      _this2.currentAlignClassName = currentAlignClassName;
+	      popupDomNode.className = _this2.getClassName(currentAlignClassName);
+	    }
+	    props.onAlign(popupDomNode, align);
+	  };
+	
+	  this.getTarget = function () {
+	    return _this2.props.getRootDomNode();
+	  };
+	};
+	
 	exports['default'] = Popup;
 	module.exports = exports['default'];
 
@@ -27953,6 +27959,7 @@
 	
 	exports.getAlignFromPlacement = getAlignFromPlacement;
 	exports.getPopupClassNameFromAlign = getPopupClassNameFromAlign;
+	exports.saveRef = saveRef;
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
@@ -27975,6 +27982,10 @@
 	    }
 	  }
 	  return '';
+	}
+	
+	function saveRef(name, component) {
+	  this[name] = component;
 	}
 
 /***/ }),
