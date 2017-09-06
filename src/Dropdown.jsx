@@ -101,7 +101,7 @@ export default class Dropdown extends Component {
   }
 
   getPopupDomNode() {
-    return this.refs.trigger.getPopupDomNode();
+    return this.trigger.getPopupDomNode();
   }
 
   afterVisibleChange = (visible) => {
@@ -110,13 +110,17 @@ export default class Dropdown extends Component {
       const rootNode = ReactDOM.findDOMNode(this);
       if (rootNode.offsetWidth > overlayNode.offsetWidth) {
         overlayNode.style.width = `${rootNode.offsetWidth}px`;
-        if (this.refs.trigger &&
-            this.refs.trigger._component &&
-            this.refs.trigger._component.alignInstance) {
-          this.refs.trigger._component.alignInstance.forceAlign();
+        if (this.trigger &&
+            this.trigger._component &&
+            this.trigger._component.alignInstance) {
+          this.trigger._component.alignInstance.forceAlign();
         }
       }
     }
+  }
+
+  saveTrigger = (node) => {
+    this.trigger = node;
   }
 
   render() {
@@ -132,7 +136,7 @@ export default class Dropdown extends Component {
       <Trigger
         {...otherProps}
         prefixCls={prefixCls}
-        ref="trigger"
+        ref={this.saveTrigger}
         popupClassName={overlayClassName}
         popupStyle={overlayStyle}
         builtinPlacements={placements}
