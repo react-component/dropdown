@@ -108,7 +108,7 @@ export default class Dropdown extends Component {
     if (visible && this.props.minOverlayWidthMatchTrigger) {
       const overlayNode = this.getPopupDomNode();
       const rootNode = ReactDOM.findDOMNode(this);
-      if (rootNode.offsetWidth > overlayNode.offsetWidth) {
+      if (rootNode && overlayNode && rootNode.offsetWidth > overlayNode.offsetWidth) {
         overlayNode.style.width = `${rootNode.offsetWidth}px`;
         if (this.trigger &&
             this.trigger._component &&
