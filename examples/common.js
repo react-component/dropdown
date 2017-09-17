@@ -260,7 +260,7 @@
 	  };
 	
 	  Dropdown.prototype.getPopupDomNode = function getPopupDomNode() {
-	    return this.trigger.getPopupDomNode();
+	    return this.refs.trigger.getPopupDomNode();
 	  };
 	
 	  Dropdown.prototype.render = function render() {
@@ -283,7 +283,7 @@
 	      _rcTrigger2.default,
 	      _extends({}, otherProps, {
 	        prefixCls: prefixCls,
-	        ref: this.saveTrigger,
+	        ref: 'trigger',
 	        popupClassName: overlayClassName,
 	        popupStyle: overlayStyle,
 	        builtinPlacements: _placements2.default,
@@ -377,15 +377,11 @@
 	      var rootNode = _reactDom2.default.findDOMNode(_this2);
 	      if (rootNode && overlayNode && rootNode.offsetWidth > overlayNode.offsetWidth) {
 	        overlayNode.style.width = rootNode.offsetWidth + 'px';
-	        if (_this2.trigger && _this2.trigger._component && _this2.trigger._component.alignInstance) {
-	          _this2.trigger._component.alignInstance.forceAlign();
+	        if (_this2.refs.trigger && _this2.refs.trigger._component && _this2.refs.trigger._component.alignInstance) {
+	          _this2.refs.trigger._component.alignInstance.forceAlign();
 	        }
 	      }
 	    }
-	  };
-	
-	  this.saveTrigger = function (node) {
-	    _this2.trigger = node;
 	  };
 	};
 	
