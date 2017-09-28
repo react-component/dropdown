@@ -113,7 +113,7 @@ var Dropdown = require('rc-dropdown');
           <td>minOverlayWidthMatchTrigger</td>
           <td>boolean</td>
           <td>true</td>
-          <td>whether overlay's width must be larger than trigger's </td>
+          <td>whether overlay's width must not be less than trigger's </td>
         </tr>
     </tbody>
 </table>
