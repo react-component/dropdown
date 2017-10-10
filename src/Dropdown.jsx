@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM, { findDOMNode, createPortal } from 'react-dom';
+import ReactDOM from 'react-dom';
 import Trigger from 'rc-trigger';
 import contains from 'rc-util/lib/Dom/contains';
 import addEventListener from 'rc-util/lib/Dom/addEventListener';
@@ -101,7 +101,7 @@ export default class Dropdown extends Component {
     }
   }
 
-  onWindowBlur = (e) => {
+  onWindowBlur = () => {
     // ContextMenu behavior
     this.setState({
       visible: false,
