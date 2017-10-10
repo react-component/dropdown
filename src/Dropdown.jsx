@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Trigger from 'rc-trigger';
+import contains from 'rc-util/lib/Dom/contains';
+import addEventListener from 'rc-util/lib/Dom/addEventListener';
 import placements from './placements';
 
 export default class Dropdown extends Component {
@@ -51,6 +53,11 @@ export default class Dropdown extends Component {
         visible: props.defaultVisible,
       };
     }
+
+    if (props.trigger.indexOf('contextMenu') !== -1) {
+      addEventListener(document, 'mousedown', this.onDocumentClick);
+      addEventListener(window, 'blur', this.onWindowBlur);
+    }
   }
 
   componentWillReceiveProps({ visible }) {
@@ -76,6 +83,29 @@ export default class Dropdown extends Component {
     if (overlayProps.onClick) {
       overlayProps.onClick(e);
     }
+  }
+
+  onContextMenu = (e) => {
+    e.preventDefault();
+    this.setState({
+      visible: true,
+    });
+  }
+
+  onDocumentClick = (e) => {
+    // ContextMenu behavior
+    if (!contains(this.trigger.getPopupDomNode(), e.target)) {
+      this.setState({
+        visible: false,
+      });
+    }
+  }
+
+  onWindowBlur = () => {
+    // ContextMenu behavior
+    this.setState({
+      visible: false,
+    });
   }
 
   onVisibleChange = (visible) => {
@@ -133,28 +163,30 @@ export default class Dropdown extends Component {
       trigger, ...otherProps,
     } = this.props;
     return (
-      <Trigger
-        {...otherProps}
-        prefixCls={prefixCls}
-        ref={this.saveTrigger}
-        popupClassName={overlayClassName}
-        popupStyle={overlayStyle}
-        builtinPlacements={placements}
-        action={trigger}
-        showAction={showAction}
-        hideAction={hideAction}
-        popupPlacement={placement}
-        popupAlign={align}
-        popupTransitionName={transitionName}
-        popupAnimation={animation}
-        popupVisible={this.state.visible}
-        afterPopupVisibleChange={this.afterVisibleChange}
-        popup={this.getMenuElement()}
-        onPopupVisibleChange={this.onVisibleChange}
-        getPopupContainer={getPopupContainer}
-      >
-        {children}
-      </Trigger>
+      <div onContextMenu={this.onContextMenu}>
+        <Trigger
+          {...otherProps}
+          prefixCls={prefixCls}
+          ref={this.saveTrigger}
+          popupClassName={overlayClassName}
+          popupStyle={overlayStyle}
+          builtinPlacements={placements}
+          action={trigger}
+          showAction={showAction}
+          hideAction={hideAction}
+          popupPlacement={placement}
+          popupAlign={align}
+          popupTransitionName={transitionName}
+          popupAnimation={animation}
+          popupVisible={this.state.visible}
+          afterPopupVisibleChange={this.afterVisibleChange}
+          popup={this.getMenuElement()}
+          onPopupVisibleChange={this.onVisibleChange}
+          getPopupContainer={getPopupContainer}
+        >
+          {children}
+        </Trigger>
+      </div>
     );
   }
 }
