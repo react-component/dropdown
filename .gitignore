@@ -25,3 +25,5 @@ assets/**/*.css
 build
 lib
 coverage
+yarn.lock
+package-lock.json
