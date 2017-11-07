@@ -1,10 +1,12 @@
 /* eslint-disable func-names */
+import 'core-js/es6/map';
+import 'core-js/es6/set';
 const expect = require('expect.js');
 const Dropdown = require('../');
 import Menu, { Item as MenuItem, Divider } from 'rc-menu';
 import React from 'react';
 import ReactDOM from 'react-dom';
-const TestUtils = require('react-addons-test-utils');
+const TestUtils = require('react-dom/test-utils');
 const Simulate = TestUtils.Simulate;
 require('../assets/index.less');
 const $ = require('jquery');
