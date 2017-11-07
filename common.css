@@ -65,7 +65,7 @@
   position: relative;
 }
 .rc-dropdown-menu > .rc-dropdown-menu-item-selected:after {
-  content: '\e613';
+  content: '\E613';
   font-family: 'anticon';
   font-weight: bold;
   position: absolute;
