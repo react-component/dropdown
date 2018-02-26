@@ -47,7 +47,7 @@
     "bootstrap": "~3.3.2",
     "core-js": "^2.5.1",
     "expect.js": "~0.3.1",
-    "jquery": "1.x",
+    "jquery": "^3.3.1",
     "pre-commit": "1.x",
     "rc-menu": "^6.1.0",
     "rc-test": "^6.0.8",
