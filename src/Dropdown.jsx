@@ -93,6 +93,7 @@ export default class Dropdown extends Component {
     const extraOverlayProps = {
       prefixCls: `${prefixCls}-menu`,
       onClick: this.onClick,
+      getPopupContainer: () => this.getPopupDomNode(),
     };
     if (typeof overlay.type === 'string') {
       delete extraOverlayProps.prefixCls;
