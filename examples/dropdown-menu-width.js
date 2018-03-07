@@ -1,14 +1,14 @@
-webpackJsonp([1],{
+webpackJsonp([2],{
 
-/***/ 176:
+/***/ 81:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(177);
+module.exports = __webpack_require__(82);
 
 
 /***/ }),
 
-/***/ 177:
+/***/ 82:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -35,102 +35,79 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var Test = function (_Component) {
-  _inherits(Test, _Component);
+var Example = function (_PureComponent) {
+  _inherits(Example, _PureComponent);
 
-  function Test() {
+  function Example() {
     var _temp, _this, _ret;
 
-    _classCallCheck(this, Test);
+    _classCallCheck(this, Example);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
-      visible: false
-    }, _this.onVisibleChange = function (visible) {
-      _this.setState({
-        visible: visible
-      });
-    }, _this.selected = [], _this.saveSelected = function (_ref) {
-      var selectedKeys = _ref.selectedKeys;
-
-      _this.selected = selectedKeys;
-    }, _this.confirm = function () {
-      console.log(_this.selected);
-      _this.setState({
-        visible: false
-      });
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _PureComponent.call.apply(_PureComponent, [this].concat(args))), _this), _this.state = { longList: false }, _this.short = function () {
+      _this.setState({ longList: false });
+    }, _this.long = function () {
+      _this.setState({ longList: true });
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
-  Test.prototype.render = function render() {
+  Example.prototype.render = function render() {
+    var menuItems = [__WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_1_rc_menu__["b" /* Item */],
+      { key: '1' },
+      '1st item'
+    ), __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_1_rc_menu__["b" /* Item */],
+      { key: '2' },
+      '2nd item'
+    )];
+
+    if (this.state.longList) {
+      menuItems.push(__WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_1_rc_menu__["b" /* Item */],
+        { key: '3' },
+        '3rd LONG SUPER LONG item'
+      ));
+    }
     var menu = __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_1_rc_menu__["c" /* default */],
-      {
-        style: { width: 140 },
-        multiple: true,
-        onSelect: this.saveSelected,
-        onDeselect: this.saveSelected
-      },
+      null,
+      menuItems
+    );
+    return __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
+      'div',
+      null,
       __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_1_rc_menu__["b" /* Item */],
-        { key: '1' },
-        'one'
-      ),
-      __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_1_rc_menu__["b" /* Item */],
-        { key: '2' },
-        'two'
-      ),
-      __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_rc_menu__["a" /* Divider */], null),
-      __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_1_rc_menu__["b" /* Item */],
-        { disabled: true },
+        __WEBPACK_IMPORTED_MODULE_0_rc_dropdown___default.a,
+        { overlay: menu },
         __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
           'button',
-          {
-            style: {
-              cursor: 'pointer',
-              color: '#000',
-              pointerEvents: 'visible'
-            },
-            onClick: this.confirm
-          },
-          '\u786E\u5B9A'
+          null,
+          'Actions'
         )
-      )
-    );
-
-    return __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-      __WEBPACK_IMPORTED_MODULE_0_rc_dropdown___default.a,
-      {
-        trigger: ['click'],
-        onVisibleChange: this.onVisibleChange,
-        visible: this.state.visible,
-        closeOnSelect: false,
-        overlay: menu,
-        animation: 'slide-up'
-      },
+      ),
       __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
         'button',
-        null,
-        'open'
+        { onClick: this.long },
+        'Long List'
+      ),
+      __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
+        'button',
+        { onClick: this.short },
+        'Short List'
       )
     );
   };
 
-  return Test;
-}(__WEBPACK_IMPORTED_MODULE_3_react__["Component"]);
+  return Example;
+}(__WEBPACK_IMPORTED_MODULE_3_react__["PureComponent"]);
 
-__WEBPACK_IMPORTED_MODULE_4_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-  'div',
-  { style: { margin: 20 } },
-  __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(Test, null)
-), document.getElementById('__react-content'));
+__WEBPACK_IMPORTED_MODULE_4_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(Example, null), document.getElementById('__react-content'));
 
 /***/ })
 
-},[176]);
-//# sourceMappingURL=multiple.js.map
+},[81]);
+//# sourceMappingURL=dropdown-menu-width.js.map
