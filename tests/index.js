@@ -82,4 +82,49 @@ describe('dropdown', () => {
     const popupOffset = $(dropdown.getPopupDomNode()).offset();
     expect(popupOffset.left).to.be(targetOffset.left);
   });
+
+  // https://github.com/ant-design/ant-design/issues/9559
+  it('should have correct menu width when switch from shorter menu to longer', () => {
+    class Example extends React.Component {
+      state = { longList: true };
+      getPopupDomNode() {
+        return this.trigger.getPopupDomNode();
+      }
+      short = () => {
+        this.setState({ longList: false });
+      }
+      long = () => {
+        this.setState({ longList: true });
+      }
+      render() {
+        const menuItems = [
+          <MenuItem key="1">1st item</MenuItem>,
+          <MenuItem key="2">2nd item</MenuItem>,
+        ];
+        if (this.state.longList) {
+          menuItems.push(<MenuItem key="3">3rd LONG SUPER LONG item</MenuItem>);
+        }
+        return (
+          <Dropdown
+            trigger={['click']}
+            ref={node => { this.trigger = node; }}
+            overlay={<Menu>{menuItems}</Menu>}
+          >
+            <button>
+              Actions 111
+            </button>
+          </Dropdown>
+        );
+      }
+    }
+    const dropdown = ReactDOM.render(<Example />, div);
+    const button = TestUtils.scryRenderedDOMComponentsWithTag(dropdown, 'button')[0];
+    const buttonNode = ReactDOM.findDOMNode(button);
+    Simulate.click(button);
+    expect(dropdown.getPopupDomNode().offsetWidth).to.be.above(buttonNode.offsetWidth);
+    dropdown.short();
+    expect(dropdown.getPopupDomNode().offsetWidth).to.be(buttonNode.offsetWidth);
+    dropdown.long();
+    expect(dropdown.getPopupDomNode().offsetWidth).to.be.above(buttonNode.offsetWidth);
+  });
 });
