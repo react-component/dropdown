@@ -61,6 +61,7 @@
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "prop-types": "^15.5.8",
-    "rc-trigger": "^2.2.2"
+    "rc-trigger": "^2.2.2",
+    "react-lifecycles-compat": "^3.0.2"
   }
 }
