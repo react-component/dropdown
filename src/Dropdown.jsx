@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Trigger from 'rc-trigger';
 import placements from './placements';
+import { polyfill } from 'react-lifecycles-compat';
 
-export default class Dropdown extends Component {
+class Dropdown extends Component {
   static propTypes = {
     minOverlayWidthMatchTrigger: PropTypes.bool,
     onVisibleChange: PropTypes.func,
@@ -53,14 +54,6 @@ export default class Dropdown extends Component {
     }
   }
 
-  componentWillReceiveProps({ visible }) {
-    if (visible !== undefined) {
-      this.setState({
-        visible,
-      });
-    }
-  }
-
   onClick = (e) => {
     const props = this.props;
     const overlayProps = props.overlay.props;
@@ -86,6 +79,15 @@ export default class Dropdown extends Component {
       });
     }
     props.onVisibleChange(visible);
+  }
+
+  static getDerivedStateFromProps(nextProps) {
+    if ('visible' in nextProps) {
+      return {
+        visible: nextProps.visible,
+      };
+    }
+    return null;
   }
 
   getMenuElement() {
@@ -158,3 +160,7 @@ export default class Dropdown extends Component {
     );
   }
 }
+
+polyfill(Dropdown);
+
+export default Dropdown;
