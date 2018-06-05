@@ -20,6 +20,7 @@ class Dropdown extends Component {
     placement: PropTypes.string,
     overlay: PropTypes.node,
     trigger: PropTypes.array,
+    alignPoint: PropTypes.bool,
     showAction: PropTypes.array,
     hideAction: PropTypes.array,
     getPopupContainer: PropTypes.func,
