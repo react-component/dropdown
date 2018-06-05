@@ -29,7 +29,6 @@ class Dropdown extends Component {
   };
 
   static defaultProps = {
-    minOverlayWidthMatchTrigger: true,
     prefixCls: 'rc-dropdown',
     trigger: ['hover'],
     showAction: [],
@@ -91,6 +90,15 @@ class Dropdown extends Component {
     return null;
   }
 
+  getMinOverlayWidthMatchTrigger = () => {
+    const { minOverlayWidthMatchTrigger, alignPoint } = this.props;
+    if ('minOverlayWidthMatchTrigger' in this.props) {
+      return !alignPoint;
+    }
+
+    return minOverlayWidthMatchTrigger;
+  };
+
   getMenuElement() {
     const { overlay, prefixCls } = this.props;
     const extraOverlayProps = {
@@ -108,7 +116,7 @@ class Dropdown extends Component {
   }
 
   afterVisibleChange = (visible) => {
-    if (visible && this.props.minOverlayWidthMatchTrigger) {
+    if (visible && this.getMinOverlayWidthMatchTrigger()) {
       const overlayNode = this.getPopupDomNode();
       const rootNode = ReactDOM.findDOMNode(this);
       if (rootNode && overlayNode && rootNode.offsetWidth > overlayNode.offsetWidth) {

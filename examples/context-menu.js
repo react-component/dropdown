@@ -21,7 +21,6 @@ class Demo extends Component {
         trigger={['contextMenu']}
         overlay={menu}
         animation="slide-up"
-        minOverlayWidthMatchTrigger={false}
         alignPoint
       >
         <div
