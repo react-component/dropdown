@@ -93,10 +93,10 @@ class Dropdown extends Component {
   getMinOverlayWidthMatchTrigger = () => {
     const { minOverlayWidthMatchTrigger, alignPoint } = this.props;
     if ('minOverlayWidthMatchTrigger' in this.props) {
-      return !alignPoint;
+      return minOverlayWidthMatchTrigger;
     }
 
-    return minOverlayWidthMatchTrigger;
+    return !alignPoint;
   };
 
   getMenuElement() {
