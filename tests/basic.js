@@ -134,4 +134,25 @@ describe('dropdown', () => {
     dropdown.long();
     expect(dropdown.getPopupDomNode().offsetWidth).to.be.above(buttonNode.offsetWidth);
   });
+
+  it('user pass minOverlayWidthMatchTrigger', () => {
+    const overlay = <div style={{ width: 50 }}>Test</div>;
+    const dropdown = ReactDOM.render(
+      <Dropdown
+        trigger={['click']}
+        overlay={overlay}
+        minOverlayWidthMatchTrigger={false}
+      >
+        <button style={{ width: 100 }} className="my-button">open</button>
+      </Dropdown>
+      , div);
+
+    Simulate.click(
+      TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button'),
+    );
+
+    expect($(dropdown.getPopupDomNode()).width()).not.to.be(
+      $(TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button')).width()
+    );
+  });
 });
