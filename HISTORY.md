@@ -1,6 +1,10 @@
 # History
 ----
 
+## 2.2.0 / 2018-06-06
+
+- add `alignPoint` to support mosue point align
+
 ## 1.5.0 / 2016-07-27
 
 - Add `onOverlayClick`.
