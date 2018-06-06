@@ -20,6 +20,7 @@ class Dropdown extends Component {
     placement: PropTypes.string,
     overlay: PropTypes.node,
     trigger: PropTypes.array,
+    alignPoint: PropTypes.bool,
     showAction: PropTypes.array,
     hideAction: PropTypes.array,
     getPopupContainer: PropTypes.func,
@@ -28,11 +29,9 @@ class Dropdown extends Component {
   };
 
   static defaultProps = {
-    minOverlayWidthMatchTrigger: true,
     prefixCls: 'rc-dropdown',
     trigger: ['hover'],
     showAction: [],
-    hideAction: [],
     overlayClassName: '',
     overlayStyle: {},
     defaultVisible: false,
@@ -90,6 +89,15 @@ class Dropdown extends Component {
     return null;
   }
 
+  getMinOverlayWidthMatchTrigger = () => {
+    const { minOverlayWidthMatchTrigger, alignPoint } = this.props;
+    if ('minOverlayWidthMatchTrigger' in this.props) {
+      return minOverlayWidthMatchTrigger;
+    }
+
+    return !alignPoint;
+  };
+
   getMenuElement() {
     const { overlay, prefixCls } = this.props;
     const extraOverlayProps = {
@@ -107,7 +115,7 @@ class Dropdown extends Component {
   }
 
   afterVisibleChange = (visible) => {
-    if (visible && this.props.minOverlayWidthMatchTrigger) {
+    if (visible && this.getMinOverlayWidthMatchTrigger()) {
       const overlayNode = this.getPopupDomNode();
       const rootNode = ReactDOM.findDOMNode(this);
       if (rootNode && overlayNode && rootNode.offsetWidth > overlayNode.offsetWidth) {
@@ -134,6 +142,12 @@ class Dropdown extends Component {
       overlayClassName, overlayStyle,
       trigger, ...otherProps,
     } = this.props;
+
+    let triggerHideAction = hideAction;
+    if (!triggerHideAction && trigger.indexOf('contextMenu') !== -1) {
+      triggerHideAction = ['click'];
+    }
+
     return (
       <Trigger
         {...otherProps}
@@ -144,7 +158,7 @@ class Dropdown extends Component {
         builtinPlacements={placements}
         action={trigger}
         showAction={showAction}
-        hideAction={hideAction}
+        hideAction={triggerHideAction || []}
         popupPlacement={placement}
         popupAlign={align}
         popupTransitionName={transitionName}
