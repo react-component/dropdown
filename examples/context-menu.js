@@ -22,6 +22,7 @@ class Demo extends Component {
         overlay={menu}
         animation="slide-up"
         alignPoint
+        hideAction={['click']}
       >
         <div
           role="button"
