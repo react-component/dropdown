@@ -32,7 +32,6 @@ class Dropdown extends Component {
     prefixCls: 'rc-dropdown',
     trigger: ['hover'],
     showAction: [],
-    hideAction: [],
     overlayClassName: '',
     overlayStyle: {},
     defaultVisible: false,
@@ -143,6 +142,12 @@ class Dropdown extends Component {
       overlayClassName, overlayStyle,
       trigger, ...otherProps,
     } = this.props;
+
+    let triggerHideAction = hideAction;
+    if (!triggerHideAction && trigger.indexOf('contextMenu') !== -1) {
+      triggerHideAction = ['click'];
+    }
+
     return (
       <Trigger
         {...otherProps}
@@ -153,7 +158,7 @@ class Dropdown extends Component {
         builtinPlacements={placements}
         action={trigger}
         showAction={showAction}
-        hideAction={hideAction}
+        hideAction={triggerHideAction || []}
         popupPlacement={placement}
         popupAlign={align}
         popupTransitionName={transitionName}

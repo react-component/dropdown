@@ -24,7 +24,7 @@ describe('point', () => {
     const overlay = <div className="check-for-visible">Test</div>;
     const dropdown = ReactDOM.render(
       <Dropdown
-        trigger={['click']}
+        trigger={['contextMenu']}
         overlay={overlay}
         alignPoint
         align={{
@@ -36,7 +36,7 @@ describe('point', () => {
       </Dropdown>
       , div);
 
-    Simulate.click(
+    Simulate.contextMenu(
       TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button'),
       { pageX: 9, pageY: 3 },
     );
