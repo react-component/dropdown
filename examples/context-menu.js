@@ -1,14 +1,14 @@
-webpackJsonp([1],{
+webpackJsonp([3],{
 
-/***/ 187:
+/***/ 85:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(188);
+module.exports = __webpack_require__(86);
 
 
 /***/ }),
 
-/***/ 188:
+/***/ 86:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -35,44 +35,20 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
-var Test = function (_Component) {
-  _inherits(Test, _Component);
+var Demo = function (_Component) {
+  _inherits(Demo, _Component);
 
-  function Test() {
-    var _temp, _this, _ret;
+  function Demo() {
+    _classCallCheck(this, Demo);
 
-    _classCallCheck(this, Test);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
-      visible: false
-    }, _this.onVisibleChange = function (visible) {
-      _this.setState({
-        visible: visible
-      });
-    }, _this.selected = [], _this.saveSelected = function (_ref) {
-      var selectedKeys = _ref.selectedKeys;
-
-      _this.selected = selectedKeys;
-    }, _this.confirm = function () {
-      console.log(_this.selected);
-      _this.setState({
-        visible: false
-      });
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    return _possibleConstructorReturn(this, _Component.apply(this, arguments));
   }
 
-  Test.prototype.render = function render() {
+  Demo.prototype.render = function render() {
     var menu = __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_1_rc_menu__["c" /* default */],
       {
-        style: { width: 140 },
-        multiple: true,
-        onSelect: this.saveSelected,
-        onDeselect: this.saveSelected
+        style: { width: 140 }
       },
       __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
         __WEBPACK_IMPORTED_MODULE_1_rc_menu__["b" /* Item */],
@@ -83,54 +59,38 @@ var Test = function (_Component) {
         __WEBPACK_IMPORTED_MODULE_1_rc_menu__["b" /* Item */],
         { key: '2' },
         'two'
-      ),
-      __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_rc_menu__["a" /* Divider */], null),
-      __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-        __WEBPACK_IMPORTED_MODULE_1_rc_menu__["b" /* Item */],
-        { disabled: true },
-        __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-          'button',
-          {
-            style: {
-              cursor: 'pointer',
-              color: '#000',
-              pointerEvents: 'visible'
-            },
-            onClick: this.confirm
-          },
-          '\u786E\u5B9A'
-        )
       )
     );
 
     return __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
       __WEBPACK_IMPORTED_MODULE_0_rc_dropdown___default.a,
       {
-        trigger: ['click'],
-        onVisibleChange: this.onVisibleChange,
-        visible: this.state.visible,
-        closeOnSelect: false,
+        trigger: ['contextMenu'],
         overlay: menu,
-        animation: 'slide-up'
+        animation: 'slide-up',
+        alignPoint: true
       },
       __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-        'button',
-        null,
-        'open'
+        'div',
+        {
+          role: 'button',
+          style: {
+            border: '1px solid #000',
+            padding: '100px 0',
+            textAlign: 'center'
+          }
+        },
+        'Right click me!'
       )
     );
   };
 
-  return Test;
+  return Demo;
 }(__WEBPACK_IMPORTED_MODULE_3_react__["Component"]);
 
-__WEBPACK_IMPORTED_MODULE_4_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-  'div',
-  { style: { margin: 20 } },
-  __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(Test, null)
-), document.getElementById('__react-content'));
+__WEBPACK_IMPORTED_MODULE_4_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(Demo, null), document.getElementById('__react-content'));
 
 /***/ })
 
-},[187]);
-//# sourceMappingURL=multiple.js.map
+},[85]);
+//# sourceMappingURL=context-menu.js.map
