@@ -51,7 +51,7 @@
     "pre-commit": "1.x",
     "rc-menu": "^7.4.20",
     "rc-test": "^6.0.8",
-    "rc-tools": "^7.0.2",
+    "rc-tools": "^8.4.5",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
   },
