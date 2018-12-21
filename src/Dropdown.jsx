@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Trigger from 'rc-trigger';
+import classNames from 'classnames';
 import placements from './placements';
 import { polyfill } from 'react-lifecycles-compat';
 
@@ -14,6 +15,7 @@ class Dropdown extends Component {
     children: PropTypes.any,
     transitionName: PropTypes.string,
     overlayClassName: PropTypes.string,
+    openClassName: PropTypes.string,
     animation: PropTypes.any,
     align: PropTypes.object,
     overlayStyle: PropTypes.object,
@@ -114,6 +116,14 @@ class Dropdown extends Component {
     return this.trigger.getPopupDomNode();
   }
 
+  getOpenClassName() {
+    const { openClassName, prefixCls } = this.props;
+    if (openClassName !== undefined) {
+      return openClassName;
+    }
+    return `${prefixCls}-open`;
+  }
+
   afterVisibleChange = (visible) => {
     if (visible && this.getMinOverlayWidthMatchTrigger()) {
       const overlayNode = this.getPopupDomNode();
@@ -133,9 +143,17 @@ class Dropdown extends Component {
     this.trigger = node;
   }
 
+  renderChildren() {
+    const { children } = this.props;
+    const { visible } = this.state;
+    const childrenProps = children.props ? children.props : {};
+    const childClassName = classNames(childrenProps.className, this.getOpenClassName());
+    return (visible && children) ? cloneElement(children, { className: childClassName }) : children;
+  }
+
   render() {
     const {
-      prefixCls, children,
+      prefixCls,
       transitionName, animation,
       align, placement, getPopupContainer,
       showAction, hideAction,
@@ -169,7 +187,7 @@ class Dropdown extends Component {
         onPopupVisibleChange={this.onVisibleChange}
         getPopupContainer={getPopupContainer}
       >
-        {children}
+        {this.renderChildren()}
       </Trigger>
     );
   }

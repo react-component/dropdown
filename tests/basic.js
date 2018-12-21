@@ -155,4 +155,41 @@ describe('dropdown', () => {
       $(TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button')).width()
     );
   });
+
+  it('should support default openClassName', () => {
+    const overlay = <div style={{ width: 50 }}>Test</div>;
+    const dropdown = ReactDOM.render(
+      <Dropdown
+        trigger={['click']}
+        overlay={overlay}
+        minOverlayWidthMatchTrigger={false}
+      >
+        <button style={{ width: 100 }} className="my-button">open</button>
+      </Dropdown>
+      , div);
+    const buttonNode = TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button');
+    Simulate.click(buttonNode);
+    expect(buttonNode.className).to.be('my-button rc-dropdown-open');
+    Simulate.click(buttonNode);
+    expect(buttonNode.className).to.be('my-button');
+  });
+
+  it('should support custom openClassName', () => {
+    const overlay = <div style={{ width: 50 }}>Test</div>;
+    const dropdown = ReactDOM.render(
+      <Dropdown
+        trigger={['click']}
+        overlay={overlay}
+        minOverlayWidthMatchTrigger={false}
+        openClassName="opened"
+      >
+        <button style={{ width: 100 }} className="my-button">open</button>
+      </Dropdown>
+      , div);
+    const buttonNode = TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button');
+    Simulate.click(buttonNode);
+    expect(buttonNode.className).to.be('my-button opened');
+    Simulate.click(buttonNode);
+    expect(buttonNode.className).to.be('my-button');
+  });
 });

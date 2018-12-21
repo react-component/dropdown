@@ -1,6 +1,10 @@
 # History
 ----
 
+## 2.3.0 / 2018-12-21
+
+- add `openClassName`
+
 ## 2.2.0 / 2018-06-06
 
 - add `alignPoint` to support mosue point align

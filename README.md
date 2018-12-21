@@ -62,6 +62,12 @@ var Dropdown = require('rc-dropdown');
           <td>additional css class of root dom node</td>
         </tr>
         <tr>
+          <td>openClassName</td>
+          <td>String</td>
+          <td>`${prefixCls}-open`</td>
+          <td>className of trigger when dropdown is opened</td>
+        </tr>
+        <tr>
           <td>prefixCls</td>
           <td>String</td>
           <td>rc-tooltip</td>
