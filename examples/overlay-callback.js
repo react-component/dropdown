@@ -1,14 +1,14 @@
-webpackJsonp([0],{
+webpackJsonp([1],{
 
-/***/ 183:
+/***/ 181:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(184);
+module.exports = __webpack_require__(182);
 
 
 /***/ }),
 
-/***/ 184:
+/***/ 182:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -39,26 +39,28 @@ function onVisibleChange(visible) {
   console.log(visible);
 }
 
-var menu = __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-  __WEBPACK_IMPORTED_MODULE_1_rc_menu__["c" /* default */],
-  { onSelect: onSelect },
-  __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_1_rc_menu__["b" /* Item */],
-    { disabled: true },
-    'disabled'
-  ),
-  __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_1_rc_menu__["b" /* Item */],
-    { key: '1' },
-    'one'
-  ),
-  __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_rc_menu__["a" /* Divider */], null),
-  __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-    __WEBPACK_IMPORTED_MODULE_1_rc_menu__["b" /* Item */],
-    { key: '2' },
-    'two'
-  )
-);
+var menuCallback = function menuCallback() {
+  return __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
+    __WEBPACK_IMPORTED_MODULE_1_rc_menu__["c" /* default */],
+    { onSelect: onSelect },
+    __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_1_rc_menu__["b" /* Item */],
+      { disabled: true },
+      'disabled'
+    ),
+    __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_1_rc_menu__["b" /* Item */],
+      { key: '1' },
+      'one'
+    ),
+    __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_rc_menu__["a" /* Divider */], null),
+    __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_1_rc_menu__["b" /* Item */],
+      { key: '2' },
+      'two'
+    )
+  );
+};
 
 __WEBPACK_IMPORTED_MODULE_4_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
   'div',
@@ -71,7 +73,7 @@ __WEBPACK_IMPORTED_MODULE_4_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
       __WEBPACK_IMPORTED_MODULE_0_rc_dropdown___default.a,
       {
         trigger: ['click'],
-        overlay: menu,
+        overlay: menuCallback,
         animation: 'slide-up',
         onVisibleChange: onVisibleChange
       },
@@ -86,5 +88,5 @@ __WEBPACK_IMPORTED_MODULE_4_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 
 /***/ })
 
-},[183]);
-//# sourceMappingURL=simple.js.map
+},[181]);
+//# sourceMappingURL=overlay-callback.js.map
