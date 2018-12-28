@@ -60,7 +60,7 @@ class Dropdown extends Component {
 
   onClick = (e) => {
     const props = this.props;
-    const overlayProps = props.overlay.props;
+    const overlayProps = this.getOverlayElement().props;
     // do no call onVisibleChange, if you need click to hide, use onClick and control visible
     if (!('visible' in props)) {
       this.setState({
@@ -103,14 +103,20 @@ class Dropdown extends Component {
     return !alignPoint;
   };
 
-  getMenuElement = () => {
-    const { overlay, prefixCls } = this.props;
+  getOverlayElement() {
+    const { overlay } = this.props;
     let overlayElement;
     if (typeof overlay === 'function') {
       overlayElement = overlay();
     } else {
       overlayElement = overlay;
     }
+    return overlayElement;
+  }
+
+  getMenuElement = () => {
+    const { prefixCls } = this.props;
+    const overlayElement = this.getOverlayElement();
     const extraOverlayProps = {
       prefixCls: `${prefixCls}-menu`,
       onClick: this.onClick,
