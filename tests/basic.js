@@ -192,4 +192,16 @@ describe('dropdown', () => {
     Simulate.click(buttonNode);
     expect(buttonNode.className).to.be('my-button');
   });
+
+  it('overlay callback', () => {
+    const overlay = <div style={{ width: 50 }}>Test</div>;
+    const dropdown = ReactDOM.render(
+      <Dropdown trigger={['click']} overlay={() => overlay}>
+        <button className="my-button">open</button>
+      </Dropdown>
+      , div);
+    Simulate.click(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-button')[0]);
+    expect($(ReactDOM.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown,
+      'rc-dropdown')[0])).css('display')).not.to.be('none');
+  });
 });

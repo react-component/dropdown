@@ -20,7 +20,10 @@ class Dropdown extends Component {
     align: PropTypes.object,
     overlayStyle: PropTypes.object,
     placement: PropTypes.string,
-    overlay: PropTypes.node,
+    overlay: PropTypes.oneOfType([
+      PropTypes.node,
+      PropTypes.func,
+    ]),
     trigger: PropTypes.array,
     alignPoint: PropTypes.bool,
     showAction: PropTypes.array,
@@ -100,16 +103,30 @@ class Dropdown extends Component {
     return !alignPoint;
   };
 
-  getMenuElement() {
+  getMenuElement = () => {
     const { overlay, prefixCls } = this.props;
+    let overlayElement;
+    if (typeof overlay === 'function') {
+      overlayElement = overlay();
+    } else {
+      overlayElement = overlay;
+    }
     const extraOverlayProps = {
       prefixCls: `${prefixCls}-menu`,
       onClick: this.onClick,
     };
-    if (typeof overlay.type === 'string') {
+    if (typeof overlayElement.type === 'string') {
       delete extraOverlayProps.prefixCls;
     }
-    return React.cloneElement(overlay, extraOverlayProps);
+    return React.cloneElement(overlayElement, extraOverlayProps);
+  }
+
+  getMenuElementOrLambda() {
+    const { overlay } = this.props;
+    if (typeof overlay === 'function') {
+      return this.getMenuElement;
+    }
+    return this.getMenuElement();
   }
 
   getPopupDomNode() {
@@ -183,7 +200,7 @@ class Dropdown extends Component {
         popupAnimation={animation}
         popupVisible={this.state.visible}
         afterPopupVisibleChange={this.afterVisibleChange}
-        popup={this.getMenuElement()}
+        popup={this.getMenuElementOrLambda()}
         onPopupVisibleChange={this.onVisibleChange}
         getPopupContainer={getPopupContainer}
       >
