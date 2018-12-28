@@ -1,6 +1,10 @@
 # History
 ----
 
+## 2.4.0 / 2018-12-28
+
+- `overlay` support function render
+
 ## 2.3.0 / 2018-12-21
 
 - add `openClassName`
