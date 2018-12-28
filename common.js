@@ -5825,6 +5825,18 @@ var Dropdown = function (_Component) {
     return null;
   };
 
+  Dropdown.prototype.getOverlayElement = function getOverlayElement() {
+    var overlay = this.props.overlay;
+
+    var overlayElement = void 0;
+    if (typeof overlay === 'function') {
+      overlayElement = overlay();
+    } else {
+      overlayElement = overlay;
+    }
+    return overlayElement;
+  };
+
   Dropdown.prototype.getMenuElementOrLambda = function getMenuElementOrLambda() {
     var overlay = this.props.overlay;
 
@@ -5945,7 +5957,7 @@ var _initialiseProps = function _initialiseProps() {
 
   this.onClick = function (e) {
     var props = _this2.props;
-    var overlayProps = props.overlay.props;
+    var overlayProps = _this2.getOverlayElement().props;
     // do no call onVisibleChange, if you need click to hide, use onClick and control visible
     if (!('visible' in props)) {
       _this2.setState({
@@ -5983,16 +5995,9 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.getMenuElement = function () {
-    var _props4 = _this2.props,
-        overlay = _props4.overlay,
-        prefixCls = _props4.prefixCls;
+    var prefixCls = _this2.props.prefixCls;
 
-    var overlayElement = void 0;
-    if (typeof overlay === 'function') {
-      overlayElement = overlay();
-    } else {
-      overlayElement = overlay;
-    }
+    var overlayElement = _this2.getOverlayElement();
     var extraOverlayProps = {
       prefixCls: prefixCls + '-menu',
       onClick: _this2.onClick
