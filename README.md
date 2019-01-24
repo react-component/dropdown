@@ -124,6 +124,7 @@ var Dropdown = require('rc-dropdown');
     </tbody>
 </table>
 
+Note: Additional props are passed into the underlying [rc-trigger](https://github.com/react-component/trigger) component. This can be useful for example, to display the dropdown in a separate [portal](https://reactjs.org/docs/portals.html)-driven window via the `getDocument()` rc-trigger prop.
 
 ## Development
 
