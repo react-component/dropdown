@@ -43,7 +43,7 @@
     "coverage": "rc-test run coverage"
   },
   "devDependencies": {
-    "async": "~2.6.1",
+    "async": "~3.0.1",
     "bootstrap": "~3.4.0",
     "core-js": "^2.5.1",
     "expect.js": "~0.3.1",
