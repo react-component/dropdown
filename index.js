@@ -1,4 +1,3 @@
+'use strict';
 
-var Dropdown = require('./src/');
-
-module.exports = Dropdown;
+module.exports = require('./src');

@@ -1,10 +1,10 @@
-import expect from 'expect.js';
+/* eslint-disable react/button-has-type,react/no-render-return-value */
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils, { Simulate } from 'react-dom/test-utils';
 import $ from 'jquery';
 import Dropdown from '../src';
-import { placements } from '../src/placements';
+import placements from '../src/placements';
 
 describe('point', () => {
   let div;
@@ -33,13 +33,14 @@ describe('point', () => {
         }}
       >
         <button className="my-button">open</button>
-      </Dropdown>
-      , div);
-
-    Simulate.contextMenu(
-      TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button'),
-      { pageX: 9, pageY: 3 },
+      </Dropdown>,
+      div,
     );
+
+    Simulate.contextMenu(TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button'), {
+      pageX: 9,
+      pageY: 3,
+    });
 
     const $popup = $(dropdown.getPopupDomNode());
 

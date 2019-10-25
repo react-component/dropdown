@@ -1,8 +1,8 @@
-/* eslint-disable func-names */
-import expect from 'expect.js';
-import Menu, { Item as MenuItem, Divider } from 'rc-menu';
+/* eslint-disable react/button-has-type,react/no-find-dom-node,react/no-render-return-value */
 import React from 'react';
+import { mount } from 'enzyme';
 import ReactDOM from 'react-dom';
+import Menu, { Item as MenuItem, Divider } from 'rc-menu';
 import TestUtils, { Simulate } from 'react-dom/test-utils';
 import $ from 'jquery';
 import Dropdown from '../src';
@@ -22,12 +22,13 @@ describe('dropdown', () => {
   });
 
   it('default visible', () => {
-    const dropdown = ReactDOM.render(
+    const dropdown = mount(
       <Dropdown overlay={<div className="check-for-visible">Test</div>} visible>
         <button className="my-button">open</button>
-      </Dropdown>
-      , div);
-    expect(dropdown.getPopupDomNode()).to.be.ok();
+      </Dropdown>,
+      div,
+    );
+    expect(!!dropdown.getPopupDomNode()).toBeTruthy();
   });
 
   it('simply works', () => {
@@ -51,17 +52,22 @@ describe('dropdown', () => {
         <MenuItem key="2">two</MenuItem>
       </Menu>
     );
-    const dropdown = ReactDOM.render(
+    const dropdown = mount(
       <Dropdown trigger={['click']} overlay={menu} onOverlayClick={onOverlayClick}>
         <button className="my-button">open</button>
-      </Dropdown>
-      , div);
-    expect(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-button')[0]).to.be.ok();
-    expect(ReactDOM.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown,
-      'rc-dropdown')[0])).not.to.be.ok();
+      </Dropdown>,
+      div,
+    );
+    expect(!!dropdown.get('.my-button')[0]).toBeTruthy();
+    expect(!dropdown.get('.rc-dropdown')[0]).toBeTruthy();
     Simulate.click(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-button')[0]);
-    expect($(ReactDOM.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown,
-      'rc-dropdown')[0])).css('display')).not.to.be('none');
+    expect(
+      $(
+        ReactDOM.findDOMNode(
+          TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'rc-dropdown')[0],
+        ),
+      ).css('display'),
+    ).not.to.be('none');
     expect(clicked).not.to.be.ok();
     Simulate.click($(dropdown.getPopupDomNode()).find('.my-menuitem')[0]);
     expect(clicked).to.be('1');
@@ -80,29 +86,34 @@ describe('dropdown', () => {
         <button className="my-btn" style={{ width: 500, height: 20, marginLeft: 100 }}>
           open
         </button>
-      </Dropdown>
-      , div);
+      </Dropdown>,
+      div,
+    );
     const myBtn = TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-btn')[0];
     const myBtnNode = ReactDOM.findDOMNode(myBtn);
     Simulate.click(myBtn);
     const targetOffset = $(myBtnNode).offset();
     const popupOffset = $(dropdown.getPopupDomNode()).offset();
-    expect(popupOffset.left).to.be(targetOffset.left);
+    expect(popupOffset.left).toBe(targetOffset.left);
   });
 
   // https://github.com/ant-design/ant-design/issues/9559
   it('should have correct menu width when switch from shorter menu to longer', () => {
     class Example extends React.Component {
       state = { longList: true };
+
       getPopupDomNode() {
         return this.trigger.getPopupDomNode();
       }
+
       short = () => {
         this.setState({ longList: false });
-      }
+      };
+
       long = () => {
         this.setState({ longList: true });
-      }
+      };
+
       render() {
         const menuItems = [
           <MenuItem key="1">1st item</MenuItem>,
@@ -114,12 +125,12 @@ describe('dropdown', () => {
         return (
           <Dropdown
             trigger={['click']}
-            ref={node => { this.trigger = node; }}
+            ref={node => {
+              this.trigger = node;
+            }}
             overlay={<Menu>{menuItems}</Menu>}
           >
-            <button>
-              Actions 111
-            </button>
+            <button>Actions 111</button>
           </Dropdown>
         );
       }
@@ -138,35 +149,31 @@ describe('dropdown', () => {
   it('user pass minOverlayWidthMatchTrigger', () => {
     const overlay = <div style={{ width: 50 }}>Test</div>;
     const dropdown = ReactDOM.render(
-      <Dropdown
-        trigger={['click']}
-        overlay={overlay}
-        minOverlayWidthMatchTrigger={false}
-      >
-        <button style={{ width: 100 }} className="my-button">open</button>
-      </Dropdown>
-      , div);
-
-    Simulate.click(
-      TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button'),
+      <Dropdown trigger={['click']} overlay={overlay} minOverlayWidthMatchTrigger={false}>
+        <button style={{ width: 100 }} className="my-button">
+          open
+        </button>
+      </Dropdown>,
+      div,
     );
 
+    Simulate.click(TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button'));
+
     expect($(dropdown.getPopupDomNode()).width()).not.to.be(
-      $(TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button')).width()
+      $(TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button')).width(),
     );
   });
 
   it('should support default openClassName', () => {
     const overlay = <div style={{ width: 50 }}>Test</div>;
     const dropdown = ReactDOM.render(
-      <Dropdown
-        trigger={['click']}
-        overlay={overlay}
-        minOverlayWidthMatchTrigger={false}
-      >
-        <button style={{ width: 100 }} className="my-button">open</button>
-      </Dropdown>
-      , div);
+      <Dropdown trigger={['click']} overlay={overlay} minOverlayWidthMatchTrigger={false}>
+        <button style={{ width: 100 }} className="my-button">
+          open
+        </button>
+      </Dropdown>,
+      div,
+    );
     const buttonNode = TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button');
     Simulate.click(buttonNode);
     expect(buttonNode.className).to.be('my-button rc-dropdown-open');
@@ -183,9 +190,12 @@ describe('dropdown', () => {
         minOverlayWidthMatchTrigger={false}
         openClassName="opened"
       >
-        <button style={{ width: 100 }} className="my-button">open</button>
-      </Dropdown>
-      , div);
+        <button style={{ width: 100 }} className="my-button">
+          open
+        </button>
+      </Dropdown>,
+      div,
+    );
     const buttonNode = TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button');
     Simulate.click(buttonNode);
     expect(buttonNode.className).to.be('my-button opened');
@@ -198,10 +208,16 @@ describe('dropdown', () => {
     const dropdown = ReactDOM.render(
       <Dropdown trigger={['click']} overlay={() => overlay}>
         <button className="my-button">open</button>
-      </Dropdown>
-      , div);
+      </Dropdown>,
+      div,
+    );
     Simulate.click(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-button')[0]);
-    expect($(ReactDOM.findDOMNode(TestUtils.scryRenderedDOMComponentsWithClass(dropdown,
-      'rc-dropdown')[0])).css('display')).not.to.be('none');
+    expect(
+      $(
+        ReactDOM.findDOMNode(
+          TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'rc-dropdown')[0],
+        ),
+      ).css('display'),
+    ).not.to.be('none');
   });
 });
