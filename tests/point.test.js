@@ -1,28 +1,34 @@
 /* eslint-disable react/button-has-type,react/no-render-return-value */
 import React from 'react';
-import ReactDOM from 'react-dom';
-import TestUtils, { Simulate } from 'react-dom/test-utils';
-import $ from 'jquery';
+import { mount } from 'enzyme';
 import Dropdown from '../src';
 import placements from '../src/placements';
+import { sleep, getPopupDomNode } from './utils';
 
 describe('point', () => {
-  let div;
+  let container;
   beforeEach(() => {
-    if (!div) {
-      div = document.createElement('div');
-      document.body.appendChild(div);
-    }
+    container = global.document.createElement('div');
+    global.document.body.appendChild(container);
   });
 
   afterEach(() => {
-    ReactDOM.unmountComponentAtNode(div);
-    $(div).remove();
+    global.document.body.removeChild(container);
   });
 
-  it('click show', () => {
-    const overlay = <div className="check-for-visible">Test</div>;
-    const dropdown = ReactDOM.render(
+  it('click show', async () => {
+    const overlay = (
+      <div
+        className="check-for-visible"
+        style={{
+          width: 10,
+        }}
+      >
+        Test
+      </div>
+    );
+
+    const dropdown = mount(
       <Dropdown
         trigger={['contextMenu']}
         overlay={overlay}
@@ -34,18 +40,24 @@ describe('point', () => {
       >
         <button className="my-button">open</button>
       </Dropdown>,
-      div,
+      { attachTo: container },
     );
 
-    Simulate.contextMenu(TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button'), {
+    const pageStyle = {
       pageX: 9,
       pageY: 3,
-    });
+    };
 
-    const $popup = $(dropdown.getPopupDomNode());
+    dropdown.find('.my-button').simulate('contextmenu', pageStyle);
 
-    const popupOffset = $popup.offset();
-    expect(popupOffset.left).to.be(9 + placements.bottomLeft.offset[0]);
-    expect(popupOffset.top).to.be(3 + placements.bottomLeft.offset[1]);
+    await sleep(500);
+
+    expect(getPopupDomNode(dropdown).getAttribute('style')).toEqual(
+      expect.stringContaining(
+        `left: -${999 - pageStyle.pageX - placements.bottomLeft.offset[0]}px; top: -${999 -
+          pageStyle.pageY -
+          placements.bottomLeft.offset[1]}px;`,
+      ),
+    );
   });
 });

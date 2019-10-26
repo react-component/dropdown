@@ -1,24 +1,21 @@
 /* eslint-disable react/button-has-type,react/no-find-dom-node,react/no-render-return-value */
 import React from 'react';
 import { mount } from 'enzyme';
-import ReactDOM from 'react-dom';
 import Menu, { Item as MenuItem, Divider } from 'rc-menu';
-import TestUtils, { Simulate } from 'react-dom/test-utils';
-import $ from 'jquery';
+import { sleep, getPopupDomNode } from './utils';
 import Dropdown from '../src';
+import placements from '../src/placements';
 import '../assets/index.less';
 
 describe('dropdown', () => {
   let div;
   beforeEach(() => {
-    if (!div) {
-      div = document.createElement('div');
-      document.body.appendChild(div);
-    }
+    div = global.document.createElement('div');
+    global.document.body.appendChild(div);
   });
 
   afterEach(() => {
-    ReactDOM.unmountComponentAtNode(div);
+    global.document.body.removeChild(div);
   });
 
   it('default visible', () => {
@@ -28,10 +25,10 @@ describe('dropdown', () => {
       </Dropdown>,
       div,
     );
-    expect(!!dropdown.getPopupDomNode()).toBeTruthy();
+    expect(getPopupDomNode(dropdown) instanceof HTMLDivElement).toBeTruthy();
   });
 
-  it('simply works', () => {
+  it('simply works', async () => {
     let clicked;
     let overlayClicked;
 
@@ -56,49 +53,48 @@ describe('dropdown', () => {
       <Dropdown trigger={['click']} overlay={menu} onOverlayClick={onOverlayClick}>
         <button className="my-button">open</button>
       </Dropdown>,
-      div,
     );
-    expect(!!dropdown.get('.my-button')[0]).toBeTruthy();
-    expect(!dropdown.get('.rc-dropdown')[0]).toBeTruthy();
-    Simulate.click(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-button')[0]);
-    expect(
-      $(
-        ReactDOM.findDOMNode(
-          TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'rc-dropdown')[0],
-        ),
-      ).css('display'),
-    ).not.to.be('none');
-    expect(clicked).not.to.be.ok();
-    Simulate.click($(dropdown.getPopupDomNode()).find('.my-menuitem')[0]);
-    expect(clicked).to.be('1');
-    expect(overlayClicked).to.be('1');
-    expect($(dropdown.getPopupDomNode()).css('display')).to.be('none');
+    expect(dropdown.find('.my-button')).toBeTruthy();
+    expect(dropdown.find('.rc-dropdown')).toBeTruthy();
+
+    dropdown.find('.my-button').simulate('click');
+    expect(clicked).toBeUndefined();
+    expect(getPopupDomNode(dropdown).classList.contains('rc-dropdown-hidden')).toBe(false);
+
+    dropdown.find('.my-menuitem').simulate('click');
+    expect(clicked).toBe('1');
+    expect(overlayClicked).toBe('1');
+    expect(getPopupDomNode(dropdown).classList.contains('rc-dropdown-hidden')).toBe(true);
   });
 
-  it('re-align works', () => {
+  it('re-align works', async () => {
+    const buttonStyle = { width: 600, height: 20, marginLeft: 100 };
     const menu = (
       <Menu>
         <MenuItem key="1">one</MenuItem>
       </Menu>
     );
-    const dropdown = ReactDOM.render(
+    const dropdown = mount(
       <Dropdown trigger={['click']} placement="bottomRight" overlay={menu}>
-        <button className="my-btn" style={{ width: 500, height: 20, marginLeft: 100 }}>
+        <button className="my-btn" style={buttonStyle}>
           open
         </button>
       </Dropdown>,
-      div,
     );
-    const myBtn = TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-btn')[0];
-    const myBtnNode = ReactDOM.findDOMNode(myBtn);
-    Simulate.click(myBtn);
-    const targetOffset = $(myBtnNode).offset();
-    const popupOffset = $(dropdown.getPopupDomNode()).offset();
-    expect(popupOffset.left).toBe(targetOffset.left);
+
+    dropdown.find('.my-btn').simulate('click');
+    await sleep(500);
+    expect(getPopupDomNode(dropdown).getAttribute('style')).toEqual(
+      expect.stringContaining(
+        `left: -${999 - buttonStyle.width - placements.bottomLeft.offset[0]}px; top: -${999 -
+          buttonStyle.height -
+          placements.bottomLeft.offset[1]}px;`,
+      ),
+    );
   });
 
   // https://github.com/ant-design/ant-design/issues/9559
-  it('should have correct menu width when switch from shorter menu to longer', () => {
+  it('should have correct menu width when switch from shorter menu to longer', async () => {
     class Example extends React.Component {
       state = { longList: true };
 
@@ -135,55 +131,68 @@ describe('dropdown', () => {
         );
       }
     }
-    const dropdown = ReactDOM.render(<Example />, div);
-    const button = TestUtils.scryRenderedDOMComponentsWithTag(dropdown, 'button')[0];
-    const buttonNode = ReactDOM.findDOMNode(button);
-    Simulate.click(button);
-    expect(dropdown.getPopupDomNode().offsetWidth).to.be.above(buttonNode.offsetWidth);
-    dropdown.short();
-    expect(dropdown.getPopupDomNode().offsetWidth).to.be(buttonNode.offsetWidth);
-    dropdown.long();
-    expect(dropdown.getPopupDomNode().offsetWidth).to.be.above(buttonNode.offsetWidth);
-  });
-
-  it('user pass minOverlayWidthMatchTrigger', () => {
-    const overlay = <div style={{ width: 50 }}>Test</div>;
-    const dropdown = ReactDOM.render(
-      <Dropdown trigger={['click']} overlay={overlay} minOverlayWidthMatchTrigger={false}>
-        <button style={{ width: 100 }} className="my-button">
-          open
-        </button>
-      </Dropdown>,
-      div,
+    const dropdown = mount(<Example />);
+    dropdown.find('button').simulate('click');
+    await sleep(500);
+    expect(
+      dropdown
+        .instance()
+        .getPopupDomNode()
+        .getAttribute('style'),
+    ).toEqual(
+      expect.stringContaining(
+        `left: -${999 - placements.bottomLeft.offset[0]}px; top: -${999 -
+          placements.bottomLeft.offset[1]}px;`,
+      ),
     );
 
-    Simulate.click(TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button'));
-
-    expect($(dropdown.getPopupDomNode()).width()).not.to.be(
-      $(TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button')).width(),
-    );
+    // Todo - Offset-width
   });
+
+  // it('user pass minOverlayWidthMatchTrigger', () => {
+  //   const overlay = <div style={{ width: 50 }}>Test</div>
+  //   const dropdown = mount(
+  //     <Dropdown
+  //       trigger={['click']}
+  //       overlay={overlay}
+  //       minOverlayWidthMatchTrigger={false}
+  //     >
+  //       <button style={{ width: 100 }} className="my-button">
+  //         open
+  //       </button>
+  //     </Dropdown>,
+  //     div,
+  //   )
+
+  //   Simulate.click(
+  //     TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button'),
+  //   )
+
+  //   expect($(dropdown.getPopupDomNode()).width()).not.to.be(
+  //     $(
+  //       TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button'),
+  //     ).width(),
+  //   )
+  // })
 
   it('should support default openClassName', () => {
     const overlay = <div style={{ width: 50 }}>Test</div>;
-    const dropdown = ReactDOM.render(
+    const dropdown = mount(
       <Dropdown trigger={['click']} overlay={overlay} minOverlayWidthMatchTrigger={false}>
         <button style={{ width: 100 }} className="my-button">
           open
         </button>
       </Dropdown>,
-      div,
     );
-    const buttonNode = TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button');
-    Simulate.click(buttonNode);
-    expect(buttonNode.className).to.be('my-button rc-dropdown-open');
-    Simulate.click(buttonNode);
-    expect(buttonNode.className).to.be('my-button');
+    dropdown.find('.my-button').simulate('click');
+    expect(dropdown.find('.my-button').prop('className')).toBe('my-button rc-dropdown-open');
+    dropdown.find('.my-button').simulate('click');
+    expect(dropdown.find('.my-button').prop('className')).toBe('my-button');
   });
 
-  it('should support custom openClassName', () => {
+  it('should support custom openClassName', async () => {
     const overlay = <div style={{ width: 50 }}>Test</div>;
-    const dropdown = ReactDOM.render(
+    const dropdown = mount(
       <Dropdown
         trigger={['click']}
         overlay={overlay}
@@ -194,30 +203,23 @@ describe('dropdown', () => {
           open
         </button>
       </Dropdown>,
-      div,
     );
-    const buttonNode = TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button');
-    Simulate.click(buttonNode);
-    expect(buttonNode.className).to.be('my-button opened');
-    Simulate.click(buttonNode);
-    expect(buttonNode.className).to.be('my-button');
+
+    dropdown.find('.my-button').simulate('click');
+    expect(dropdown.find('.my-button').prop('className')).toBe('my-button opened');
+    dropdown.find('.my-button').simulate('click');
+    expect(dropdown.find('.my-button').prop('className')).toBe('my-button');
   });
 
-  it('overlay callback', () => {
+  it('overlay callback', async () => {
     const overlay = <div style={{ width: 50 }}>Test</div>;
-    const dropdown = ReactDOM.render(
+    const dropdown = mount(
       <Dropdown trigger={['click']} overlay={() => overlay}>
         <button className="my-button">open</button>
       </Dropdown>,
-      div,
     );
-    Simulate.click(TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'my-button')[0]);
-    expect(
-      $(
-        ReactDOM.findDOMNode(
-          TestUtils.scryRenderedDOMComponentsWithClass(dropdown, 'rc-dropdown')[0],
-        ),
-      ).css('display'),
-    ).not.to.be('none');
+
+    dropdown.find('.my-button').simulate('click');
+    expect(getPopupDomNode(dropdown).classList.contains('rc-dropdown-hidden')).toBe(false);
   });
 });
