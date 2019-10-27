@@ -50,7 +50,6 @@ function Dropdown(props: DropdownProps, ref) {
   }, [visible]);
 
   const triggerRef = React.useRef(null);
-  const childRef = React.useRef(null);
   React.useImperativeHandle(ref, () => triggerRef.current);
 
   const getOverlayElement = (): React.ReactElement => {
@@ -119,15 +118,10 @@ function Dropdown(props: DropdownProps, ref) {
 
   const afterVisibleChange = visible => {
     if (visible && getMinOverlayWidthMatchTrigger()) {
-      const { current } = childRef;
       const overlayNode = triggerRef.current.getPopupDomNode();
-      if (current && overlayNode && current.offsetWidth > overlayNode.offsetWidth) {
-        overlayNode.style.minWidth = `${current.offsetWidth}px`;
-        // eslint-disable-next-line no-underscore-dangle
-        if (current && current._component && current._component.alignInstance) {
-          // eslint-disable-next-line no-underscore-dangle
-          current._component.alignInstance.forceAlign();
-        }
+      const triggerNode = triggerRef.current.getRootDomNode();
+      if (triggerNode && overlayNode && triggerNode.offsetWidth > overlayNode.offsetWidth) {
+        overlayNode.style.minWidth = `${triggerNode.offsetWidth}px`;
       }
     }
   };
@@ -147,11 +141,8 @@ function Dropdown(props: DropdownProps, ref) {
     return triggerVisible && children
       ? React.cloneElement(children, {
           className: childClassName,
-          ref: childRef,
         })
-      : React.cloneElement(children, {
-          ref: childRef,
-        });
+      : children;
   };
 
   let triggerHideAction = hideAction;

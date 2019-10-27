@@ -1,4 +1,4 @@
-/* eslint-disable react/button-has-type,react/no-find-dom-node,react/no-render-return-value */
+/* eslint-disable react/button-has-type,react/no-find-dom-node,react/no-render-return-value,object-shorthand,func-names,max-len */
 import React from 'react';
 import { mount } from 'enzyme';
 import Menu, { Item as MenuItem, Divider } from 'rc-menu';
@@ -7,15 +7,45 @@ import Dropdown from '../src';
 import placements from '../src/placements';
 import '../assets/index.less';
 
+// https://github.com/jsdom/jsdom/issues/135#issuecomment-68191941
+// mock jsdom env get offset value return 0
+Object.defineProperties(window.HTMLElement.prototype, {
+  offsetLeft: {
+    get: function() {
+      return parseFloat(window.getComputedStyle(this).marginLeft) || 0;
+    },
+  },
+  offsetTop: {
+    get: function() {
+      return parseFloat(window.getComputedStyle(this).marginTop) || 0;
+    },
+  },
+  offsetHeight: {
+    get: function() {
+      return parseFloat(window.getComputedStyle(this).height) || 0;
+    },
+  },
+  offsetWidth: {
+    get: function() {
+      return parseFloat(window.getComputedStyle(this).width) || 0;
+    },
+  },
+  width: {
+    get: function() {
+      return parseFloat(window.getComputedStyle(this).offsetWidth) || 0;
+    },
+  },
+});
+
 describe('dropdown', () => {
   let div;
   beforeEach(() => {
-    div = global.document.createElement('div');
-    global.document.body.appendChild(div);
+    div = window.document.createElement('div');
+    window.document.body.appendChild(div);
   });
 
   afterEach(() => {
-    global.document.body.removeChild(div);
+    window.document.body.removeChild(div);
   });
 
   it('default visible', () => {
@@ -23,7 +53,6 @@ describe('dropdown', () => {
       <Dropdown overlay={<div className="check-for-visible">Test</div>} visible>
         <button className="my-button">open</button>
       </Dropdown>,
-      div,
     );
     expect(getPopupDomNode(dropdown) instanceof HTMLDivElement).toBeTruthy();
   });
@@ -131,49 +160,59 @@ describe('dropdown', () => {
         );
       }
     }
-    const dropdown = mount(<Example />);
+    const dropdown = mount(<Example />, {
+      attachTo: div,
+    });
     dropdown.find('button').simulate('click');
     await sleep(500);
-    expect(
-      dropdown
-        .instance()
-        .getPopupDomNode()
-        .getAttribute('style'),
-    ).toEqual(
+    expect(getPopupDomNode(dropdown).getAttribute('style')).toEqual(
       expect.stringContaining(
         `left: -${999 - placements.bottomLeft.offset[0]}px; top: -${999 -
           placements.bottomLeft.offset[1]}px;`,
       ),
     );
 
-    // Todo - Offset-width
+    // Todo - offsetwidth
   });
 
-  // it('user pass minOverlayWidthMatchTrigger', () => {
-  //   const overlay = <div style={{ width: 50 }}>Test</div>
-  //   const dropdown = mount(
-  //     <Dropdown
-  //       trigger={['click']}
-  //       overlay={overlay}
-  //       minOverlayWidthMatchTrigger={false}
-  //     >
-  //       <button style={{ width: 100 }} className="my-button">
-  //         open
-  //       </button>
-  //     </Dropdown>,
-  //     div,
-  //   )
+  it('Test default minOverlayWidthMatchTrigger', async () => {
+    const overlayWidth = 50;
+    const overlay = <div style={{ width: overlayWidth }}>Test</div>;
 
-  //   Simulate.click(
-  //     TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button'),
-  //   )
+    const dropdown = mount(
+      <Dropdown trigger={['click']} overlay={overlay}>
+        <button style={{ width: 100 }} className="my-button">
+          open
+        </button>
+      </Dropdown>,
+    );
 
-  //   expect($(dropdown.getPopupDomNode()).width()).not.to.be(
-  //     $(
-  //       TestUtils.findRenderedDOMComponentWithClass(dropdown, 'my-button'),
-  //     ).width(),
-  //   )
-  // })
+    dropdown.find('.my-button').simulate('click');
+    await sleep(500);
+    expect(getPopupDomNode(dropdown).getAttribute('style')).toEqual(
+      expect.stringContaining('min-width: 100px'),
+    );
+  });
+
+  it('user pass minOverlayWidthMatchTrigger', async () => {
+    const overlayWidth = 50;
+    const overlay = <div style={{ width: overlayWidth }}>Test</div>;
+
+    const dropdown = mount(
+      <Dropdown trigger={['click']} overlay={overlay} minOverlayWidthMatchTrigger={false}>
+        <button style={{ width: 100 }} className="my-button">
+          open
+        </button>
+      </Dropdown>,
+      div,
+    );
+
+    dropdown.find('.my-button').simulate('click');
+    await sleep(500);
+    expect(getPopupDomNode(dropdown).getAttribute('style')).not.toEqual(
+      expect.stringContaining('min-width: 100px'),
+    );
+  });
 
   it('should support default openClassName', () => {
     const overlay = <div style={{ width: 50 }}>Test</div>;
