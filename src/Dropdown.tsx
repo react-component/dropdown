@@ -44,10 +44,8 @@ function Dropdown(props: DropdownProps, ref) {
     ...otherProps
   } = props;
 
-  const [triggerVisible, setTriggerVisible] = React.useState(!!visible);
-  React.useEffect(() => {
-    setTriggerVisible(visible);
-  }, [visible]);
+  const [triggerVisible, setTriggerVisible] = React.useState<boolean>();
+  const mergedVisible = 'visible' in props ? visible : triggerVisible;
 
   const triggerRef = React.useRef(null);
   React.useImperativeHandle(ref, () => triggerRef.current);
@@ -116,16 +114,6 @@ function Dropdown(props: DropdownProps, ref) {
     return !alignPoint;
   };
 
-  const afterVisibleChange = visible => {
-    if (visible && getMinOverlayWidthMatchTrigger()) {
-      const overlayNode = triggerRef.current.getPopupDomNode();
-      const triggerNode = triggerRef.current.getRootDomNode();
-      if (triggerNode && overlayNode && triggerNode.offsetWidth > overlayNode.offsetWidth) {
-        overlayNode.style.minWidth = `${triggerNode.offsetWidth}px`;
-      }
-    }
-  };
-
   const getOpenClassName = () => {
     const { openClassName } = props;
     if (openClassName !== undefined) {
@@ -165,8 +153,8 @@ function Dropdown(props: DropdownProps, ref) {
       popupAlign={align}
       popupTransitionName={transitionName}
       popupAnimation={animation}
-      popupVisible={triggerVisible}
-      afterPopupVisibleChange={afterVisibleChange}
+      popupVisible={mergedVisible}
+      stretch={getMinOverlayWidthMatchTrigger() ? 'minWidth' : ''}
       popup={getMenuElementOrLambda()}
       onPopupVisibleChange={onVisibleChange}
       getPopupContainer={getPopupContainer}
