@@ -2,14 +2,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Menu, { Item as MenuItem, Divider } from 'rc-menu';
-import { sleep, getPopupDomNode } from './utils';
+import { sleep, getPopupDomNode, spyElementPrototypes } from './utils';
 import Dropdown from '../src';
 import placements from '../src/placements';
 import '../assets/index.less';
 
-// https://github.com/jsdom/jsdom/issues/135#issuecomment-68191941
-// mock jsdom env get offset value return 0
-Object.defineProperties(window.HTMLElement.prototype, {
+spyElementPrototypes(HTMLElement, {
   offsetLeft: {
     get: function() {
       return parseFloat(window.getComputedStyle(this).marginLeft) || 0;
@@ -28,11 +26,6 @@ Object.defineProperties(window.HTMLElement.prototype, {
   offsetWidth: {
     get: function() {
       return parseFloat(window.getComputedStyle(this).width) || 0;
-    },
-  },
-  width: {
-    get: function() {
-      return parseFloat(window.getComputedStyle(this).offsetWidth) || 0;
     },
   },
 });

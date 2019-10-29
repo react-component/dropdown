@@ -52,7 +52,7 @@ function Dropdown(props: DropdownProps, ref) {
 
   const getOverlayElement = (): React.ReactElement => {
     const { overlay } = props;
-    let overlayElement;
+    let overlayElement: React.ReactElement;
     if (typeof overlay === 'function') {
       overlayElement = overlay();
     } else {
@@ -62,14 +62,12 @@ function Dropdown(props: DropdownProps, ref) {
   };
 
   const onClick = e => {
+    const { onOverlayClick } = props;
     const overlayProps = getOverlayElement().props;
-    // do no call onVisibleChange, if you need click to hide, use onClick and control visible
-    if (!('visible' in props)) {
-      setTriggerVisible(false);
-    }
+    setTriggerVisible(false);
 
-    if (props.onOverlayClick) {
-      props.onOverlayClick(e);
+    if (onOverlayClick) {
+      onOverlayClick(e);
     }
     if (overlayProps.onClick) {
       overlayProps.onClick(e);
@@ -77,11 +75,10 @@ function Dropdown(props: DropdownProps, ref) {
   };
 
   const onVisibleChange = (visible: boolean) => {
-    if (!('visible' in props)) {
-      setTriggerVisible(visible);
-    }
-    if (typeof props.onVisibleChange === 'function') {
-      props.onVisibleChange(visible);
+    const { onVisibleChange } = props;
+    setTriggerVisible(visible);
+    if (typeof onVisibleChange === 'function') {
+      onVisibleChange(visible);
     }
   };
 
