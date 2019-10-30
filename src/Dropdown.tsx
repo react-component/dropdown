@@ -5,25 +5,24 @@ import { AnimationType, AlignType, BuildInPlacements, ActionType } from 'rc-trig
 import Placements from './placements';
 
 export interface DropdownProps extends Pick<TriggerProps, 'getPopupContainer' | 'children'> {
-  minOverlayWidthMatchTrigger: boolean;
-  onVisibleChange: (visible: boolean) => void;
-  onOverlayClick: (e: Event) => void;
-  prefixCls: string;
-  transitionName: string;
-  overlayClassName: string;
-  openClassName: string;
-  animation: AnimationType;
-  align: AlignType;
-  overlayStyle: React.CSSProperties;
-  placement: string;
-  placements: BuildInPlacements;
-  overlay: (() => React.ReactElement) | React.ReactElement;
-  trigger: ActionType | ActionType[];
-  alignPoint: boolean;
-  showAction: ActionType[];
-  hideAction: ActionType[];
-  visible: boolean;
-  defaultVisible: boolean;
+  minOverlayWidthMatchTrigger?: boolean;
+  onVisibleChange?: (visible: boolean) => void;
+  onOverlayClick?: (e: Event) => void;
+  prefixCls?: string;
+  transitionName?: string;
+  overlayClassName?: string;
+  openClassName?: string;
+  animation?: AnimationType;
+  align?: AlignType;
+  overlayStyle?: React.CSSProperties;
+  placement?: string;
+  placements?: BuildInPlacements;
+  overlay?: (() => React.ReactElement) | React.ReactElement;
+  trigger?: ActionType | ActionType[];
+  alignPoint?: boolean;
+  showAction?: ActionType[];
+  hideAction?: ActionType[];
+  visible?: boolean;
 }
 
 function Dropdown(props: DropdownProps, ref) {
