@@ -2,7 +2,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Menu, { Item as MenuItem, Divider } from 'rc-menu';
-import { sleep, getPopupDomNode, spyElementPrototypes } from './utils';
+import { spyElementPrototypes } from 'rc-util/lib/test/domHook';
+import { sleep, getPopupDomNode } from './utils';
 import Dropdown from '../src';
 import placements from '../src/placements';
 import '../assets/index.less';
@@ -31,16 +32,6 @@ spyElementPrototypes(HTMLElement, {
 });
 
 describe('dropdown', () => {
-  let div;
-  beforeEach(() => {
-    div = window.document.createElement('div');
-    window.document.body.appendChild(div);
-  });
-
-  afterEach(() => {
-    window.document.body.removeChild(div);
-  });
-
   it('default visible', () => {
     const dropdown = mount(
       <Dropdown overlay={<div className="check-for-visible">Test</div>} visible>
@@ -153,9 +144,7 @@ describe('dropdown', () => {
         );
       }
     }
-    const dropdown = mount(<Example />, {
-      attachTo: div,
-    });
+    const dropdown = mount(<Example />);
     dropdown.find('button').simulate('click');
     await sleep(500);
     expect(getPopupDomNode(dropdown).getAttribute('style')).toEqual(
@@ -197,7 +186,6 @@ describe('dropdown', () => {
           open
         </button>
       </Dropdown>,
-      div,
     );
 
     dropdown.find('.my-button').simulate('click');

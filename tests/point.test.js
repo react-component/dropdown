@@ -6,16 +6,6 @@ import placements from '../src/placements';
 import { sleep, getPopupDomNode } from './utils';
 
 describe('point', () => {
-  let container;
-  beforeEach(() => {
-    container = global.document.createElement('div');
-    global.document.body.appendChild(container);
-  });
-
-  afterEach(() => {
-    global.document.body.removeChild(container);
-  });
-
   it('click show', async () => {
     const overlay = (
       <div
@@ -40,7 +30,6 @@ describe('point', () => {
       >
         <button className="my-button">open</button>
       </Dropdown>,
-      { attachTo: container },
     );
 
     const pageStyle = {
