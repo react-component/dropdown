@@ -1,32 +1,32 @@
-/* eslint-disable no-console */
-import Dropdown from 'rc-dropdown';
-import Menu, { Item as MenuItem, Divider } from 'rc-menu';
-import 'rc-dropdown/assets/index.less';
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+/* eslint-disable no-console,react/button-has-type */
+import Menu, { Item as MenuItem, Divider } from 'rc-menu'
+import '../assets/index.less'
+import React, { Component } from 'react'
+import Dropdown from '../src'
 
 class Test extends Component {
   state = {
     visible: false,
-  };
-
-  onVisibleChange = (visible) => {
-    this.setState({
-      visible,
-    });
   }
 
-  selected = [];
+  onVisibleChange = visible => {
+    console.log('visible', visible)
+    this.setState({
+      visible,
+    })
+  }
+
+  selected = []
 
   saveSelected = ({ selectedKeys }) => {
-    this.selected = selectedKeys;
+    this.selected = selectedKeys
   }
 
   confirm = () => {
-    console.log(this.selected);
+    console.log(this.selected)
     this.setState({
       visible: false,
-    });
+    })
   }
 
   render() {
@@ -48,11 +48,12 @@ class Test extends Component {
               pointerEvents: 'visible',
             }}
             onClick={this.confirm}
-          >确定
+          >
+            确定
           </button>
         </MenuItem>
       </Menu>
-    );
+    )
 
     return (
       <Dropdown
@@ -65,12 +66,8 @@ class Test extends Component {
       >
         <button>open</button>
       </Dropdown>
-    );
+    )
   }
 }
 
-ReactDOM.render(
-  <div style={{ margin: 20 }}>
-    <Test />
-  </div>
-, document.getElementById('__react-content'));
+export default Test
