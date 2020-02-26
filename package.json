@@ -1,6 +1,6 @@
 {
   "name": "rc-dropdown",
-  "version": "3.0.0-alpha.0",
+  "version": "3.0.0",
   "description": "dropdown ui component for react",
   "keywords": [
     "react",
