@@ -121,6 +121,12 @@ var Dropdown = require('rc-dropdown');
           <td>true (false when set alignPoint)</td>
           <td>whether overlay's width must not be less than trigger's </td>
         </tr>
+        <tr>
+          <td>getPopupContainer</td>
+          <td>Function(menuDOMNode): HTMLElement</td>
+          <th>() => document.body</th>
+          <td>Where to render the DOM node of dropdown</td>
+        </tr>
     </tbody>
 </table>
 
