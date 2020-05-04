@@ -1,5 +1,10 @@
 @dropdownPrefixCls: rc-dropdown;
 
+@dropdown-arrow-width: 8px;
+@dropdown-distance: @dropdown-arrow-width + 4;
+@dropdown-arrow-color: #373737;
+@dropdown-overlay-shadow: 0 1px 5px #ccc;
+
 @font-face {
   font-family: 'anticon';
   src: url('//at.alicdn.com/t/font_1434092639_4910953.eot');
@@ -28,11 +33,11 @@
     position: relative;
     list-style-type: none;
     padding: 0;
-    margin: 2px 0 0 0;
+    margin: 2px 0 2px;
     text-align: left;
     background-color: #fff;
     border-radius: 3px;
-    box-shadow: 0 1px 5px #ccc;
+    box-shadow: @dropdown-overlay-shadow;
     background-clip: padding-box;
     border: 1px solid #ccc;
 
@@ -214,5 +219,70 @@
       transform-origin: 0% 100%;
       transform: scaleY(0);
     }
+  }
+}
+
+// arrows
+.@{dropdownPrefixCls}-arrow {
+  position: absolute;
+  border-width: @dropdown-arrow-width / 2;
+  border-color: transparent;
+  box-shadow: @dropdown-overlay-shadow;
+  border-style: solid;
+  transform: rotate(45deg);
+}
+
+.@{dropdownPrefixCls} {
+  // adjust padding
+  &-show-arrow&-placement-top,
+  &-show-arrow&-placement-topLeft,
+  &-show-arrow&-placement-topRight {
+    padding-bottom: 6px;
+  }
+
+  &-show-arrow&-placement-bottom,
+  &-show-arrow&-placement-bottomLeft,
+  &-show-arrow&-placement-bottomRight {
+    padding-top: 6px;
+  }
+
+  // top-*
+  &-placement-top &-arrow,
+  &-placement-topLeft &-arrow,
+  &-placement-topRight &-arrow {
+    bottom: @dropdown-distance - @dropdown-arrow-width;
+    border-top-color: white;
+  }
+
+  &-placement-top &-arrow {
+    left: 50%;
+  }
+
+  &-placement-topLeft &-arrow {
+    left: 15%;
+  }
+
+  &-placement-topRight &-arrow {
+    right: 15%;
+  }
+
+  // bottom-*
+  &-placement-bottom &-arrow,
+  &-placement-bottomLeft &-arrow,
+  &-placement-bottomRight &-arrow {
+    top: @dropdown-distance - @dropdown-arrow-width;
+    border-bottom-color: white;
+  }
+
+  &-placement-bottom &-arrow {
+    left: 50%;
+  }
+
+  &-placement-bottomLeft &-arrow {
+    left: 15%;
+  }
+
+  &-placement-bottomRight &-arrow {
+    right: 15%;
   }
 }

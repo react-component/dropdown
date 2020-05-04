@@ -242,4 +242,22 @@ describe('dropdown', () => {
     dropdown.find('.my-button').simulate('click');
     expect(getPopupDomNode(dropdown).classList.contains('rc-dropdown-hidden')).toBe(false);
   });
+
+  it('should support arrow', async () => {
+    const overlay = <div style={{ width: 50 }}>Test</div>;
+    const dropdown = mount(
+      <Dropdown arrow overlay={overlay} trigger={['click']}>
+        <button style={{ width: 100 }} className="my-button">
+          open
+        </button>
+      </Dropdown>,
+    );
+
+    dropdown.find('.my-button').simulate('click');
+    await sleep(500);
+    expect(getPopupDomNode(dropdown).classList.contains('rc-dropdown-show-arrow')).toBe(true);
+    expect(
+      getPopupDomNode(dropdown).firstElementChild.classList.contains('rc-dropdown-arrow'),
+    ).toBe(true);
+  });
 });
