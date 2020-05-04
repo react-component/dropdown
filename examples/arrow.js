@@ -36,6 +36,18 @@ export default function Arrow() {
           <button style={{ width: 100 }}>open</button>
         </Dropdown>
       </div>
+      <div>
+        <Dropdown
+          placement="topLeft"
+          arrow
+          trigger={['click']}
+          overlay={menu}
+          animation="slide-up"
+          onVisibleChange={onVisibleChange}
+        >
+          <button style={{ width: 100 }}>open</button>
+        </Dropdown>
+      </div>
     </div>
   );
 }
