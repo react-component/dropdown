@@ -6,6 +6,7 @@ import Placements from './placements';
 
 export interface DropdownProps extends Pick<TriggerProps, 'getPopupContainer' | 'children'> {
   minOverlayWidthMatchTrigger?: boolean;
+  arrow?: boolean;
   onVisibleChange?: (visible: boolean) => void;
   onOverlayClick?: (e: Event) => void;
   prefixCls?: string;
@@ -27,6 +28,7 @@ export interface DropdownProps extends Pick<TriggerProps, 'getPopupContainer' | 
 
 function Dropdown(props: DropdownProps, ref) {
   const {
+    arrow = false,
     prefixCls = 'rc-dropdown',
     transitionName,
     animation,
@@ -90,7 +92,12 @@ function Dropdown(props: DropdownProps, ref) {
     if (typeof overlayElement.type === 'string') {
       delete extraOverlayProps.prefixCls;
     }
-    return React.cloneElement(overlayElement, extraOverlayProps);
+    return (
+      <React.Fragment>
+        <div className={`${prefixCls}-arrow`}>{/* Insert the arrow element here */}</div>
+        {React.cloneElement(overlayElement, extraOverlayProps)}
+      </React.Fragment>
+    );
   };
 
   const getMenuElementOrLambda = () => {
@@ -134,12 +141,16 @@ function Dropdown(props: DropdownProps, ref) {
     triggerHideAction = ['click'];
   }
 
+  const overlayClass = arrow
+    ? `${overlayClassName || ''} ${prefixCls}-show-arrow`
+    : `${overlayClassName || ''}`;
+
   return (
     <Trigger
       {...otherProps}
       prefixCls={prefixCls}
       ref={triggerRef}
-      popupClassName={overlayClassName}
+      popupClassName={overlayClass}
       popupStyle={overlayStyle}
       builtinPlacements={placements}
       action={trigger}
