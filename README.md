@@ -23,7 +23,7 @@ react dropdown component
 [download-image]: https://img.shields.io/npm/dm/rc-dropdown.svg?style=flat-square
 [download-url]: https://npmjs.org/package/rc-dropdown
 [bundlephobia-url]: https://bundlephobia.com/result?p=rc-dropdown
-[bundlephobia-img]: https://badgen.net/bundlephobia/minzip/rc-dropdown
+[bundlephobia-image]: https://badgen.net/bundlephobia/minzip/rc-dropdown
 
 ## Screenshot
 
