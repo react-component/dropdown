@@ -8,6 +8,7 @@ react dropdown component
 [![Dependencies][david-image]](david-url)
 [![DevDependencies][david-dev-image]][david-dev-url]
 [![npm download][download-image]][download-url]
+[![bundle size][bundlephobia-image]][bundlephobia-url]
 
 [npm-image]: http://img.shields.io/npm/v/rc-dropdown.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/rc-dropdown
@@ -21,6 +22,8 @@ react dropdown component
 [david-dev-image]: https://img.shields.io/david/react-component/dropdown.svg?style=flat-square&type=dev
 [download-image]: https://img.shields.io/npm/dm/rc-dropdown.svg?style=flat-square
 [download-url]: https://npmjs.org/package/rc-dropdown
+[bundlephobia-url]: https://bundlephobia.com/result?p=rc-dropdown
+[bundlephobia-img]: https://badgen.net/bundlephobia/minzip/rc-dropdown
 
 ## Screenshot
 
