@@ -4,6 +4,9 @@ import classNames from 'classnames';
 import { AnimationType, AlignType, BuildInPlacements, ActionType } from 'rc-trigger/lib/interface';
 import Placements from './placements';
 
+// Used for accessibility
+let uuid = 0;
+
 export interface DropdownProps extends Pick<TriggerProps, 'getPopupContainer' | 'children'> {
   minOverlayWidthMatchTrigger?: boolean;
   arrow?: boolean;
@@ -30,6 +33,7 @@ function Dropdown(props: DropdownProps, ref) {
   const {
     arrow = false,
     prefixCls = 'rc-dropdown',
+    children,
     transitionName,
     animation,
     align,
@@ -83,10 +87,63 @@ function Dropdown(props: DropdownProps, ref) {
     }
   };
 
+  const getMinOverlayWidthMatchTrigger = () => {
+    const { minOverlayWidthMatchTrigger, alignPoint } = props;
+    if ('minOverlayWidthMatchTrigger' in props) {
+      return minOverlayWidthMatchTrigger;
+    }
+
+    return !alignPoint;
+  };
+
+  const getOpenClassName = () => {
+    const { openClassName } = props;
+    if (openClassName !== undefined) {
+      return openClassName;
+    }
+    return `${prefixCls}-open`;
+  };
+
+  // ======================= Children ========================
+  let childNode: React.ReactElement = children;
+  const childrenProps = children.props ? children.props : {};
+
+  const [innerId, setInnerId] = React.useState<string>();
+  const mergedId = childrenProps.id || innerId;
+  const popupId = `${mergedId}-popup`;
+
+  // Dynamic add id if needed
+  React.useEffect(() => {
+    setInnerId(`${prefixCls}-${uuid}`);
+    uuid += 1;
+  }, []);
+
+  if (children) {
+    const additionalProps: { className?: string } = {};
+
+    if (triggerVisible) {
+      additionalProps.className = classNames(childrenProps.className, getOpenClassName());
+    }
+
+    childNode = React.cloneElement(children, {
+      'aria-haspopup': 'listbox',
+      'aria-controls': popupId,
+      'aria-expanded': triggerVisible,
+      ...childrenProps,
+      ...additionalProps,
+      id: mergedId,
+    });
+  }
+
+  // ========================= Popup =========================
   const getMenuElement = () => {
     const overlayElement = getOverlayElement();
     const extraOverlayProps = {
       prefixCls: `${prefixCls}-menu`,
+      id: popupId,
+      tabIndex: -1,
+      role: 'listbox',
+      // 'aria-activedescendant'
       onClick,
     };
     if (typeof overlayElement.type === 'string') {
@@ -108,34 +165,7 @@ function Dropdown(props: DropdownProps, ref) {
     return getMenuElement();
   };
 
-  const getMinOverlayWidthMatchTrigger = () => {
-    const { minOverlayWidthMatchTrigger, alignPoint } = props;
-    if ('minOverlayWidthMatchTrigger' in props) {
-      return minOverlayWidthMatchTrigger;
-    }
-
-    return !alignPoint;
-  };
-
-  const getOpenClassName = () => {
-    const { openClassName } = props;
-    if (openClassName !== undefined) {
-      return openClassName;
-    }
-    return `${prefixCls}-open`;
-  };
-
-  const renderChildren = () => {
-    const { children } = props;
-    const childrenProps = children.props ? children.props : {};
-    const childClassName = classNames(childrenProps.className, getOpenClassName());
-    return triggerVisible && children
-      ? React.cloneElement(children, {
-          className: childClassName,
-        })
-      : children;
-  };
-
+  // ======================== Trigger ========================
   let triggerHideAction = hideAction;
   if (!triggerHideAction && trigger.indexOf('contextMenu') !== -1) {
     triggerHideAction = ['click'];
@@ -145,6 +175,7 @@ function Dropdown(props: DropdownProps, ref) {
     ? `${overlayClassName || ''} ${prefixCls}-show-arrow`
     : `${overlayClassName || ''}`;
 
+  // ======================== Render =========================
   return (
     <Trigger
       {...otherProps}
@@ -166,7 +197,7 @@ function Dropdown(props: DropdownProps, ref) {
       onPopupVisibleChange={onVisibleChange}
       getPopupContainer={getPopupContainer}
     >
-      {renderChildren()}
+      {childNode}
     </Trigger>
   );
 }
