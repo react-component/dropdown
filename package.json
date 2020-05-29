@@ -61,7 +61,7 @@
     "react-dom": "*"
   },
   "dependencies": {
-    "babel-runtime": "^6.26.0",
+    "@babel/runtime": "^7.10.1",
     "classnames": "^2.2.6",
     "rc-trigger": "^4.0.0"
   }
