@@ -93,10 +93,10 @@ function Dropdown(props: DropdownProps, ref) {
       delete extraOverlayProps.prefixCls;
     }
     return (
-      <React.Fragment>
-        <div className={`${prefixCls}-arrow`}>{/* Insert the arrow element here */}</div>
+      <>
+        {arrow && <div className={`${prefixCls}-arrow`} />}
         {React.cloneElement(overlayElement, extraOverlayProps)}
-      </React.Fragment>
+      </>
     );
   };
 
@@ -141,16 +141,14 @@ function Dropdown(props: DropdownProps, ref) {
     triggerHideAction = ['click'];
   }
 
-  const overlayClass = arrow
-    ? `${overlayClassName || ''} ${prefixCls}-show-arrow`
-    : `${overlayClassName || ''}`;
-
   return (
     <Trigger
       {...otherProps}
       prefixCls={prefixCls}
       ref={triggerRef}
-      popupClassName={overlayClass}
+      popupClassName={classNames(overlayClassName, {
+        [`${prefixCls}-show-arrow`]: arrow,
+      })}
       popupStyle={overlayStyle}
       builtinPlacements={placements}
       action={trigger}
