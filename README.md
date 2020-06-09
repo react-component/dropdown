@@ -73,7 +73,7 @@ var Dropdown = require('rc-dropdown');
         <tr>
           <td>prefixCls</td>
           <td>String</td>
-          <td>rc-tooltip</td>
+          <td>rc-dropdown</td>
           <td>prefix class name</td>
         </tr>
         <tr>
