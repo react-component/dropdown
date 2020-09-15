@@ -4,7 +4,11 @@ import classNames from 'classnames';
 import { AnimationType, AlignType, BuildInPlacements, ActionType } from 'rc-trigger/lib/interface';
 import Placements from './placements';
 
-export interface DropdownProps extends Pick<TriggerProps, 'getPopupContainer' | 'children'> {
+export interface DropdownProps
+  extends Pick<
+    TriggerProps,
+    'getPopupContainer' | 'children' | 'mouseEnterDelay' | 'mouseLeaveDelay'
+  > {
   minOverlayWidthMatchTrigger?: boolean;
   arrow?: boolean;
   onVisibleChange?: (visible: boolean) => void;
