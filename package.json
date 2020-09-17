@@ -63,6 +63,6 @@
   "dependencies": {
     "@babel/runtime": "^7.10.1",
     "classnames": "^2.2.6",
-    "rc-trigger": "^4.0.0"
+    "rc-trigger": "^5.0.4"
   }
 }
