@@ -65,7 +65,7 @@ function Dropdown(props: DropdownProps, ref) {
     }
     return overlayElement;
   };
-  
+
   const onVisibleChange = (visible: boolean) => {
     const { onVisibleChange } = props;
     setTriggerVisible(visible);
