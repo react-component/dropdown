@@ -89,6 +89,12 @@ var Dropdown = require('rc-dropdown');
           <td>part of dropdown menu's animation css class name</td>
         </tr>
         <tr>
+          <td>placement</td>
+          <td>String</td>
+          <td>bottomLeft</td>
+          <td>Position of menu item. There are: topLeft, topCenter, topRight, bottomLeft, bottomCenter, bottomRight </td>
+        </tr>
+        <tr>
           <td>onVisibleChange</td>
           <td>Function</td>
           <td></td>
