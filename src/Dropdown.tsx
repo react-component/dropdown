@@ -66,24 +66,24 @@ function Dropdown(props: DropdownProps, ref) {
     return overlayElement;
   };
 
+  const onVisibleChange = (visible: boolean) => {
+    const { onVisibleChange } = props;
+    setTriggerVisible(visible);
+    if (typeof onVisibleChange === 'function') {
+      onVisibleChange(visible);
+    }
+  };
+
   const onClick = e => {
     const { onOverlayClick } = props;
     const overlayProps = getOverlayElement().props;
-    setTriggerVisible(false);
+    onVisibleChange(false);
 
     if (onOverlayClick) {
       onOverlayClick(e);
     }
     if (overlayProps.onClick) {
       overlayProps.onClick(e);
-    }
-  };
-
-  const onVisibleChange = (visible: boolean) => {
-    const { onVisibleChange } = props;
-    setTriggerVisible(visible);
-    if (typeof onVisibleChange === 'function') {
-      onVisibleChange(visible);
     }
   };
 
