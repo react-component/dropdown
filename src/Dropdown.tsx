@@ -7,7 +7,7 @@ import Placements from './placements';
 export interface DropdownProps
   extends Pick<
     TriggerProps,
-    'getPopupContainer' | 'children' | 'mouseEnterDelay' | 'mouseLeaveDelay'
+    'getPopupContainer' | 'children' | 'mouseEnterDelay' | 'mouseLeaveDelay' | 'onPopupAlign'
   > {
   minOverlayWidthMatchTrigger?: boolean;
   arrow?: boolean;
@@ -66,7 +66,7 @@ function Dropdown(props: DropdownProps, ref) {
     return overlayElement;
   };
 
-  const onClick = e => {
+  const onClick = (e) => {
     const { onOverlayClick } = props;
     const overlayProps = getOverlayElement().props;
     setTriggerVisible(false);
