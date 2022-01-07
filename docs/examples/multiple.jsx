@@ -1,8 +1,7 @@
-/* eslint-disable no-console,react/button-has-type */
 import Menu, { Item as MenuItem, Divider } from 'rc-menu'
-import '../assets/index.less'
+import '../../assets/index.less'
 import React, { Component } from 'react'
-import Dropdown from '../src'
+import Dropdown from 'rc-dropdown'
 
 class Test extends Component {
   state = {

@@ -1,8 +1,7 @@
-/* eslint-disable no-console */
 import Menu, { Item as MenuItem } from 'rc-menu'
-import '../assets/index.less'
+import '../../assets/index.less'
 import React from 'react'
-import Dropdown from '../src'
+import Dropdown from 'rc-dropdown'
 
 function ContextMenu() {
   const menu = (

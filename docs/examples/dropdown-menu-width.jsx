@@ -1,8 +1,7 @@
-/* eslint-disable no-console,react/button-has-type */
 import Menu, { Item as MenuItem } from 'rc-menu'
-import '../assets/index.less'
+import '../../assets/index.less'
 import React, { PureComponent } from 'react'
-import Dropdown from '../src'
+import Dropdown from 'rc-dropdown'
 
 class Example extends PureComponent {
   state = { longList: false }
