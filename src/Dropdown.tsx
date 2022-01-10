@@ -7,7 +7,12 @@ import Placements from './placements';
 export interface DropdownProps
   extends Pick<
     TriggerProps,
-    'getPopupContainer' | 'children' | 'mouseEnterDelay' | 'mouseLeaveDelay' | 'onPopupAlign'
+    | 'getPopupContainer'
+    | 'children'
+    | 'mouseEnterDelay'
+    | 'mouseLeaveDelay'
+    | 'onPopupAlign'
+    | 'builtinPlacements'
   > {
   minOverlayWidthMatchTrigger?: boolean;
   arrow?: boolean;
@@ -147,6 +152,7 @@ function Dropdown(props: DropdownProps, ref) {
 
   return (
     <Trigger
+      builtinPlacements={placements}
       {...otherProps}
       prefixCls={prefixCls}
       ref={triggerRef}
@@ -154,7 +160,6 @@ function Dropdown(props: DropdownProps, ref) {
         [`${prefixCls}-show-arrow`]: arrow,
       })}
       popupStyle={overlayStyle}
-      builtinPlacements={placements}
       action={trigger}
       showAction={showAction}
       hideAction={triggerHideAction || []}
