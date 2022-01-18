@@ -50,7 +50,8 @@ describe('accessible dropdown', () => {
     // Select menu item and confirm focus return to the trigger
     act(() => {
       const menuItem = container.querySelector('.my-menuitem');
-      menuItem.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 13 })); // Enter
+      menuItem.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 40, bubbles: true })); // Down arrow
+      menuItem.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 13, bubbles: true })); // Enter
     });
     await sleep(200);
     expect(document.activeElement.className).toContain('my-button');
@@ -71,7 +72,7 @@ describe('accessible dropdown', () => {
     expect(document.activeElement.className).toContain('rc-dropdown-menu');
 
     // Close menu with Tab
-    act(() => window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 27 }))); // Esc
+    act(() => window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 }))); // Tab
     await sleep(200);
     expect(document.activeElement.className).toContain('my-button');
   });
