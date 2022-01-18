@@ -96,7 +96,6 @@ describe('dropdown', () => {
           open
         </button>
       </Dropdown>,
-      { attachTo: document.body },
     );
 
     dropdown.find('.my-btn').simulate('click');
