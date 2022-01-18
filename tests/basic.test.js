@@ -1,31 +1,34 @@
 /* eslint-disable react/button-has-type,react/no-find-dom-node,react/no-render-return-value,object-shorthand,func-names,max-len */
 import React from 'react';
 import { mount } from 'enzyme';
-import Menu, { Item as MenuItem, Divider } from 'rc-menu';
+import Menu, { Divider, Item as MenuItem } from 'rc-menu';
 import { spyElementPrototypes } from 'rc-util/lib/test/domHook';
-import { sleep, getPopupDomNode } from './utils';
+import { getPopupDomNode, sleep } from './utils';
 import Dropdown from '../src';
 import placements from '../src/placements';
 import '../assets/index.less';
 
 spyElementPrototypes(HTMLElement, {
+  offsetParent: {
+    get: () => document.body,
+  },
   offsetLeft: {
-    get: function() {
+    get: function () {
       return parseFloat(window.getComputedStyle(this).marginLeft) || 0;
     },
   },
   offsetTop: {
-    get: function() {
+    get: function () {
       return parseFloat(window.getComputedStyle(this).marginTop) || 0;
     },
   },
   offsetHeight: {
-    get: function() {
+    get: function () {
       return parseFloat(window.getComputedStyle(this).height) || 0;
     },
   },
   offsetWidth: {
-    get: function() {
+    get: function () {
       return parseFloat(window.getComputedStyle(this).width) || 0;
     },
   },
@@ -99,9 +102,9 @@ describe('dropdown', () => {
     await sleep(500);
     expect(getPopupDomNode(dropdown).getAttribute('style')).toEqual(
       expect.stringContaining(
-        `left: -${999 - buttonStyle.width - placements.bottomLeft.offset[0]}px; top: -${999 -
-          buttonStyle.height -
-          placements.bottomLeft.offset[1]}px;`,
+        `left: -${999 - buttonStyle.width - placements.bottomLeft.offset[0]}px; top: -${
+          999 - buttonStyle.height - placements.bottomLeft.offset[1]
+        }px;`,
       ),
     );
   });
@@ -134,7 +137,7 @@ describe('dropdown', () => {
         return (
           <Dropdown
             trigger={['click']}
-            ref={node => {
+            ref={(node) => {
               this.trigger = node;
             }}
             overlay={<Menu>{menuItems}</Menu>}
@@ -149,8 +152,9 @@ describe('dropdown', () => {
     await sleep(500);
     expect(getPopupDomNode(dropdown).getAttribute('style')).toEqual(
       expect.stringContaining(
-        `left: -${999 - placements.bottomLeft.offset[0]}px; top: -${999 -
-          placements.bottomLeft.offset[1]}px;`,
+        `left: -${999 - placements.bottomLeft.offset[0]}px; top: -${
+          999 - placements.bottomLeft.offset[1]
+        }px;`,
       ),
     );
 

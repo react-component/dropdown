@@ -1,8 +1,7 @@
-/* eslint-disable no-console,react/button-has-type */
 import Menu, { Item as MenuItem, Divider } from 'rc-menu'
-import '../assets/index.less'
+import '../../assets/index.less'
 import React from 'react'
-import Dropdown from '../src'
+import Dropdown from 'rc-dropdown'
 
 function onSelect({ key }) {
   console.log(`${key} selected`)
