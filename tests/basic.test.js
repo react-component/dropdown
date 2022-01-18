@@ -9,6 +9,9 @@ import placements from '../src/placements';
 import '../assets/index.less';
 
 spyElementPrototypes(HTMLElement, {
+  offsetParent: {
+    get: () => document.body,
+  },
   offsetLeft: {
     get: function () {
       return parseFloat(window.getComputedStyle(this).marginLeft) || 0;
@@ -93,6 +96,7 @@ describe('dropdown', () => {
           open
         </button>
       </Dropdown>,
+      { attachTo: document.body },
     );
 
     dropdown.find('.my-btn').simulate('click');
