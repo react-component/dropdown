@@ -34,7 +34,7 @@ spyElementPrototypes(HTMLElement, {
   },
 });
 
-describe('dropdown', () => {
+describe('Dropdown', () => {
   it('default visible', () => {
     const dropdown = mount(
       <Dropdown overlay={<div className="check-for-visible">Test</div>} visible>
