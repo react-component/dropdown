@@ -20,6 +20,17 @@ export default function useAccessibility({
   menuClassName,
   onVisibleChange,
 }: UseAccessibilityProps) {
+  const handleCloseMenuAndReturnFocus = () => {
+    if (visible && triggerRef.current) {
+      if (triggerRef.current.triggerRef.current) {
+        triggerRef.current.triggerRef.current.focus();
+      }
+      setTriggerVisible(false);
+      if (typeof onVisibleChange === 'function') {
+        onVisibleChange(false);
+      }
+    }
+  };
   const handleKeyDown = (event) => {
     switch (event.keyCode) {
       case ESC:
@@ -32,24 +43,11 @@ export default function useAccessibility({
         break;
     }
   };
-
-  const handleCloseMenuAndReturnFocus = () => {
-    if (visible && triggerRef.current) {
-      if (triggerRef.current.triggerRef.current) {
-        triggerRef.current.triggerRef.current.focus();
-      }
-      setTriggerVisible(false);
-      if (typeof onVisibleChange === 'function') {
-        onVisibleChange(false);
-      }
-    }
-  };
-
   const focusOpenedMenu = () => {
     if (menuRef.current) {
       const menuList = menuRef.current.getElementsByClassName(menuClassName)[0];
       if (menuList) {
-        menuList['focus']();
+        menuList['focus'](); // eslint-disable-line @typescript-eslint/dot-notation
       }
     }
   };
@@ -65,7 +63,7 @@ export default function useAccessibility({
       };
     }
     return () => null;
-  }, [visible]);
+  }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const returnFocus = () => {
     if (visible && triggerRef.current) {

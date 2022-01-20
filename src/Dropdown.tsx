@@ -1,7 +1,13 @@
 import * as React from 'react';
-import Trigger, { TriggerProps } from 'rc-trigger';
+import type { TriggerProps } from 'rc-trigger';
+import Trigger from 'rc-trigger';
 import classNames from 'classnames';
-import { AnimationType, AlignType, BuildInPlacements, ActionType } from 'rc-trigger/lib/interface';
+import type {
+  AnimationType,
+  AlignType,
+  BuildInPlacements,
+  ActionType,
+} from 'rc-trigger/lib/interface';
 import Placements from './placements';
 import useAccessibility from './hooks/useAccessibility';
 
@@ -98,11 +104,11 @@ function Dropdown(props: DropdownProps, ref) {
     returnFocus();
   };
 
-  const onVisibleChange = (visible: boolean) => {
+  const visibleChangeHandler = (isVisible: boolean) => {
     const { onVisibleChange } = props;
-    setTriggerVisible(visible);
+    setTriggerVisible(isVisible);
     if (typeof onVisibleChange === 'function') {
-      onVisibleChange(visible);
+      onVisibleChange(isVisible);
     }
   };
 
@@ -184,7 +190,7 @@ function Dropdown(props: DropdownProps, ref) {
       popupVisible={mergedVisible}
       stretch={getMinOverlayWidthMatchTrigger() ? 'minWidth' : ''}
       popup={getMenuElementOrLambda()}
-      onPopupVisibleChange={onVisibleChange}
+      onPopupVisibleChange={visibleChangeHandler}
       getPopupContainer={getPopupContainer}
     >
       {renderChildren()}
