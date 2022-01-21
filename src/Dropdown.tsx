@@ -1,8 +1,15 @@
 import * as React from 'react';
-import Trigger, { TriggerProps } from 'rc-trigger';
+import type { TriggerProps } from 'rc-trigger';
+import Trigger from 'rc-trigger';
 import classNames from 'classnames';
-import { AnimationType, AlignType, BuildInPlacements, ActionType } from 'rc-trigger/lib/interface';
+import type {
+  AnimationType,
+  AlignType,
+  BuildInPlacements,
+  ActionType,
+} from 'rc-trigger/lib/interface';
 import Placements from './placements';
+import useAccessibility from './hooks/useAccessibility';
 
 export interface DropdownProps
   extends Pick<
@@ -60,6 +67,18 @@ function Dropdown(props: DropdownProps, ref) {
   const triggerRef = React.useRef(null);
   React.useImperativeHandle(ref, () => triggerRef.current);
 
+  const menuRef = React.useRef(null);
+  const menuClassName = `${prefixCls}-menu`;
+
+  const { returnFocus } = useAccessibility({
+    visible: mergedVisible,
+    setTriggerVisible,
+    triggerRef,
+    menuRef,
+    menuClassName,
+    onVisibleChange: props.onVisibleChange,
+  });
+
   const getOverlayElement = (): React.ReactElement => {
     const { overlay } = props;
     let overlayElement: React.ReactElement;
@@ -82,20 +101,21 @@ function Dropdown(props: DropdownProps, ref) {
     if (overlayProps.onClick) {
       overlayProps.onClick(e);
     }
+    returnFocus();
   };
 
-  const onVisibleChange = (visible: boolean) => {
+  const visibleChangeHandler = (isVisible: boolean) => {
     const { onVisibleChange } = props;
-    setTriggerVisible(visible);
+    setTriggerVisible(isVisible);
     if (typeof onVisibleChange === 'function') {
-      onVisibleChange(visible);
+      onVisibleChange(isVisible);
     }
   };
 
   const getMenuElement = () => {
     const overlayElement = getOverlayElement();
     const extraOverlayProps = {
-      prefixCls: `${prefixCls}-menu`,
+      prefixCls: menuClassName,
       onClick,
     };
     if (typeof overlayElement.type === 'string') {
@@ -104,7 +124,7 @@ function Dropdown(props: DropdownProps, ref) {
     return (
       <>
         {arrow && <div className={`${prefixCls}-arrow`} />}
-        {React.cloneElement(overlayElement, extraOverlayProps)}
+        <div ref={menuRef}>{React.cloneElement(overlayElement, extraOverlayProps)}</div>
       </>
     );
   };
@@ -170,7 +190,7 @@ function Dropdown(props: DropdownProps, ref) {
       popupVisible={mergedVisible}
       stretch={getMinOverlayWidthMatchTrigger() ? 'minWidth' : ''}
       popup={getMenuElementOrLambda()}
-      onPopupVisibleChange={onVisibleChange}
+      onPopupVisibleChange={visibleChangeHandler}
       getPopupContainer={getPopupContainer}
     >
       {renderChildren()}
