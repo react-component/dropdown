@@ -1,7 +1,13 @@
 import * as React from 'react';
-import Trigger, { TriggerProps } from 'rc-trigger';
+import Trigger from 'rc-trigger';
+import type { TriggerProps } from 'rc-trigger';
 import classNames from 'classnames';
-import { AnimationType, AlignType, BuildInPlacements, ActionType } from 'rc-trigger/lib/interface';
+import type {
+  AnimationType,
+  AlignType,
+  BuildInPlacements,
+  ActionType,
+} from 'rc-trigger/lib/interface';
 import Placements from './placements';
 
 export interface DropdownProps
@@ -84,11 +90,11 @@ function Dropdown(props: DropdownProps, ref) {
     }
   };
 
-  const onVisibleChange = (visible: boolean) => {
-    const { onVisibleChange } = props;
-    setTriggerVisible(visible);
-    if (typeof onVisibleChange === 'function') {
-      onVisibleChange(visible);
+  const onVisibleChange = (newVisible: boolean) => {
+    const { onVisibleChange: onVisibleChangeProp } = props;
+    setTriggerVisible(newVisible);
+    if (typeof onVisibleChangeProp === 'function') {
+      onVisibleChangeProp(newVisible);
     }
   };
 
@@ -138,7 +144,7 @@ function Dropdown(props: DropdownProps, ref) {
     const { children } = props;
     const childrenProps = children.props ? children.props : {};
     const childClassName = classNames(childrenProps.className, getOpenClassName());
-    return triggerVisible && children
+    return mergedVisible && children
       ? React.cloneElement(children, {
           className: childClassName,
         })
