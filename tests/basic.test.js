@@ -42,6 +42,26 @@ describe('dropdown', () => {
       </Dropdown>,
     );
     expect(getPopupDomNode(dropdown) instanceof HTMLDivElement).toBeTruthy();
+    expect(dropdown.find('.my-button').hasClass('rc-dropdown-open')).toBe(true);
+  });
+
+  it('supports constrolled visible prop', () => {
+    const onVisibleChange = jest.fn();
+    const dropdown = mount(
+      <Dropdown
+        overlay={<div className="check-for-visible">Test</div>}
+        visible
+        trigger={['click']}
+        onVisibleChange={onVisibleChange}
+      >
+        <button className="my-button">open</button>
+      </Dropdown>,
+    );
+    expect(getPopupDomNode(dropdown) instanceof HTMLDivElement).toBeTruthy();
+    expect(dropdown.find('.my-button').hasClass('rc-dropdown-open')).toBe(true);
+
+    dropdown.find('.my-button').simulate('click');
+    expect(onVisibleChange).toHaveBeenCalledWith(false);
   });
 
   it('simply works', async () => {
