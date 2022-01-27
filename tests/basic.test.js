@@ -323,10 +323,5 @@ describe('dropdown', () => {
     window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 })); // Tab
     await sleep(200);
     expect(document.activeElement.className).toContain('my-button');
-
-    // Open menu
-    trigger.simulate('click');
-    await sleep(200);
-    expect(getPopupDomNode(dropdown).classList.contains('rc-dropdown-hidden')).toBe(false);
   });
 });

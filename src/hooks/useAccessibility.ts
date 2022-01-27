@@ -39,8 +39,6 @@ export default function useAccessibility({
       case TAB:
         handleCloseMenuAndReturnFocus();
         break;
-      default:
-        break;
     }
   };
   const focusOpenedMenu = () => {
