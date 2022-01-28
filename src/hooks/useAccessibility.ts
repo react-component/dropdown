@@ -67,7 +67,7 @@ export default function useAccessibility({
     if (visible && triggerRef.current) {
       if (triggerRef.current.triggerRef.current) {
         setTimeout(() => {
-          triggerRef.current.triggerRef.current.focus();
+          triggerRef.current?.triggerRef?.current?.focus();
         }, 100);
       }
     }
