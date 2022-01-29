@@ -43,9 +43,9 @@ export default function useAccessibility({
   };
   const focusOpenedMenu = () => {
     if (menuRef.current) {
-      const menuList = menuRef.current.classList.contains(menuClassName)
+      const menuList = menuRef.current.className.includes(menuClassName)
         ? menuRef.current
-        : menuRef.current.getElementsByClassName(menuClassName)[0];
+        : menuRef.current.querySelector(menuClassName);
       if (menuList) {
         menuList['focus'](); // eslint-disable-line @typescript-eslint/dot-notation
       }

@@ -323,4 +323,43 @@ describe('dropdown', () => {
     await sleep(200);
     expect(document.activeElement.className).toContain('my-button');
   });
+
+  it('keyboard should work if menu is wrapped', async () => {
+    const overlay = (
+      <div>
+        <Menu>
+          <MenuItem key="1">
+            <span className="my-menuitem">one</span>
+          </MenuItem>
+          <MenuItem key="2">two</MenuItem>
+        </Menu>
+      </div>
+    );
+    const dropdown = mount(
+      <Dropdown trigger={['click']} overlay={overlay} className="trigger-button">
+        <button className="my-button">open</button>
+      </Dropdown>,
+    );
+    const trigger = dropdown.find('.my-button');
+
+    // Open menu
+    trigger.simulate('click');
+    await sleep(200);
+    expect(getPopupDomNode(dropdown).classList.contains('rc-dropdown-hidden')).toBe(false);
+
+    // Close menu with Esc
+    window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 27 })); // Esc
+    await sleep(200);
+    expect(document.activeElement.className).toContain('my-button');
+
+    // Open menu
+    trigger.simulate('click');
+    await sleep(200);
+    expect(getPopupDomNode(dropdown).classList.contains('rc-dropdown-hidden')).toBe(false);
+
+    // Close menu with Tab
+    window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 })); // Tab
+    await sleep(200);
+    expect(document.activeElement.className).toContain('my-button');
+  });
 });
