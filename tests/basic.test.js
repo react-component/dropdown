@@ -1,14 +1,10 @@
 /* eslint-disable react/button-has-type,react/no-find-dom-node,react/no-render-return-value,object-shorthand,func-names,max-len */
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { mount, shallow } from 'enzyme';
-import { act } from 'react-dom/test-utils';
+import { mount } from 'enzyme';
 import Menu, { Divider, Item as MenuItem } from 'rc-menu';
 import { spyElementPrototypes } from 'rc-util/lib/test/domHook';
+import React from 'react';
 import { getPopupDomNode, sleep } from './utils';
-import Dropdown from '../src';
-import placements from '../src/placements';
-import '../assets/index.less';
+import Dropdown from '../src/Dropdown';
 
 spyElementPrototypes(HTMLElement, {
   offsetParent: {
@@ -98,6 +94,7 @@ describe('dropdown', () => {
     dropdown.find('.my-button').simulate('click');
     expect(clicked).toBeUndefined();
     expect(getPopupDomNode(dropdown).classList.contains('rc-dropdown-hidden')).toBe(false);
+    expect(dropdown).toMatchSnapshot();
 
     dropdown.find('.my-menuitem').simulate('click');
     expect(clicked).toBe('1');

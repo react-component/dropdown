@@ -1,0 +1,730 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dropdown simply works 1`] = `
+<ForwardRef(Dropdown)
+  onOverlayClick={[Function]}
+  overlay={
+    <Menu
+      onClick={[Function]}
+      style={
+        Object {
+          "width": 140,
+        }
+      }
+    >
+      <MenuItem>
+        <span
+          className="my-menuitem"
+        >
+          one
+        </span>
+      </MenuItem>
+      <Divider />
+      <MenuItem>
+        two
+      </MenuItem>
+    </Menu>
+  }
+  trigger={
+    Array [
+      "click",
+    ]
+  }
+>
+  <Trigger
+    action={
+      Array [
+        "click",
+      ]
+    }
+    afterPopupVisibleChange={[Function]}
+    autoDestroy={false}
+    blurDelay={0.15}
+    builtinPlacements={
+      Object {
+        "bottomCenter": Object {
+          "offset": Array [
+            0,
+            4,
+          ],
+          "overflow": Object {
+            "adjustX": 1,
+            "adjustY": 1,
+          },
+          "points": Array [
+            "tc",
+            "bc",
+          ],
+          "targetOffset": Array [
+            0,
+            0,
+          ],
+        },
+        "bottomLeft": Object {
+          "offset": Array [
+            0,
+            4,
+          ],
+          "overflow": Object {
+            "adjustX": 1,
+            "adjustY": 1,
+          },
+          "points": Array [
+            "tl",
+            "bl",
+          ],
+          "targetOffset": Array [
+            0,
+            0,
+          ],
+        },
+        "bottomRight": Object {
+          "offset": Array [
+            0,
+            4,
+          ],
+          "overflow": Object {
+            "adjustX": 1,
+            "adjustY": 1,
+          },
+          "points": Array [
+            "tr",
+            "br",
+          ],
+          "targetOffset": Array [
+            0,
+            0,
+          ],
+        },
+        "topCenter": Object {
+          "offset": Array [
+            0,
+            -4,
+          ],
+          "overflow": Object {
+            "adjustX": 1,
+            "adjustY": 1,
+          },
+          "points": Array [
+            "bc",
+            "tc",
+          ],
+          "targetOffset": Array [
+            0,
+            0,
+          ],
+        },
+        "topLeft": Object {
+          "offset": Array [
+            0,
+            -4,
+          ],
+          "overflow": Object {
+            "adjustX": 1,
+            "adjustY": 1,
+          },
+          "points": Array [
+            "bl",
+            "tl",
+          ],
+          "targetOffset": Array [
+            0,
+            0,
+          ],
+        },
+        "topRight": Object {
+          "offset": Array [
+            0,
+            -4,
+          ],
+          "overflow": Object {
+            "adjustX": 1,
+            "adjustY": 1,
+          },
+          "points": Array [
+            "br",
+            "tr",
+          ],
+          "targetOffset": Array [
+            0,
+            0,
+          ],
+        },
+      }
+    }
+    defaultPopupVisible={false}
+    destroyPopupOnHide={false}
+    focusDelay={0}
+    getDocument={[Function]}
+    getPopupClassNameFromAlign={[Function]}
+    hideAction={Array []}
+    mask={false}
+    maskClosable={true}
+    mouseEnterDelay={0}
+    mouseLeaveDelay={0.1}
+    onOverlayClick={[Function]}
+    onPopupAlign={[Function]}
+    onPopupVisibleChange={[Function]}
+    overlay={
+      <Menu
+        onClick={[Function]}
+        style={
+          Object {
+            "width": 140,
+          }
+        }
+      >
+        <MenuItem>
+          <span
+            className="my-menuitem"
+          >
+            one
+          </span>
+        </MenuItem>
+        <Divider />
+        <MenuItem>
+          two
+        </MenuItem>
+      </Menu>
+    }
+    popup={
+      <React.Fragment>
+        <Menu
+          onClick={[Function]}
+          prefixCls="rc-dropdown-menu"
+          style={
+            Object {
+              "width": 140,
+            }
+          }
+        >
+          <MenuItem>
+            <span
+              className="my-menuitem"
+            >
+              one
+            </span>
+          </MenuItem>
+          <Divider />
+          <MenuItem>
+            two
+          </MenuItem>
+        </Menu>
+      </React.Fragment>
+    }
+    popupAlign={Object {}}
+    popupClassName=""
+    popupPlacement="bottomLeft"
+    popupStyle={Object {}}
+    popupVisible={true}
+    prefixCls="rc-dropdown"
+    showAction={Array []}
+    stretch="minWidth"
+  >
+    <button
+      className="my-button rc-dropdown-open"
+      key="trigger"
+      onClick={[Function]}
+      onMouseDown={[Function]}
+      onTouchStart={[Function]}
+    >
+      open
+    </button>
+    <MockPortal
+      didUpdate={[Function]}
+      getContainer={[Function]}
+      key="portal"
+    >
+      <Popup
+        align={
+          Object {
+            "offset": Array [
+              0,
+              4,
+            ],
+            "overflow": Object {
+              "adjustX": 1,
+              "adjustY": 1,
+            },
+            "points": Array [
+              "tl",
+              "bl",
+            ],
+            "targetOffset": Array [
+              0,
+              0,
+            ],
+          }
+        }
+        className=""
+        destroyPopupOnHide={false}
+        getClassNameFromAlign={[Function]}
+        getRootDomNode={[Function]}
+        mask={false}
+        onAlign={[Function]}
+        onMouseDown={[Function]}
+        onTouchStart={[Function]}
+        prefixCls="rc-dropdown"
+        stretch="minWidth"
+        style={Object {}}
+        visible={true}
+      >
+        <div>
+          <Mask
+            align={
+              Object {
+                "offset": Array [
+                  0,
+                  4,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "tl",
+                  "bl",
+                ],
+                "targetOffset": Array [
+                  0,
+                  0,
+                ],
+              }
+            }
+            className=""
+            destroyPopupOnHide={false}
+            getClassNameFromAlign={[Function]}
+            getRootDomNode={[Function]}
+            mask={false}
+            onAlign={[Function]}
+            onMouseDown={[Function]}
+            onTouchStart={[Function]}
+            prefixCls="rc-dropdown"
+            stretch="minWidth"
+            style={Object {}}
+            visible={true}
+          />
+          <PopupInner
+            align={
+              Object {
+                "offset": Array [
+                  0,
+                  4,
+                ],
+                "overflow": Object {
+                  "adjustX": 1,
+                  "adjustY": 1,
+                },
+                "points": Array [
+                  "tl",
+                  "bl",
+                ],
+                "targetOffset": Array [
+                  0,
+                  0,
+                ],
+              }
+            }
+            className=""
+            destroyPopupOnHide={false}
+            getClassNameFromAlign={[Function]}
+            getRootDomNode={[Function]}
+            mask={false}
+            onAlign={[Function]}
+            onMouseDown={[Function]}
+            onTouchStart={[Function]}
+            prefixCls="rc-dropdown"
+            stretch="minWidth"
+            style={Object {}}
+            visible={true}
+          >
+            <CSSMotion
+              leavedClassName="rc-dropdown-hidden"
+              onAppearEnd={[Function]}
+              onAppearPrepare={[Function]}
+              onEnterEnd={[Function]}
+              onEnterPrepare={[Function]}
+              onLeaveEnd={[Function]}
+              removeOnLeave={false}
+              visible={true}
+            >
+              <DomWrapper>
+                <Align
+                  align={
+                    Object {
+                      "offset": Array [
+                        0,
+                        4,
+                      ],
+                      "overflow": Object {
+                        "adjustX": 1,
+                        "adjustY": 1,
+                      },
+                      "points": Array [
+                        "tl",
+                        "bl",
+                      ],
+                      "targetOffset": Array [
+                        0,
+                        0,
+                      ],
+                    }
+                  }
+                  disabled={true}
+                  key="popup"
+                  monitorWindowResize={true}
+                  onAlign={[Function]}
+                  target={[Function]}
+                >
+                  <div
+                    className="rc-dropdown"
+                    onMouseDownCapture={[Function]}
+                    onTouchStartCapture={[Function]}
+                    style={
+                      Object {
+                        "opacity": 0,
+                        "pointerEvents": "none",
+                        "zIndex": undefined,
+                      }
+                    }
+                  >
+                    <Menu
+                      onClick={[Function]}
+                      prefixCls="rc-dropdown-menu"
+                      style={
+                        Object {
+                          "width": 140,
+                        }
+                      }
+                    >
+                      <InheritableContextProvider
+                        inlineIndent={24}
+                        mode="vertical"
+                        onActive={[Function]}
+                        onInactive={[Function]}
+                        onItemClick={[Function]}
+                        onOpenChange={[Function]}
+                        openKeys={Array []}
+                        prefixCls="rc-dropdown-menu"
+                        rtl={false}
+                        selectedKeys={Array []}
+                        subMenuCloseDelay={0.1}
+                        subMenuOpenDelay={0.1}
+                        triggerSubMenuAction="hover"
+                      >
+                        <Overflow
+                          className="rc-dropdown-menu rc-dropdown-menu-root rc-dropdown-menu-vertical"
+                          component="ul"
+                          data={
+                            Array [
+                              <MenuItem
+                                eventKey="1"
+                              >
+                                <span
+                                  className="my-menuitem"
+                                >
+                                  one
+                                </span>
+                              </MenuItem>,
+                              <Divider
+                                eventKey="tmp_key-1"
+                                warnKey={true}
+                              />,
+                              <MenuItem
+                                eventKey="2"
+                              >
+                                two
+                              </MenuItem>,
+                            ]
+                          }
+                          data-menu-list={true}
+                          itemComponent={[Function]}
+                          maxCount="invalidate"
+                          onKeyDown={[Function]}
+                          onVisibleChange={[Function]}
+                          prefixCls="rc-dropdown-menu-overflow"
+                          renderRawItem={[Function]}
+                          renderRawRest={[Function]}
+                          role="menu"
+                          ssr="full"
+                          style={
+                            Object {
+                              "width": 140,
+                            }
+                          }
+                          tabIndex={0}
+                        >
+                          <ul
+                            className="rc-dropdown-menu rc-dropdown-menu-root rc-dropdown-menu-vertical"
+                            data-menu-list={true}
+                            onKeyDown={[Function]}
+                            role="menu"
+                            style={
+                              Object {
+                                "width": 140,
+                              }
+                            }
+                            tabIndex={0}
+                          >
+                            <MenuItem
+                              eventKey="1"
+                              key="1"
+                            >
+                              <InternalMenuItem
+                                eventKey="1"
+                              >
+                                <LegacyMenuItem
+                                  className="rc-dropdown-menu-item"
+                                  component="li"
+                                  data-menu-id="rc-menu-uuid-test-1"
+                                  elementRef={
+                                    Object {
+                                      "current": <li
+                                        class="rc-dropdown-menu-item"
+                                        data-menu-id="rc-menu-uuid-test-1"
+                                        role="menuitem"
+                                        tabindex="-1"
+                                      >
+                                        <span
+                                          class="my-menuitem"
+                                        >
+                                          one
+                                        </span>
+                                      </li>,
+                                    }
+                                  }
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="menuitem"
+                                  style={Object {}}
+                                  tabIndex={-1}
+                                >
+                                  <RawItem
+                                    className="rc-dropdown-menu-item"
+                                    component="li"
+                                    data-menu-id="rc-menu-uuid-test-1"
+                                    onClick={[Function]}
+                                    onFocus={[Function]}
+                                    onKeyDown={[Function]}
+                                    onMouseEnter={[Function]}
+                                    onMouseLeave={[Function]}
+                                    role="menuitem"
+                                    style={Object {}}
+                                    tabIndex={-1}
+                                  >
+                                    <Item
+                                      className="rc-dropdown-menu-item"
+                                      component="li"
+                                      data-menu-id="rc-menu-uuid-test-1"
+                                      display={true}
+                                      invalidate={true}
+                                      item={
+                                        <MenuItem
+                                          eventKey="1"
+                                        >
+                                          <span
+                                            className="my-menuitem"
+                                          >
+                                            one
+                                          </span>
+                                        </MenuItem>
+                                      }
+                                      itemKey={0}
+                                      onClick={[Function]}
+                                      onFocus={[Function]}
+                                      onKeyDown={[Function]}
+                                      onMouseEnter={[Function]}
+                                      onMouseLeave={[Function]}
+                                      order={0}
+                                      prefixCls="rc-dropdown-menu-overflow-item"
+                                      registerSize={[Function]}
+                                      responsive={false}
+                                      role="menuitem"
+                                      style={Object {}}
+                                      tabIndex={-1}
+                                    >
+                                      <li
+                                        className="rc-dropdown-menu-item"
+                                        data-menu-id="rc-menu-uuid-test-1"
+                                        onClick={[Function]}
+                                        onFocus={[Function]}
+                                        onKeyDown={[Function]}
+                                        onMouseEnter={[Function]}
+                                        onMouseLeave={[Function]}
+                                        role="menuitem"
+                                        style={Object {}}
+                                        tabIndex={-1}
+                                      >
+                                        <span
+                                          className="my-menuitem"
+                                        >
+                                          one
+                                        </span>
+                                        <Icon
+                                          props={
+                                            Object {
+                                              "children": <span
+                                                className="my-menuitem"
+                                              >
+                                                one
+                                              </span>,
+                                              "eventKey": "1",
+                                              "isSelected": false,
+                                            }
+                                          }
+                                        />
+                                      </li>
+                                    </Item>
+                                  </RawItem>
+                                </LegacyMenuItem>
+                              </InternalMenuItem>
+                            </MenuItem>
+                            <Divider
+                              eventKey="tmp_key-1"
+                              key="tmp_key-1"
+                              warnKey={true}
+                            >
+                              <li
+                                className="rc-dropdown-menu-item-divider"
+                              />
+                            </Divider>
+                            <MenuItem
+                              eventKey="2"
+                              key="2"
+                            >
+                              <InternalMenuItem
+                                eventKey="2"
+                              >
+                                <LegacyMenuItem
+                                  className="rc-dropdown-menu-item"
+                                  component="li"
+                                  data-menu-id="rc-menu-uuid-test-2"
+                                  elementRef={
+                                    Object {
+                                      "current": <li
+                                        class="rc-dropdown-menu-item"
+                                        data-menu-id="rc-menu-uuid-test-2"
+                                        role="menuitem"
+                                        tabindex="-1"
+                                      >
+                                        two
+                                      </li>,
+                                    }
+                                  }
+                                  onClick={[Function]}
+                                  onFocus={[Function]}
+                                  onKeyDown={[Function]}
+                                  onMouseEnter={[Function]}
+                                  onMouseLeave={[Function]}
+                                  role="menuitem"
+                                  style={Object {}}
+                                  tabIndex={-1}
+                                >
+                                  <RawItem
+                                    className="rc-dropdown-menu-item"
+                                    component="li"
+                                    data-menu-id="rc-menu-uuid-test-2"
+                                    onClick={[Function]}
+                                    onFocus={[Function]}
+                                    onKeyDown={[Function]}
+                                    onMouseEnter={[Function]}
+                                    onMouseLeave={[Function]}
+                                    role="menuitem"
+                                    style={Object {}}
+                                    tabIndex={-1}
+                                  >
+                                    <Item
+                                      className="rc-dropdown-menu-item"
+                                      component="li"
+                                      data-menu-id="rc-menu-uuid-test-2"
+                                      display={true}
+                                      invalidate={true}
+                                      item={
+                                        <MenuItem
+                                          eventKey="2"
+                                        >
+                                          two
+                                        </MenuItem>
+                                      }
+                                      itemKey={2}
+                                      onClick={[Function]}
+                                      onFocus={[Function]}
+                                      onKeyDown={[Function]}
+                                      onMouseEnter={[Function]}
+                                      onMouseLeave={[Function]}
+                                      order={2}
+                                      prefixCls="rc-dropdown-menu-overflow-item"
+                                      registerSize={[Function]}
+                                      responsive={false}
+                                      role="menuitem"
+                                      style={Object {}}
+                                      tabIndex={-1}
+                                    >
+                                      <li
+                                        className="rc-dropdown-menu-item"
+                                        data-menu-id="rc-menu-uuid-test-2"
+                                        onClick={[Function]}
+                                        onFocus={[Function]}
+                                        onKeyDown={[Function]}
+                                        onMouseEnter={[Function]}
+                                        onMouseLeave={[Function]}
+                                        role="menuitem"
+                                        style={Object {}}
+                                        tabIndex={-1}
+                                      >
+                                        two
+                                        <Icon
+                                          props={
+                                            Object {
+                                              "children": "two",
+                                              "eventKey": "2",
+                                              "isSelected": false,
+                                            }
+                                          }
+                                        />
+                                      </li>
+                                    </Item>
+                                  </RawItem>
+                                </LegacyMenuItem>
+                              </InternalMenuItem>
+                            </MenuItem>
+                          </ul>
+                        </Overflow>
+                        <div
+                          aria-hidden={true}
+                          style={
+                            Object {
+                              "display": "none",
+                            }
+                          }
+                        >
+                          <MenuItem
+                            eventKey="1"
+                            key="1"
+                          />
+                          <Divider
+                            eventKey="tmp_key-1"
+                            key="tmp_key-1"
+                            warnKey={true}
+                          />
+                          <MenuItem
+                            eventKey="2"
+                            key="2"
+                          />
+                        </div>
+                      </InheritableContextProvider>
+                    </Menu>
+                  </div>
+                </Align>
+              </DomWrapper>
+            </CSSMotion>
+          </PopupInner>
+        </div>
+      </Popup>
+    </MockPortal>
+  </Trigger>
+</ForwardRef(Dropdown)>
+`;
