@@ -1,10 +1,12 @@
 /* eslint-disable react/button-has-type,react/no-find-dom-node,react/no-render-return-value,object-shorthand,func-names,max-len */
+import React from 'react';
 import { mount } from 'enzyme';
 import Menu, { Divider, Item as MenuItem } from 'rc-menu';
 import { spyElementPrototypes } from 'rc-util/lib/test/domHook';
-import React from 'react';
 import { getPopupDomNode, sleep } from './utils';
-import Dropdown from '../src/Dropdown';
+import Dropdown from '../src';
+import placements from '../src/placements';
+import '../assets/index.less';
 
 spyElementPrototypes(HTMLElement, {
   offsetParent: {
