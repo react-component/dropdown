@@ -115,6 +115,8 @@ function Dropdown(props: DropdownProps, ref) {
 
   const getMenuElement = () => {
     const overlayElement = getOverlayElement();
+    console.log(supportRef(overlayElement));
+
     const extraOverlayProps = {
       prefixCls: menuClassName,
       onClick,
