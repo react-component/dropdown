@@ -10,6 +10,7 @@ import type {
 } from 'rc-trigger/lib/interface';
 import Placements from './placements';
 import useAccessibility from './hooks/useAccessibility';
+import { supportRef } from 'rc-util/lib/ref';
 
 export interface DropdownProps
   extends Pick<
@@ -117,6 +118,7 @@ function Dropdown(props: DropdownProps, ref) {
     const extraOverlayProps = {
       prefixCls: menuClassName,
       onClick,
+      ref: supportRef(overlayElement) ? menuRef : undefined,
     };
     if (typeof overlayElement.type === 'string') {
       delete extraOverlayProps.prefixCls;
@@ -124,7 +126,7 @@ function Dropdown(props: DropdownProps, ref) {
     return (
       <>
         {arrow && <div className={`${prefixCls}-arrow`} />}
-        <div ref={menuRef}>{React.cloneElement(overlayElement, extraOverlayProps)}</div>
+        {React.cloneElement(overlayElement, extraOverlayProps)}
       </>
     );
   };
