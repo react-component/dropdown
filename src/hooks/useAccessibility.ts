@@ -42,9 +42,8 @@ export default function useAccessibility({
     }
   };
   const focusOpenedMenu = () => {
-    console.log(menuRef);
     if (menuRef.current) {
-      const menuList = menuRef.current.className.includes(menuClassName)
+      const menuList = menuRef.current.className?.includes(menuClassName)
         ? menuRef.current
         : menuRef.current.querySelector(menuClassName);
 
