@@ -362,4 +362,27 @@ describe('dropdown', () => {
     await sleep(200);
     expect(document.activeElement.className).toContain('my-button');
   });
+
+  it('support Menu expandIcon', async () => {
+    const props = {
+      overlay: (
+        <Menu expandIcon={<span id="customExpandIcon" />}>
+          <Menu.Item key="1">foo</Menu.Item>
+          <Menu.SubMenu title="SubMenu">
+            <Menu.Item key="1">foo</Menu.Item>
+          </Menu.SubMenu>
+        </Menu>
+      ),
+      visible: true,
+      getPopupContainer: (node) => node,
+    };
+
+    const wrapper = mount(
+      <Dropdown {...props}>
+        <button type="button">button</button>
+      </Dropdown>,
+    );
+    await sleep(500);
+    expect(wrapper.find(Dropdown).find('#customExpandIcon').length).toBe(1);
+  });
 });
