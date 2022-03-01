@@ -45,7 +45,7 @@ describe('dropdown', () => {
     expect(dropdown.find('.my-button').hasClass('rc-dropdown-open')).toBe(true);
   });
 
-  it('supports constrolled visible prop', () => {
+  it('supports controlled visible prop', () => {
     const onVisibleChange = jest.fn();
     const dropdown = mount(
       <Dropdown
@@ -86,7 +86,12 @@ describe('dropdown', () => {
       </Menu>
     );
     const dropdown = mount(
-      <Dropdown trigger={['click']} overlay={menu} onOverlayClick={onOverlayClick}>
+      <Dropdown
+        trigger={['click']}
+        overlay={menu}
+        onOverlayClick={onOverlayClick}
+        visible={undefined}
+      >
         <button className="my-button">open</button>
       </Dropdown>,
     );

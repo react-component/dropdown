@@ -63,7 +63,7 @@ function Dropdown(props: DropdownProps, ref) {
   } = props;
 
   const [triggerVisible, setTriggerVisible] = React.useState<boolean>();
-  const mergedVisible = 'visible' in props ? visible : triggerVisible;
+  const mergedVisible = visible !== undefined ? visible : triggerVisible;
 
   const triggerRef = React.useRef(null);
   React.useImperativeHandle(ref, () => triggerRef.current);
