@@ -76,7 +76,6 @@ function Dropdown(props: DropdownProps, ref) {
     setTriggerVisible,
     triggerRef,
     menuRef,
-    menuClassName,
     onVisibleChange: props.onVisibleChange,
   });
 
