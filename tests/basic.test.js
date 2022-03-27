@@ -1,5 +1,5 @@
 /* eslint-disable react/button-has-type,react/no-find-dom-node,react/no-render-return-value,object-shorthand,func-names,max-len */
-import React from 'react';
+import React, { createRef } from 'react';
 import { mount } from 'enzyme';
 import Menu, { Divider, Item as MenuItem } from 'rc-menu';
 import { spyElementPrototypes } from 'rc-util/lib/test/domHook';
@@ -384,5 +384,26 @@ describe('dropdown', () => {
     );
     await sleep(500);
     expect(wrapper.find(Dropdown).find('#customExpandIcon').length).toBe(1);
+  });
+
+  it('should support customized menuRef', async () => {
+    const menuRef = createRef();
+    const props = {
+      overlay: (
+        <Menu ref={menuRef}>
+          <Menu.Item key="1">foo</Menu.Item>
+        </Menu>
+      ),
+      visible: true,
+    };
+
+    const wrapper = mount(
+      <Dropdown {...props}>
+        <button type="button">button</button>
+      </Dropdown>,
+    );
+
+    await sleep(500);
+    expect(menuRef.current).toBeTruthy();
   });
 });
