@@ -21,10 +21,8 @@ export default function useAccessibility({
   onVisibleChange,
 }: UseAccessibilityProps) {
   const handleCloseMenuAndReturnFocus = () => {
-    if (visible && triggerRef.current) {
-      if (triggerRef.current.triggerRef.current) {
-        triggerRef.current.triggerRef.current.focus();
-      }
+    if (visible) {
+      triggerRef.current?.triggerRef?.current?.focus();
       setTriggerVisible(false);
       if (typeof onVisibleChange === 'function') {
         onVisibleChange(false);
@@ -47,9 +45,7 @@ export default function useAccessibility({
         ? menuRef.current
         : menuRef.current.querySelector?.(menuClassName);
 
-      if (menuList) {
-        menuList['focus'](); // eslint-disable-line @typescript-eslint/dot-notation
-      }
+      menuList?.['focus'](); // eslint-disable-line @typescript-eslint/dot-notation
     }
   };
 
@@ -67,12 +63,10 @@ export default function useAccessibility({
   }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const returnFocus = () => {
-    if (visible && triggerRef.current) {
-      if (triggerRef.current.triggerRef.current) {
-        setTimeout(() => {
-          triggerRef.current?.triggerRef?.current?.focus?.();
-        }, 100);
-      }
+    if (visible) {
+      setTimeout(() => {
+        triggerRef.current?.triggerRef?.current?.focus?.();
+      }, 100);
     }
   };
 
