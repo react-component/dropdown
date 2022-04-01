@@ -38,13 +38,7 @@ export default function useAccessibility({
     }
   };
   const focusOpenedMenu = () => {
-    if (menuRef.current) {
-      const menuList = menuRef.current.className?.includes(menuClassName)
-        ? menuRef.current
-        : menuRef.current.querySelector?.(menuClassName);
-
-      menuRef.current.focus?.();
-    }
+    menuRef.current?.focus?.();
   };
 
   React.useEffect(() => {
