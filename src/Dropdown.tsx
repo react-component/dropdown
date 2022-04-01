@@ -10,7 +10,7 @@ import type {
 } from 'rc-trigger/lib/interface';
 import Placements from './placements';
 import useAccessibility from './hooks/useAccessibility';
-import { supportRef } from 'rc-util/lib/ref';
+import { composeRef, supportRef } from 'rc-util/lib/ref';
 
 export interface DropdownProps
   extends Pick<
@@ -76,7 +76,6 @@ function Dropdown(props: DropdownProps, ref) {
     setTriggerVisible,
     triggerRef,
     menuRef,
-    menuClassName,
     onVisibleChange: props.onVisibleChange,
   });
 
@@ -115,11 +114,13 @@ function Dropdown(props: DropdownProps, ref) {
 
   const getMenuElement = () => {
     const overlayElement = getOverlayElement();
+    // @ts-ignore
+    const composedMenuRef = composeRef(menuRef, overlayElement.ref);
 
     const extraOverlayProps = {
       prefixCls: menuClassName,
       onClick,
-      ref: supportRef(overlayElement) ? menuRef : undefined,
+      ref: supportRef(overlayElement) ? composedMenuRef : undefined,
     };
     if (typeof overlayElement.type === 'string') {
       delete extraOverlayProps.prefixCls;

@@ -8,7 +8,6 @@ interface UseAccessibilityProps {
   setTriggerVisible: (visible: boolean) => void;
   triggerRef: React.RefObject<any>;
   menuRef: React.RefObject<HTMLUListElement>;
-  menuClassName: string;
   onVisibleChange?: (visible: boolean) => void;
 }
 
@@ -17,7 +16,6 @@ export default function useAccessibility({
   setTriggerVisible,
   triggerRef,
   menuRef,
-  menuClassName,
   onVisibleChange,
 }: UseAccessibilityProps) {
   const handleCloseMenuAndReturnFocus = () => {
@@ -45,7 +43,7 @@ export default function useAccessibility({
         ? menuRef.current
         : menuRef.current.querySelector?.(menuClassName);
 
-      menuList?.['focus'](); // eslint-disable-line @typescript-eslint/dot-notation
+      menuRef.current.focus?.();
     }
   };
 
