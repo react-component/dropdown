@@ -1,5 +1,5 @@
 /* eslint-disable react/button-has-type,react/no-find-dom-node,react/no-render-return-value,object-shorthand,func-names,max-len */
-import React, { createRef } from 'react';
+import React, { createRef, forwardRef, useImperativeHandle } from 'react';
 import { mount } from 'enzyme';
 import Menu, { Divider, Item as MenuItem } from 'rc-menu';
 import { spyElementPrototypes } from 'rc-util/lib/test/domHook';
@@ -405,5 +405,40 @@ describe('dropdown', () => {
 
     await sleep(500);
     expect(menuRef.current).toBeTruthy();
+  });
+
+  it('should support trigger which not support focus', async () => {
+    jest.useFakeTimers();
+    const Button = forwardRef((props, ref) => {
+      useImperativeHandle(ref, () => ({
+        foo: () => {},
+      }));
+      return (
+        <button
+          onClick={(e) => {
+            props.onClick?.(e);
+          }}
+        >
+          trigger
+        </button>
+      );
+    });
+    const wrapper = mount(
+      <Dropdown
+        trigger={['click']}
+        getPopupContainer={(node) => node}
+        overlay={
+          <Menu>
+            <Menu.Item key="1">foo</Menu.Item>
+          </Menu>
+        }
+      >
+        <Button />
+      </Dropdown>,
+    );
+    wrapper.find('button').simulate('click');
+    wrapper.find('li').first().simulate('click');
+    jest.runAllTimers();
+    jest.useRealTimers();
   });
 });
