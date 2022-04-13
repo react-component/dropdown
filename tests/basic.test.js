@@ -86,10 +86,53 @@ describe('dropdown', () => {
       </Menu>
     );
     const dropdown = mount(
+      <Dropdown trigger={['click']} overlay={menu} onOverlayClick={onOverlayClick}>
+        <button className="my-button">open</button>
+      </Dropdown>,
+    );
+    expect(dropdown.find('.my-button')).toBeTruthy();
+    expect(dropdown.find('.rc-dropdown')).toBeTruthy();
+
+    dropdown.find('.my-button').simulate('click');
+    expect(clicked).toBeUndefined();
+    expect(getPopupDomNode(dropdown).classList.contains('rc-dropdown-hidden')).toBe(false);
+    expect(dropdown.render()).toMatchSnapshot();
+
+    dropdown.find('.my-menuitem').simulate('click');
+    expect(clicked).toBe('1');
+    expect(overlayClicked).toBe('1');
+    expect(getPopupDomNode(dropdown).classList.contains('rc-dropdown-hidden')).toBe(true);
+  });
+
+  it('controls visibility when visible is undefined', async () => {
+    // Make sure dropdown component is still ""
+    let clicked;
+    let overlayClicked;
+
+    function onClick({ key }) {
+      clicked = key;
+    }
+
+    function onOverlayClick({ key }) {
+      overlayClicked = key;
+    }
+
+    const menu = (
+      <Menu style={{ width: 140 }} onClick={onClick}>
+        <MenuItem key="1">
+          <span className="my-menuitem">one</span>
+        </MenuItem>
+        <Divider />
+        <MenuItem key="2">two</MenuItem>
+      </Menu>
+    );
+    const dropdown = mount(
       <Dropdown
         trigger={['click']}
         overlay={menu}
         onOverlayClick={onOverlayClick}
+        // If visible is undefined, let dropdown control the component's
+        // visible state, not the consumer
         visible={undefined}
       >
         <button className="my-button">open</button>
