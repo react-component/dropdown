@@ -119,11 +119,13 @@ function Dropdown(props: DropdownProps, ref) {
 
     const extraOverlayProps = {
       prefixCls: menuClassName,
+      ['data-dropdown-inject']: true,
       onClick,
       ref: supportRef(overlayElement) ? composedMenuRef : undefined,
     };
     if (typeof overlayElement.type === 'string') {
       delete extraOverlayProps.prefixCls;
+      delete extraOverlayProps['data-dropdown-inject'];
     }
     return (
       <>
