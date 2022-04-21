@@ -10,10 +10,11 @@ Array [
   <div>
     <div
       class="rc-dropdown"
-      style="opacity: 0; pointer-events: none;"
+      style="opacity: 0;"
     >
       <ul
         class="rc-dropdown-menu rc-dropdown-menu-root rc-dropdown-menu-vertical"
+        data-dropdown-inject="true"
         data-menu-list="true"
         role="menu"
         style="width: 140px;"
