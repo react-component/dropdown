@@ -318,6 +318,10 @@ describe('dropdown', () => {
     await sleep(200);
     expect(getPopupDomNode(dropdown).classList.contains('rc-dropdown-hidden')).toBe(false);
 
+    // Focus menu with Tab
+    window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 })); // Tab
+    expect(document.activeElement.className).toContain('menu');
+
     // Close menu with Tab
     window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 })); // Tab
     await sleep(200);
@@ -356,6 +360,9 @@ describe('dropdown', () => {
     trigger.simulate('click');
     await sleep(200);
     expect(getPopupDomNode(dropdown).classList.contains('rc-dropdown-hidden')).toBe(false);
+
+    // Focus menu with Tab
+    window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 })); // Tab
 
     // Close menu with Tab
     window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 })); // Tab
