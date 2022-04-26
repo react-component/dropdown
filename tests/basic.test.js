@@ -448,4 +448,25 @@ describe('dropdown', () => {
     jest.runAllTimers();
     jest.useRealTimers();
   });
+
+  it('should not return focus if controlled visible', async () => {
+    const mockFocus = jest.fn();
+    const overlay = (
+      <Menu>
+        <MenuItem key="1">
+          <span className="my-menuitem">one</span>
+        </MenuItem>
+        <MenuItem key="2">two</MenuItem>
+      </Menu>
+    );
+    const dropdown = mount(
+      <Dropdown visible trigger={['click']} overlay={overlay}>
+        <button className="my-button" onFocus={mockFocus}>
+          open
+        </button>
+      </Dropdown>,
+    );
+    dropdown.find('.my-menuitem').simulate('click');
+    expect(mockFocus).not.toHaveBeenCalled();
+  });
 });

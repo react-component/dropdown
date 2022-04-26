@@ -71,7 +71,7 @@ function Dropdown(props: DropdownProps, ref) {
   const menuRef = React.useRef(null);
   const menuClassName = `${prefixCls}-menu`;
 
-  const { returnFocus } = useAccessibility({
+  useAccessibility({
     visible: mergedVisible,
     setTriggerVisible,
     triggerRef,
@@ -101,7 +101,6 @@ function Dropdown(props: DropdownProps, ref) {
     if (overlayProps.onClick) {
       overlayProps.onClick(e);
     }
-    returnFocus();
   };
 
   const onVisibleChange = (newVisible: boolean) => {

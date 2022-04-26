@@ -57,16 +57,4 @@ export default function useAccessibility({
     }
     return () => null;
   }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const returnFocus = () => {
-    if (visible) {
-      setTimeout(() => {
-        triggerRef.current?.triggerRef?.current?.focus?.();
-      }, 100);
-    }
-  };
-
-  return {
-    returnFocus,
-  };
 }
