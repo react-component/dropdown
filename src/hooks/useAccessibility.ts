@@ -18,6 +18,8 @@ export default function useAccessibility({
   menuRef,
   onVisibleChange,
 }: UseAccessibilityProps) {
+  const focusMenuRef = React.useRef<boolean>(false);
+
   const handleCloseMenuAndReturnFocus = () => {
     if (visible && triggerRef.current) {
       triggerRef.current?.triggerRef?.current?.focus?.();
@@ -27,28 +29,30 @@ export default function useAccessibility({
       }
     }
   };
+
   const handleKeyDown = (event) => {
     switch (event.keyCode) {
       case ESC:
         handleCloseMenuAndReturnFocus();
         break;
       case TAB:
-        handleCloseMenuAndReturnFocus();
+        if (!focusMenuRef.current && menuRef.current?.focus) {
+          event.preventDefault();
+          menuRef.current.focus();
+          focusMenuRef.current = true;
+        } else {
+          handleCloseMenuAndReturnFocus();
+        }
         break;
     }
-  };
-  const focusOpenedMenu = () => {
-    menuRef.current?.focus?.();
   };
 
   React.useEffect(() => {
     if (visible) {
-      setTimeout(() => {
-        focusOpenedMenu();
-        window.addEventListener('keydown', handleKeyDown);
-      }, 100);
+      window.addEventListener('keydown', handleKeyDown);
       return () => {
         window.removeEventListener('keydown', handleKeyDown);
+        focusMenuRef.current = false;
       };
     }
     return () => null;
