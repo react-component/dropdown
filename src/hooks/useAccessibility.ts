@@ -1,5 +1,6 @@
 import * as React from 'react';
 import KeyCode from 'rc-util/lib/KeyCode';
+import raf from 'rc-util/lib/raf';
 
 const { ESC, TAB } = KeyCode;
 
@@ -57,13 +58,16 @@ export default function useAccessibility({
     if (visible) {
       window.addEventListener('keydown', handleKeyDown);
       if (autoFocus) {
-        focusMenu();
+        // FIXME: hack with raf
+        raf(focusMenu);
       }
       return () => {
         window.removeEventListener('keydown', handleKeyDown);
         focusMenuRef.current = false;
       };
     }
-    return () => null;
+    return () => {
+      focusMenuRef.current = false;
+    };
   }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
 }
