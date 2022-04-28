@@ -41,6 +41,7 @@ export interface DropdownProps
   showAction?: ActionType[];
   hideAction?: ActionType[];
   visible?: boolean;
+  autoFocus?: boolean;
 }
 
 function Dropdown(props: DropdownProps, ref) {
@@ -59,6 +60,7 @@ function Dropdown(props: DropdownProps, ref) {
     overlayStyle,
     visible,
     trigger = ['hover'],
+    autoFocus,
     ...otherProps
   } = props;
 
@@ -77,6 +79,7 @@ function Dropdown(props: DropdownProps, ref) {
     triggerRef,
     menuRef,
     onVisibleChange: props.onVisibleChange,
+    autoFocus,
   });
 
   const getOverlayElement = (): React.ReactElement => {
