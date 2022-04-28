@@ -27,7 +27,6 @@ export default function Simple() {
       <div style={{ height: 100 }} />
       <div>
         <Dropdown
-        autoFocus
           trigger={['click']}
           overlay={menu}
           animation="slide-up"
