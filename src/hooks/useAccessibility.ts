@@ -59,7 +59,7 @@ export default function useAccessibility({
       window.addEventListener('keydown', handleKeyDown);
       if (autoFocus) {
         // FIXME: hack with raf
-        raf(focusMenu);
+        raf(focusMenu, 3);
       }
       return () => {
         window.removeEventListener('keydown', handleKeyDown);
