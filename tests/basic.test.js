@@ -299,7 +299,6 @@ describe('dropdown', () => {
       <Dropdown trigger={['click']} overlay={overlay} className="trigger-button">
         <button className="my-button">open</button>
       </Dropdown>,
-      { attachTo: document.body },
     );
     const trigger = dropdown.find('.my-button');
 
@@ -447,5 +446,33 @@ describe('dropdown', () => {
     wrapper.find('li').first().simulate('click');
     jest.runAllTimers();
     jest.useRealTimers();
+  });
+
+  it('should support autoFocus', async () => {
+    const overlay = (
+      <Menu>
+        <MenuItem key="1">
+          <span className="my-menuitem">one</span>
+        </MenuItem>
+        <MenuItem key="2">two</MenuItem>
+      </Menu>
+    );
+    const dropdown = mount(
+      <Dropdown autoFocus trigger={['click']} overlay={overlay} className="trigger-button">
+        <button className="my-button">open</button>
+      </Dropdown>,
+    );
+    const trigger = dropdown.find('.my-button');
+
+    // Open menu
+    trigger.simulate('click');
+    await sleep(200);
+    expect(getPopupDomNode(dropdown).classList.contains('rc-dropdown-hidden')).toBe(false);
+    expect(document.activeElement.className).toContain('menu');
+
+    // Close menu with Tab
+    window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 })); // Tab
+    await sleep(200);
+    expect(document.activeElement.className).toContain('my-button');
   });
 });

@@ -9,6 +9,7 @@ interface UseAccessibilityProps {
   triggerRef: React.RefObject<any>;
   menuRef: React.RefObject<HTMLUListElement>;
   onVisibleChange?: (visible: boolean) => void;
+  autoFocus?: boolean;
 }
 
 export default function useAccessibility({
@@ -17,6 +18,7 @@ export default function useAccessibility({
   triggerRef,
   menuRef,
   onVisibleChange,
+  autoFocus,
 }: UseAccessibilityProps) {
   const focusMenuRef = React.useRef<boolean>(false);
 
@@ -30,6 +32,11 @@ export default function useAccessibility({
     }
   };
 
+  const focusMenu = () => {
+    menuRef.current?.focus?.();
+    focusMenuRef.current = true;
+  };
+
   const handleKeyDown = (event) => {
     switch (event.keyCode) {
       case ESC:
@@ -38,8 +45,7 @@ export default function useAccessibility({
       case TAB:
         if (!focusMenuRef.current && menuRef.current?.focus) {
           event.preventDefault();
-          menuRef.current.focus();
-          focusMenuRef.current = true;
+          focusMenu();
         } else {
           handleCloseMenuAndReturnFocus();
         }
@@ -50,6 +56,9 @@ export default function useAccessibility({
   React.useEffect(() => {
     if (visible) {
       window.addEventListener('keydown', handleKeyDown);
+      if (autoFocus) {
+        focusMenu();
+      }
       return () => {
         window.removeEventListener('keydown', handleKeyDown);
         focusMenuRef.current = false;
