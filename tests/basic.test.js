@@ -144,7 +144,6 @@ describe('dropdown', () => {
     dropdown.find('.my-button').simulate('click');
     expect(clicked).toBeUndefined();
     expect(getPopupDomNode(dropdown).classList.contains('rc-dropdown-hidden')).toBe(false);
-    expect(dropdown.render()).toMatchSnapshot();
 
     dropdown.find('.my-menuitem').simulate('click');
     expect(clicked).toBe('1');

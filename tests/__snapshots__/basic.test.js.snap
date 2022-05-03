@@ -1,57 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dropdown controls visibility when visible is undefined 1`] = `
-Array [
-  <button
-    class="my-button rc-dropdown-open"
-  >
-    open
-  </button>,
-  <div>
-    <div
-      class="rc-dropdown"
-      style="opacity: 0; pointer-events: none;"
-    >
-      <ul
-        class="rc-dropdown-menu rc-dropdown-menu-root rc-dropdown-menu-vertical"
-        data-menu-list="true"
-        role="menu"
-        style="width: 140px;"
-        tabindex="0"
-      >
-        <li
-          class="rc-dropdown-menu-item"
-          data-menu-id="rc-menu-uuid-test-1"
-          role="menuitem"
-          tabindex="-1"
-        >
-          <span
-            class="my-menuitem"
-          >
-            one
-          </span>
-        </li>
-        <li
-          class="rc-dropdown-menu-item-divider"
-        />
-        <li
-          class="rc-dropdown-menu-item"
-          data-menu-id="rc-menu-uuid-test-2"
-          role="menuitem"
-          tabindex="-1"
-        >
-          two
-        </li>
-      </ul>
-      <div
-        aria-hidden="true"
-        style="display: none;"
-      />
-    </div>
-  </div>,
-]
-`;
-
 exports[`dropdown simply works 1`] = `
 Array [
   <button
@@ -62,7 +10,7 @@ Array [
   <div>
     <div
       class="rc-dropdown"
-      style="opacity: 0; pointer-events: none;"
+      style="opacity: 0;"
     >
       <ul
         class="rc-dropdown-menu rc-dropdown-menu-root rc-dropdown-menu-vertical"
