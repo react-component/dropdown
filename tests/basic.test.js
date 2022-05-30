@@ -66,15 +66,12 @@ describe('dropdown', () => {
 
   it('simply works', async () => {
     let clicked;
-    let overlayClicked;
 
     function onClick({ key }) {
       clicked = key;
     }
 
-    function onOverlayClick({ key }) {
-      overlayClicked = key;
-    }
+    const onOverlayClick = jest.fn();
 
     const menu = (
       <Menu style={{ width: 140 }} onClick={onClick}>
@@ -100,7 +97,7 @@ describe('dropdown', () => {
 
     dropdown.find('.my-menuitem').simulate('click');
     expect(clicked).toBe('1');
-    expect(overlayClicked).toBe('1');
+    expect(onOverlayClick).toHaveBeenCalled();
     expect(getPopupDomNode(dropdown).classList.contains('rc-dropdown-hidden')).toBe(true);
   });
 

@@ -13,15 +13,14 @@ Array [
       style="opacity: 0;"
     >
       <ul
-        class="rc-dropdown-menu rc-dropdown-menu-root rc-dropdown-menu-vertical"
-        data-dropdown-inject="true"
+        class="rc-menu rc-menu-root rc-menu-vertical"
         data-menu-list="true"
         role="menu"
         style="width: 140px;"
         tabindex="0"
       >
         <li
-          class="rc-dropdown-menu-item"
+          class="rc-menu-item"
           data-menu-id="rc-menu-uuid-test-1"
           role="menuitem"
           tabindex="-1"
@@ -33,10 +32,10 @@ Array [
           </span>
         </li>
         <li
-          class="rc-dropdown-menu-item-divider"
+          class="rc-menu-item-divider"
         />
         <li
-          class="rc-dropdown-menu-item"
+          class="rc-menu-item"
           data-menu-id="rc-menu-uuid-test-2"
           role="menuitem"
           tabindex="-1"
