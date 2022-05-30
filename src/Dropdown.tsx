@@ -10,7 +10,6 @@ import type {
 } from 'rc-trigger/lib/interface';
 import Placements from './placements';
 import useAccessibility from './hooks/useAccessibility';
-import { composeRef, supportRef } from 'rc-util/lib/ref';
 
 export interface DropdownProps
   extends Pick<
@@ -70,14 +69,10 @@ function Dropdown(props: DropdownProps, ref) {
   const triggerRef = React.useRef(null);
   React.useImperativeHandle(ref, () => triggerRef.current);
 
-  const menuRef = React.useRef(null);
-  const menuClassName = `${prefixCls}-menu`;
-
   useAccessibility({
     visible: mergedVisible,
     setTriggerVisible,
     triggerRef,
-    menuRef,
     onVisibleChange: props.onVisibleChange,
     autoFocus,
   });
@@ -95,14 +90,11 @@ function Dropdown(props: DropdownProps, ref) {
 
   const onClick = (e) => {
     const { onOverlayClick } = props;
-    const overlayProps = getOverlayElement().props;
     setTriggerVisible(false);
 
+    console.log('!!!!!!!!!!!!', onOverlayClick);
     if (onOverlayClick) {
       onOverlayClick(e);
-    }
-    if (overlayProps.onClick) {
-      overlayProps.onClick(e);
     }
   };
 
@@ -116,23 +108,11 @@ function Dropdown(props: DropdownProps, ref) {
 
   const getMenuElement = () => {
     const overlayElement = getOverlayElement();
-    // @ts-ignore
-    const composedMenuRef = composeRef(menuRef, overlayElement.ref);
 
-    const extraOverlayProps = {
-      prefixCls: menuClassName,
-      ['data-dropdown-inject']: true,
-      onClick,
-      ref: supportRef(overlayElement) ? composedMenuRef : undefined,
-    };
-    if (typeof overlayElement.type === 'string') {
-      delete extraOverlayProps.prefixCls;
-      delete extraOverlayProps['data-dropdown-inject'];
-    }
     return (
       <>
         {arrow && <div className={`${prefixCls}-arrow`} />}
-        {React.cloneElement(overlayElement, extraOverlayProps)}
+        {overlayElement}
       </>
     );
   };
@@ -199,6 +179,7 @@ function Dropdown(props: DropdownProps, ref) {
       stretch={getMinOverlayWidthMatchTrigger() ? 'minWidth' : ''}
       popup={getMenuElementOrLambda()}
       onPopupVisibleChange={onVisibleChange}
+      onPopupClick={onClick}
       getPopupContainer={getPopupContainer}
     >
       {renderChildren()}

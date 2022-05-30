@@ -1,6 +1,7 @@
 import * as React from 'react';
 import KeyCode from 'rc-util/lib/KeyCode';
 import raf from 'rc-util/lib/raf';
+import { getFocusNodeList } from 'rc-util/lib/Dom/focus';
 
 const { ESC, TAB } = KeyCode;
 
@@ -8,7 +9,6 @@ interface UseAccessibilityProps {
   visible: boolean;
   setTriggerVisible: (visible: boolean) => void;
   triggerRef: React.RefObject<any>;
-  menuRef: React.RefObject<HTMLUListElement>;
   onVisibleChange?: (visible: boolean) => void;
   autoFocus?: boolean;
 }
@@ -17,7 +17,6 @@ export default function useAccessibility({
   visible,
   setTriggerVisible,
   triggerRef,
-  menuRef,
   onVisibleChange,
   autoFocus,
 }: UseAccessibilityProps) {
@@ -34,8 +33,15 @@ export default function useAccessibility({
   };
 
   const focusMenu = () => {
-    menuRef.current?.focus?.();
-    focusMenuRef.current = true;
+    const elements = getFocusNodeList(triggerRef.current?.popupRef?.current?.getElement?.());
+    const firstElement = elements[0];
+
+    if (firstElement?.focus) {
+      firstElement.focus();
+      focusMenuRef.current = true;
+      return true;
+    }
+    return false;
   };
 
   const handleKeyDown = (event) => {
@@ -43,14 +49,19 @@ export default function useAccessibility({
       case ESC:
         handleCloseMenuAndReturnFocus();
         break;
-      case TAB:
-        if (!focusMenuRef.current && menuRef.current?.focus) {
+      case TAB: {
+        let focusResult: boolean = false;
+        if (!focusMenuRef.current) {
+          focusResult = focusMenu();
+        }
+
+        if (focusResult) {
           event.preventDefault();
-          focusMenu();
         } else {
           handleCloseMenuAndReturnFocus();
         }
         break;
+      }
     }
   };
 
