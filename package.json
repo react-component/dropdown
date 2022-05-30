@@ -30,7 +30,7 @@
     "start": "dumi dev",
     "build": "dumi build",
     "compile": "father build && lessc assets/index.less assets/index.css",
-    "prepublishOnly": "npm run compile && np --no-cleanup --yolo --no-publish --any-branch",
+    "prepublishOnly": "npm run compile && np --no-cleanup --yolo --no-publish",
     "lint": "eslint src/ docs/examples/ --ext .tsx,.ts,.jsx,.js",
     "test": "father test",
     "coverage": "father test --coverage",
