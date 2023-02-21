@@ -32,7 +32,7 @@ export interface DropdownProps
   animation?: AnimationType;
   align?: AlignType;
   overlayStyle?: React.CSSProperties;
-  placement?: string;
+  placement?: keyof typeof Placements;
   placements?: BuildInPlacements;
   overlay?: (() => React.ReactElement) | React.ReactElement;
   trigger?: ActionType | ActionType[];
