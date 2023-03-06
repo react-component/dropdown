@@ -90,7 +90,7 @@ function Dropdown(props: DropdownProps, ref) {
 
   const onClick = (e) => {
     const { onOverlayClick } = props;
-    setTriggerVisible(false);
+    onVisibleChange(false);
 
     if (onOverlayClick) {
       onOverlayClick(e);
