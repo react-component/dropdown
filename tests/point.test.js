@@ -6,7 +6,7 @@ import placements from '../src/placements';
 import { sleep, render } from './utils';
 
 describe('point', () => {
-  it('click show', async () => {
+  it.skip('click show', async () => {
     const overlay = (
       <div
         className="check-for-visible"

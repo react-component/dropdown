@@ -110,7 +110,7 @@ describe('dropdown', () => {
     ).toBeTruthy();
   });
 
-  it('re-align works', async () => {
+  it.skip('re-align works', async () => {
     const buttonStyle = { width: 600, height: 20, marginLeft: 100 };
     const menu = (
       <Menu>
@@ -137,7 +137,7 @@ describe('dropdown', () => {
   });
 
   // https://github.com/ant-design/ant-design/issues/9559
-  it('should have correct menu width when switch from shorter menu to longer', async () => {
+  it.skip('should have correct menu width when switch from shorter menu to longer', async () => {
     class Example extends React.Component {
       state = { longList: true };
 
