@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`dropdown simply works 1`] = `
-Array [
+<div>
   <button
     class="my-button rc-dropdown-open"
   >
     open
-  </button>,
+  </button>
   <div>
     <div
       class="rc-dropdown"
@@ -48,6 +48,6 @@ Array [
         style="display: none;"
       />
     </div>
-  </div>,
-]
+  </div>
+</div>
 `;
