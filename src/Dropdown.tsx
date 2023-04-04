@@ -1,13 +1,13 @@
 import * as React from 'react';
-import Trigger from 'rc-trigger';
-import type { TriggerProps } from 'rc-trigger';
+import Trigger from '@rc-component/trigger';
+import type { TriggerProps } from '@rc-component/trigger';
 import classNames from 'classnames';
 import type {
   AnimationType,
   AlignType,
   BuildInPlacements,
   ActionType,
-} from 'rc-trigger/lib/interface';
+} from '@rc-component/trigger/lib/interface';
 import Placements from './placements';
 import useAccessibility from './hooks/useAccessibility';
 
@@ -169,7 +169,7 @@ function Dropdown(props: DropdownProps, ref) {
       popupStyle={overlayStyle}
       action={trigger}
       showAction={showAction}
-      hideAction={triggerHideAction || []}
+      hideAction={triggerHideAction}
       popupPlacement={placement}
       popupAlign={align}
       popupTransitionName={transitionName}

@@ -7,47 +7,5 @@ exports[`dropdown simply works 1`] = `
   >
     open
   </button>
-  <div>
-    <div
-      class="rc-dropdown"
-      style="opacity: 0;"
-    >
-      <ul
-        class="rc-menu rc-menu-root rc-menu-vertical"
-        data-menu-list="true"
-        role="menu"
-        style="width: 140px;"
-        tabindex="0"
-      >
-        <li
-          class="rc-menu-item"
-          data-menu-id="rc-menu-uuid-test-1"
-          role="menuitem"
-          tabindex="-1"
-        >
-          <span
-            class="my-menuitem"
-          >
-            one
-          </span>
-        </li>
-        <li
-          class="rc-menu-item-divider"
-        />
-        <li
-          class="rc-menu-item"
-          data-menu-id="rc-menu-uuid-test-2"
-          role="menuitem"
-          tabindex="-1"
-        >
-          two
-        </li>
-      </ul>
-      <div
-        aria-hidden="true"
-        style="display: none;"
-      />
-    </div>
-  </div>
 </div>
 `;

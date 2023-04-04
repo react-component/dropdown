@@ -18,7 +18,7 @@ describe('point', () => {
       </div>
     );
 
-    const { container } = render(
+    const { container, baseElement } = render(
       <Dropdown
         trigger={['contextMenu']}
         overlay={overlay}
@@ -41,7 +41,7 @@ describe('point', () => {
 
     await sleep(500);
 
-    expect(container.querySelector('.rc-dropdown').getAttribute('style')).toEqual(
+    expect(baseElement.querySelector('.rc-dropdown').getAttribute('style')).toEqual(
       expect.stringContaining(
         `left: -${999 - pageStyle.pageX - placements.bottomLeft.offset[0]}px; top: -${
           999 - pageStyle.pageY - placements.bottomLeft.offset[1]
