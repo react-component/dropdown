@@ -1,12 +1,31 @@
 /* eslint-disable react/button-has-type,react/no-find-dom-node,react/no-render-return-value,object-shorthand,func-names,max-len */
-import React, { createRef, forwardRef, useImperativeHandle } from 'react';
-import { fireEvent } from '@testing-library/react';
+import { act, fireEvent } from '@testing-library/react';
 import Menu, { Divider, Item as MenuItem } from 'rc-menu';
+import { _rs } from 'rc-resize-observer';
 import { spyElementPrototypes } from 'rc-util/lib/test/domHook';
-import { sleep, render } from './utils';
+import * as React from 'react';
+import { createRef, forwardRef, useImperativeHandle } from 'react';
 import Dropdown from '../src';
-import placements from '../src/placements';
-import '../assets/index.less';
+import { render, sleep } from './utils';
+
+// Fix prettier rm this
+console.log(React);
+
+async function waitForTime() {
+  for (let i = 0; i < 10; i += 1) {
+    await act(async () => {
+      jest.runAllTimers();
+    });
+  }
+}
+
+async function triggerResize(target: Element) {
+  act(() => {
+    _rs([{ target } as ResizeObserverEntry]);
+  });
+
+  await waitForTime();
+}
 
 spyElementPrototypes(HTMLElement, {
   offsetParent: {
@@ -32,9 +51,18 @@ spyElementPrototypes(HTMLElement, {
       return parseFloat(window.getComputedStyle(this).width) || 0;
     },
   },
+
+  getBoundingClientRect: () => ({
+    width: 100,
+    height: 100,
+  }),
 });
 
 describe('dropdown', () => {
+  beforeEach(() => {
+    jest.clearAllTimers();
+  });
+
   it('default visible', () => {
     const { container } = render(
       <Dropdown overlay={<div className="check-for-visible">Test</div>} visible>
@@ -110,117 +138,84 @@ describe('dropdown', () => {
     ).toBeTruthy();
   });
 
-  it.skip('re-align works', async () => {
+  it('re-align works', async () => {
+    jest.useFakeTimers();
+
+    const onPopupAlign = jest.fn();
+
     const buttonStyle = { width: 600, height: 20, marginLeft: 100 };
     const menu = (
       <Menu>
         <MenuItem key="1">one</MenuItem>
       </Menu>
     );
-    const { container, baseElement } = render(
-      <Dropdown trigger={['click']} placement="bottomRight" overlay={menu}>
+    const { container } = render(
+      <Dropdown
+        trigger={['click']}
+        placement="bottomRight"
+        overlay={menu}
+        onPopupAlign={onPopupAlign}
+      >
         <button className="my-btn" style={buttonStyle}>
           open
         </button>
       </Dropdown>,
     );
 
+    expect(onPopupAlign).not.toHaveBeenCalled();
+
     fireEvent.click(container.querySelector('.my-btn'));
-    await sleep(500);
-    expect(baseElement.querySelector('.rc-dropdown').getAttribute('style')).toEqual(
-      expect.stringContaining(
-        `left: -${999 - buttonStyle.width - placements.bottomLeft.offset[0]}px; top: -${
-          999 - buttonStyle.height - placements.bottomLeft.offset[1]
-        }px;`,
-      ),
-    );
+    await waitForTime();
+
+    expect(onPopupAlign).toHaveBeenCalled();
+
+    jest.useRealTimers();
   });
 
-  // https://github.com/ant-design/ant-design/issues/9559
-  it.skip('should have correct menu width when switch from shorter menu to longer', async () => {
-    class Example extends React.Component {
-      state = { longList: true };
+  it('Test default minOverlayWidthMatchTrigger', async () => {
+    jest.useFakeTimers();
 
-      short = () => {
-        this.setState({ longList: false });
-      };
-
-      long = () => {
-        this.setState({ longList: true });
-      };
-
-      render() {
-        const menuItems = [
-          <MenuItem key="1">1st item</MenuItem>,
-          <MenuItem key="2">2nd item</MenuItem>,
-        ];
-        if (this.state.longList) {
-          menuItems.push(<MenuItem key="3">3rd LONG SUPER LONG item</MenuItem>);
-        }
-        return (
-          <Dropdown
-            trigger={['click']}
-            ref={(node) => {
-              this.trigger = node;
-            }}
-            overlay={<Menu>{menuItems}</Menu>}
-          >
-            <button>Actions 111</button>
-          </Dropdown>
-        );
-      }
-    }
-    const { container, baseElement } = render(<Example />);
-    fireEvent.click(container.querySelector('button'));
-    await sleep(500);
-    expect(baseElement.querySelector('.rc-dropdown').getAttribute('style')).toEqual(
-      expect.stringContaining(
-        `left: -${999 - placements.bottomLeft.offset[0]}px; top: -${
-          999 - placements.bottomLeft.offset[1]
-        }px;`,
-      ),
-    );
-
-    // Todo - offsetwidth
-  });
-
-  it.skip('Test default minOverlayWidthMatchTrigger', async () => {
     const overlayWidth = 50;
     const overlay = <div style={{ width: overlayWidth }}>Test</div>;
 
     const { container, baseElement } = render(
-      <Dropdown trigger={['click']} overlay={overlay}>
+      <Dropdown trigger={['click']} overlay={overlay} visible>
         <button style={{ width: 100 }} className="my-button">
           open
         </button>
       </Dropdown>,
     );
 
-    fireEvent.click(container.querySelector('.my-button'));
+    await triggerResize(container.querySelector('button'));
 
-    await sleep(500);
-    expect(baseElement.querySelector('.rc-dropdown').getAttribute('style')).toEqual(
-      expect.stringContaining('min-width: 100px'),
-    );
+    expect(baseElement.querySelector('.rc-dropdown')).toHaveStyle({
+      minWidth: '100px',
+    });
+
+    jest.useRealTimers();
   });
 
   it('user pass minOverlayWidthMatchTrigger', async () => {
+    jest.useFakeTimers();
+
     const overlayWidth = 50;
     const overlay = <div style={{ width: overlayWidth }}>Test</div>;
 
     const { container, baseElement } = render(
-      <Dropdown trigger={['click']} overlay={overlay} minOverlayWidthMatchTrigger={false}>
+      <Dropdown trigger={['click']} overlay={overlay} minOverlayWidthMatchTrigger={false} visible>
         <button style={{ width: 100 }} className="my-button">
           open
         </button>
       </Dropdown>,
     );
 
-    fireEvent.click(container.querySelector('.my-button'));
-    await sleep(500);
-    expect(baseElement.querySelector('.rc-dropdown').getAttribute('style')).not.toEqual(
-      expect.stringContaining('min-width: 100px'),
-    );
+    await triggerResize(container.querySelector('button'));
+
+    expect(baseElement.querySelector('.rc-dropdown')).not.toHaveStyle({
+      minWidth: '100px',
+    });
+
+    jest.useRealTimers();
   });
 
   it('should support default openClassName', () => {
@@ -300,6 +295,8 @@ describe('dropdown', () => {
   });
 
   it.skip('Keyboard navigation works', async () => {
+    jest.useFakeTimers();
+
     const overlay = (
       <Menu>
         <MenuItem key="1">
@@ -309,7 +306,7 @@ describe('dropdown', () => {
       </Menu>
     );
     const { container, baseElement } = render(
-      <Dropdown trigger={['click']} overlay={overlay} className="trigger-button">
+      <Dropdown trigger={['click']} overlay={overlay}>
         <button className="my-button">open</button>
       </Dropdown>,
     );
@@ -317,19 +314,19 @@ describe('dropdown', () => {
 
     // Open menu;
     fireEvent.click(trigger);
-    await sleep(200);
+    await waitForTime();
     expect(
       baseElement.querySelector('.rc-dropdown').classList.contains('rc-dropdown-hidden'),
     ).toBeFalsy();
 
     // Close menu with Esc
     fireEvent.keyDown(trigger, { key: 'Esc', keyCode: 27 });
-    await sleep(200);
+    await waitForTime();
     expect(document.activeElement.className).toContain('my-button');
 
     // Open menu
     fireEvent.click(trigger);
-    await sleep(200);
+    await waitForTime();
     expect(
       baseElement.querySelector('.rc-dropdown').classList.contains('rc-dropdown-hidden'),
     ).toBeFalsy();
@@ -340,8 +337,10 @@ describe('dropdown', () => {
 
     // Close menu with Tab
     window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 })); // Tab
-    await sleep(200);
+    await waitForTime();
     expect(document.activeElement.className).toContain('my-button');
+
+    jest.useRealTimers();
   });
 
   it.skip('keyboard should work if menu is wrapped', async () => {
@@ -356,7 +355,7 @@ describe('dropdown', () => {
       </div>
     );
     const { container, baseElement } = render(
-      <Dropdown trigger={['click']} overlay={overlay} className="trigger-button">
+      <Dropdown trigger={['click']} overlay={overlay}>
         <button className="my-button">open</button>
       </Dropdown>,
     );
@@ -424,7 +423,7 @@ describe('dropdown', () => {
       visible: true,
     };
 
-    const { container } = render(
+    render(
       <Dropdown {...props}>
         <button type="button">button</button>
       </Dropdown>,
@@ -470,7 +469,10 @@ describe('dropdown', () => {
     jest.useRealTimers();
   });
 
+  // TODO: @MadCcc to fix this
   it.skip('should support autoFocus', async () => {
+    jest.useFakeTimers();
+
     const overlay = (
       <Menu>
         <MenuItem key="1">
@@ -480,7 +482,7 @@ describe('dropdown', () => {
       </Menu>
     );
     const { container } = render(
-      <Dropdown autoFocus trigger={['click']} overlay={overlay} className="trigger-button">
+      <Dropdown autoFocus trigger={['click']} overlay={overlay}>
         <button className="my-button">open</button>
       </Dropdown>,
     );
@@ -488,15 +490,21 @@ describe('dropdown', () => {
 
     // Open menu
     fireEvent.click(trigger);
-    await sleep(200);
+
+    await waitForTime();
+
     expect(
-      baseElement.querySelector('.rc-dropdown').classList.contains('rc-dropdown-hidden'),
+      container.querySelector('.rc-dropdown').classList.contains('rc-dropdown-hidden'),
     ).toBeFalsy();
     expect(document.activeElement.className).toContain('menu');
 
     // Close menu with Tab
     window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 })); // Tab
-    await sleep(200);
+
+    await waitForTime();
+
     expect(document.activeElement.className).toContain('my-button');
+
+    jest.useRealTimers();
   });
 });
