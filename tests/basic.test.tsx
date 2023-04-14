@@ -9,7 +9,7 @@ import Dropdown from '../src';
 import { render, sleep } from './utils';
 
 // Fix prettier rm this
-console.log(React);
+console.log(!!React);
 
 async function waitForTime() {
   for (let i = 0; i < 10; i += 1) {
