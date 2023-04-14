@@ -47,6 +47,7 @@
     "cross-env": "^7.0.0",
     "dumi": "^1.1.38",
     "father": "^2.13.2",
+    "jest-environment-jsdom": "^29.5.0",
     "jquery": "^3.3.1",
     "less": "^3.11.1",
     "np": "^6.0.0",
