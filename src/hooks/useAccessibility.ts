@@ -11,6 +11,7 @@ interface UseAccessibilityProps {
   triggerRef: React.RefObject<any>;
   onVisibleChange?: (visible: boolean) => void;
   autoFocus?: boolean;
+  overlayRef?: React.RefObject<any>;
 }
 
 export default function useAccessibility({
@@ -19,12 +20,14 @@ export default function useAccessibility({
   triggerRef,
   onVisibleChange,
   autoFocus,
+  overlayRef,
 }: UseAccessibilityProps) {
   const focusMenuRef = React.useRef<boolean>(false);
 
   const handleCloseMenuAndReturnFocus = () => {
     if (visible && triggerRef.current) {
-      triggerRef.current?.triggerRef?.current?.focus?.();
+      console.log('triggerRef.current', triggerRef.current)
+      triggerRef.current?.focus?.();
       setTriggerVisible(false);
       if (typeof onVisibleChange === 'function') {
         onVisibleChange(false);
@@ -33,11 +36,8 @@ export default function useAccessibility({
   };
 
   const focusMenu = () => {
-    const elements = getFocusNodeList(triggerRef.current?.popupRef?.current?.getElement?.());
-    const firstElement = elements[0];
-
-    if (firstElement?.focus) {
-      firstElement.focus();
+    if (overlayRef.current?.focus) {
+      overlayRef.current.focus();
       focusMenuRef.current = true;
       return true;
     }

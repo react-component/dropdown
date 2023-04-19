@@ -1,10 +1,10 @@
 /* eslint-disable react/button-has-type,react/no-find-dom-node,react/no-render-return-value,object-shorthand,func-names,max-len */
 import { act, fireEvent } from '@testing-library/react';
-import Menu, { Divider, Item as MenuItem } from 'rc-menu';
+import Menu, { Divider, Item as MenuItem, MenuRef } from 'rc-menu';
 import { _rs } from 'rc-resize-observer';
 import { spyElementPrototypes } from 'rc-util/lib/test/domHook';
 import * as React from 'react';
-import { createRef, forwardRef, useImperativeHandle } from 'react';
+import { createRef, forwardRef, HTMLAttributes, useImperativeHandle } from 'react';
 import Dropdown from '../src';
 import { render, sleep } from './utils';
 
@@ -294,8 +294,9 @@ describe('dropdown', () => {
     ).toBeTruthy();
   });
 
-  it.skip('Keyboard navigation works', async () => {
+  it('Keyboard navigation works', async () => {
     jest.useFakeTimers();
+    const mockTriggerFocus = jest.fn();
 
     const overlay = (
       <Menu>
@@ -307,7 +308,7 @@ describe('dropdown', () => {
     );
     const { container, baseElement } = render(
       <Dropdown trigger={['click']} overlay={overlay}>
-        <button className="my-button">open</button>
+        <button className="my-button" onFocus={mockTriggerFocus}>open</button>
       </Dropdown>,
     );
     const trigger = container.querySelector('.my-button');
@@ -320,7 +321,7 @@ describe('dropdown', () => {
     ).toBeFalsy();
 
     // Close menu with Esc
-    fireEvent.keyDown(trigger, { key: 'Esc', keyCode: 27 });
+    fireEvent.keyDown(window, { key: 'Esc', keyCode: 27 });
     await waitForTime();
     expect(document.activeElement.className).toContain('my-button');
 
@@ -343,7 +344,7 @@ describe('dropdown', () => {
     jest.useRealTimers();
   });
 
-  it.skip('keyboard should work if menu is wrapped', async () => {
+  it('keyboard should work if menu is wrapped', async () => {
     const overlay = (
       <div>
         <Menu>
@@ -413,7 +414,7 @@ describe('dropdown', () => {
   });
 
   it('should support customized menuRef', async () => {
-    const menuRef = createRef();
+    const menuRef = createRef<MenuRef>();
     const props = {
       overlay: (
         <Menu ref={menuRef}>
@@ -435,14 +436,14 @@ describe('dropdown', () => {
 
   it('should support trigger which not support focus', async () => {
     jest.useFakeTimers();
-    const Button = forwardRef((props, ref) => {
+    const Button = forwardRef<any, HTMLAttributes<HTMLButtonElement>>((props, ref) => {
       useImperativeHandle(ref, () => ({
         foo: () => {},
       }));
       return (
         <button
           onClick={(e) => {
-            props.onClick?.(e);
+            props?.onClick?.(e);
           }}
         >
           trigger
@@ -469,8 +470,7 @@ describe('dropdown', () => {
     jest.useRealTimers();
   });
 
-  // TODO: @MadCcc to fix this
-  it.skip('should support autoFocus', async () => {
+  it('should support autoFocus', async () => {
     jest.useFakeTimers();
 
     const overlay = (
