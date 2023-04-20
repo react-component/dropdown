@@ -1,43 +1,36 @@
-import * as React from 'react';
-import KeyCode from 'rc-util/lib/KeyCode';
-import raf from 'rc-util/lib/raf';
-import { getFocusNodeList } from 'rc-util/lib/Dom/focus';
+import KeyCode from "rc-util/lib/KeyCode";
+import raf from "rc-util/lib/raf";
+import * as React from "react";
 
 const { ESC, TAB } = KeyCode;
 
 interface UseAccessibilityProps {
   visible: boolean;
-  setTriggerVisible: (visible: boolean) => void;
   triggerRef: React.RefObject<any>;
   onVisibleChange?: (visible: boolean) => void;
   autoFocus?: boolean;
+  overlayRef?: React.RefObject<any>;
 }
 
 export default function useAccessibility({
   visible,
-  setTriggerVisible,
   triggerRef,
   onVisibleChange,
   autoFocus,
+  overlayRef,
 }: UseAccessibilityProps) {
   const focusMenuRef = React.useRef<boolean>(false);
 
   const handleCloseMenuAndReturnFocus = () => {
-    if (visible && triggerRef.current) {
-      triggerRef.current?.triggerRef?.current?.focus?.();
-      setTriggerVisible(false);
-      if (typeof onVisibleChange === 'function') {
-        onVisibleChange(false);
-      }
+    if (visible) {
+      triggerRef.current?.focus?.();
+      onVisibleChange?.(false);
     }
   };
 
   const focusMenu = () => {
-    const elements = getFocusNodeList(triggerRef.current?.popupRef?.current?.getElement?.());
-    const firstElement = elements[0];
-
-    if (firstElement?.focus) {
-      firstElement.focus();
+    if (overlayRef.current?.focus) {
+      overlayRef.current.focus();
       focusMenuRef.current = true;
       return true;
     }
@@ -67,13 +60,13 @@ export default function useAccessibility({
 
   React.useEffect(() => {
     if (visible) {
-      window.addEventListener('keydown', handleKeyDown);
+      window.addEventListener("keydown", handleKeyDown);
       if (autoFocus) {
         // FIXME: hack with raf
         raf(focusMenu, 3);
       }
       return () => {
-        window.removeEventListener('keydown', handleKeyDown);
+        window.removeEventListener("keydown", handleKeyDown);
         focusMenuRef.current = false;
       };
     }

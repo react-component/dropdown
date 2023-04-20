@@ -1,15 +1,18 @@
 import * as React from 'react';
-import Trigger from 'rc-trigger';
-import type { TriggerProps } from 'rc-trigger';
+import Trigger from '@rc-component/trigger';
+import type { TriggerProps } from '@rc-component/trigger';
 import classNames from 'classnames';
 import type {
   AnimationType,
   AlignType,
   BuildInPlacements,
   ActionType,
-} from 'rc-trigger/lib/interface';
+} from '@rc-component/trigger/lib/interface';
 import Placements from './placements';
 import useAccessibility from './hooks/useAccessibility';
+import Overlay from './Overlay';
+import { composeRef, supportRef } from 'rc-util/lib/ref';
+import { ReactElement } from 'react';
 
 export interface DropdownProps
   extends Pick<
@@ -60,6 +63,9 @@ function Dropdown(props: DropdownProps, ref) {
     visible,
     trigger = ['hover'],
     autoFocus,
+    overlay,
+    children,
+    onVisibleChange,
     ...otherProps
   } = props;
 
@@ -67,26 +73,22 @@ function Dropdown(props: DropdownProps, ref) {
   const mergedVisible = 'visible' in props ? visible : triggerVisible;
 
   const triggerRef = React.useRef(null);
+  const overlayRef = React.useRef(null);
+  const childRef = React.useRef(null);
   React.useImperativeHandle(ref, () => triggerRef.current);
+
+  const handleVisibleChange = (newVisible: boolean) => {
+    setTriggerVisible(newVisible);
+    onVisibleChange?.(newVisible);
+  };
 
   useAccessibility({
     visible: mergedVisible,
-    setTriggerVisible,
-    triggerRef,
-    onVisibleChange: props.onVisibleChange,
+    triggerRef: childRef,
+    onVisibleChange: handleVisibleChange,
     autoFocus,
+    overlayRef,
   });
-
-  const getOverlayElement = (): React.ReactElement => {
-    const { overlay } = props;
-    let overlayElement: React.ReactElement;
-    if (typeof overlay === 'function') {
-      overlayElement = overlay();
-    } else {
-      overlayElement = overlay;
-    }
-    return overlayElement;
-  };
 
   const onClick = (e) => {
     const { onOverlayClick } = props;
@@ -97,27 +99,9 @@ function Dropdown(props: DropdownProps, ref) {
     }
   };
 
-  const onVisibleChange = (newVisible: boolean) => {
-    const { onVisibleChange: onVisibleChangeProp } = props;
-    setTriggerVisible(newVisible);
-    if (typeof onVisibleChangeProp === 'function') {
-      onVisibleChangeProp(newVisible);
-    }
-  };
-
-  const getMenuElement = () => {
-    const overlayElement = getOverlayElement();
-
-    return (
-      <>
-        {arrow && <div className={`${prefixCls}-arrow`} />}
-        {overlayElement}
-      </>
-    );
-  };
+  const getMenuElement = () => <Overlay ref={overlayRef} overlay={overlay} prefixCls={prefixCls} arrow={arrow} />
 
   const getMenuElementOrLambda = () => {
-    const { overlay } = props;
     if (typeof overlay === 'function') {
       return getMenuElement;
     }
@@ -141,16 +125,10 @@ function Dropdown(props: DropdownProps, ref) {
     return `${prefixCls}-open`;
   };
 
-  const renderChildren = () => {
-    const { children } = props;
-    const childrenProps = children.props ? children.props : {};
-    const childClassName = classNames(childrenProps.className, getOpenClassName());
-    return mergedVisible && children
-      ? React.cloneElement(children, {
-          className: childClassName,
-        })
-      : children;
-  };
+  const childrenNode = React.cloneElement(children, {
+    className: classNames(children.props?.className, mergedVisible && getOpenClassName()),
+    ref: supportRef(children) ? composeRef(childRef, (children as ReactElement & {ref: React.Ref<HTMLElement>}).ref) : undefined,
+  })
 
   let triggerHideAction = hideAction;
   if (!triggerHideAction && trigger.indexOf('contextMenu') !== -1) {
@@ -169,7 +147,7 @@ function Dropdown(props: DropdownProps, ref) {
       popupStyle={overlayStyle}
       action={trigger}
       showAction={showAction}
-      hideAction={triggerHideAction || []}
+      hideAction={triggerHideAction}
       popupPlacement={placement}
       popupAlign={align}
       popupTransitionName={transitionName}
@@ -177,11 +155,11 @@ function Dropdown(props: DropdownProps, ref) {
       popupVisible={mergedVisible}
       stretch={getMinOverlayWidthMatchTrigger() ? 'minWidth' : ''}
       popup={getMenuElementOrLambda()}
-      onPopupVisibleChange={onVisibleChange}
+      onPopupVisibleChange={handleVisibleChange}
       onPopupClick={onClick}
       getPopupContainer={getPopupContainer}
     >
-      {renderChildren()}
+      {childrenNode}
     </Trigger>
   );
 }

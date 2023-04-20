@@ -5,10 +5,10 @@
     "module": "esnext",
     "target": "esnext",
     "moduleResolution": "node",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "skipLibCheck": true
   },
-  "include": ["./src", "./typings/"],
+  "include": ["./src", "./tests", "./typings/"],
   "typings": "./typings/index.d.ts",
   "exclude": [
     "node_modules",

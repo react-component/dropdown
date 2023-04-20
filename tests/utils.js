@@ -1,15 +1,18 @@
-/* eslint-disable no-param-reassign */
-export function sleep(timeout = 0) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve();
-    }, timeout);
+import { StrictMode } from 'react';
+import { render, act } from '@testing-library/react';
+
+const globalTimeout = global.setTimeout;
+
+export async function sleep(timeout = 0) {
+  await act(async () => {
+    await new Promise((resolve) => {
+      globalTimeout(resolve, timeout);
+    });
   });
 }
 
-export function getPopupDomNode(wrapper) {
-  return wrapper
-    .find('Trigger')
-    .instance()
-    .getPopupDomNode();
+function customRender(ui, options) {
+  return render(ui, { wrapper: StrictMode, ...options });
 }
+
+export { customRender as render };
