@@ -1,28 +1,28 @@
-import * as React from 'react';
-import Trigger from '@rc-component/trigger';
-import type { TriggerProps } from '@rc-component/trigger';
-import classNames from 'classnames';
+import type { TriggerProps } from "@rc-component/trigger";
+import Trigger from "@rc-component/trigger";
 import type {
-  AnimationType,
-  AlignType,
-  BuildInPlacements,
   ActionType,
-} from '@rc-component/trigger/lib/interface';
-import Placements from './placements';
-import useAccessibility from './hooks/useAccessibility';
-import Overlay from './Overlay';
-import { composeRef, supportRef } from 'rc-util/lib/ref';
-import { ReactElement } from 'react';
+  AlignType,
+  AnimationType,
+  BuildInPlacements,
+} from "@rc-component/trigger/lib/interface";
+import classNames from "classnames";
+import { composeRef, supportRef } from "rc-util/lib/ref";
+import type { ReactElement } from "react";
+import React from "react";
+import useAccessibility from "./hooks/useAccessibility";
+import Overlay from "./Overlay";
+import Placements from "./placements";
 
 export interface DropdownProps
   extends Pick<
     TriggerProps,
-    | 'getPopupContainer'
-    | 'children'
-    | 'mouseEnterDelay'
-    | 'mouseLeaveDelay'
-    | 'onPopupAlign'
-    | 'builtinPlacements'
+    | "getPopupContainer"
+    | "children"
+    | "mouseEnterDelay"
+    | "mouseLeaveDelay"
+    | "onPopupAlign"
+    | "builtinPlacements"
   > {
   minOverlayWidthMatchTrigger?: boolean;
   arrow?: boolean;
@@ -49,11 +49,11 @@ export interface DropdownProps
 function Dropdown(props: DropdownProps, ref) {
   const {
     arrow = false,
-    prefixCls = 'rc-dropdown',
+    prefixCls = "rc-dropdown",
     transitionName,
     animation,
     align,
-    placement = 'bottomLeft',
+    placement = "bottomLeft",
     placements = Placements,
     getPopupContainer,
     showAction,
@@ -61,7 +61,7 @@ function Dropdown(props: DropdownProps, ref) {
     overlayClassName,
     overlayStyle,
     visible,
-    trigger = ['hover'],
+    trigger = ["hover"],
     autoFocus,
     overlay,
     children,
@@ -70,7 +70,7 @@ function Dropdown(props: DropdownProps, ref) {
   } = props;
 
   const [triggerVisible, setTriggerVisible] = React.useState<boolean>();
-  const mergedVisible = 'visible' in props ? visible : triggerVisible;
+  const mergedVisible = "visible" in props ? visible : triggerVisible;
 
   const triggerRef = React.useRef(null);
   const overlayRef = React.useRef(null);
@@ -99,10 +99,17 @@ function Dropdown(props: DropdownProps, ref) {
     }
   };
 
-  const getMenuElement = () => <Overlay ref={overlayRef} overlay={overlay} prefixCls={prefixCls} arrow={arrow} />
+  const getMenuElement = () => (
+    <Overlay
+      ref={overlayRef}
+      overlay={overlay}
+      prefixCls={prefixCls}
+      arrow={arrow}
+    />
+  );
 
   const getMenuElementOrLambda = () => {
-    if (typeof overlay === 'function') {
+    if (typeof overlay === "function") {
       return getMenuElement;
     }
     return getMenuElement();
@@ -110,7 +117,7 @@ function Dropdown(props: DropdownProps, ref) {
 
   const getMinOverlayWidthMatchTrigger = () => {
     const { minOverlayWidthMatchTrigger, alignPoint } = props;
-    if ('minOverlayWidthMatchTrigger' in props) {
+    if ("minOverlayWidthMatchTrigger" in props) {
       return minOverlayWidthMatchTrigger;
     }
 
@@ -126,13 +133,21 @@ function Dropdown(props: DropdownProps, ref) {
   };
 
   const childrenNode = React.cloneElement(children, {
-    className: classNames(children.props?.className, mergedVisible && getOpenClassName()),
-    ref: supportRef(children) ? composeRef(childRef, (children as ReactElement & {ref: React.Ref<HTMLElement>}).ref) : undefined,
-  })
+    className: classNames(
+      children.props?.className,
+      mergedVisible && getOpenClassName()
+    ),
+    ref: supportRef(children)
+      ? composeRef(
+          childRef,
+          (children as ReactElement & { ref: React.Ref<HTMLElement> }).ref
+        )
+      : undefined,
+  });
 
   let triggerHideAction = hideAction;
-  if (!triggerHideAction && trigger.indexOf('contextMenu') !== -1) {
-    triggerHideAction = ['click'];
+  if (!triggerHideAction && trigger.indexOf("contextMenu") !== -1) {
+    triggerHideAction = ["click"];
   }
 
   return (
@@ -153,7 +168,7 @@ function Dropdown(props: DropdownProps, ref) {
       popupTransitionName={transitionName}
       popupAnimation={animation}
       popupVisible={mergedVisible}
-      stretch={getMinOverlayWidthMatchTrigger() ? 'minWidth' : ''}
+      stretch={getMinOverlayWidthMatchTrigger() ? "minWidth" : ""}
       popup={getMenuElementOrLambda()}
       onPopupVisibleChange={handleVisibleChange}
       onPopupClick={onClick}
