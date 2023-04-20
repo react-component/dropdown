@@ -5,7 +5,7 @@
     "module": "esnext",
     "target": "esnext",
     "moduleResolution": "node",
-    "jsx": "react-jsx",
+    "jsx": "react",
     "skipLibCheck": true
   },
   "include": ["./src", "./tests", "./typings/"],

@@ -1,18 +1,18 @@
-import * as React from 'react';
-import Trigger from '@rc-component/trigger';
 import type { TriggerProps } from '@rc-component/trigger';
-import classNames from 'classnames';
+import Trigger from '@rc-component/trigger';
 import type {
-  AnimationType,
-  AlignType,
-  BuildInPlacements,
   ActionType,
+  AlignType,
+  AnimationType,
+  BuildInPlacements,
 } from '@rc-component/trigger/lib/interface';
-import Placements from './placements';
+import classNames from 'classnames';
+import { composeRef, supportRef } from 'rc-util/lib/ref';
+import type { ReactElement } from 'react';
+import React from 'react';
 import useAccessibility from './hooks/useAccessibility';
 import Overlay from './Overlay';
-import { composeRef, supportRef } from 'rc-util/lib/ref';
-import { ReactElement } from 'react';
+import Placements from './placements';
 
 export interface DropdownProps
   extends Pick<
@@ -99,7 +99,14 @@ function Dropdown(props: DropdownProps, ref) {
     }
   };
 
-  const getMenuElement = () => <Overlay ref={overlayRef} overlay={overlay} prefixCls={prefixCls} arrow={arrow} />
+  const getMenuElement = () => (
+    <Overlay
+      ref={overlayRef}
+      overlay={overlay}
+      prefixCls={prefixCls}
+      arrow={arrow}
+    />
+  );
 
   const getMenuElementOrLambda = () => {
     if (typeof overlay === 'function') {
@@ -126,9 +133,17 @@ function Dropdown(props: DropdownProps, ref) {
   };
 
   const childrenNode = React.cloneElement(children, {
-    className: classNames(children.props?.className, mergedVisible && getOpenClassName()),
-    ref: supportRef(children) ? composeRef(childRef, (children as ReactElement & {ref: React.Ref<HTMLElement>}).ref) : undefined,
-  })
+    className: classNames(
+      children.props?.className,
+      mergedVisible && getOpenClassName(),
+    ),
+    ref: supportRef(children)
+      ? composeRef(
+          childRef,
+          (children as ReactElement & { ref: React.Ref<HTMLElement> }).ref,
+        )
+      : undefined,
+  });
 
   let triggerHideAction = hideAction;
   if (!triggerHideAction && trigger.indexOf('contextMenu') !== -1) {
