@@ -65,6 +65,7 @@ function Dropdown(props: DropdownProps, ref) {
     autoFocus,
     overlay,
     children,
+    onVisibleChange,
     ...otherProps
   } = props;
 
@@ -76,11 +77,15 @@ function Dropdown(props: DropdownProps, ref) {
   const childRef = React.useRef(null);
   React.useImperativeHandle(ref, () => triggerRef.current);
 
+  const handleVisibleChange = (newVisible: boolean) => {
+    setTriggerVisible(newVisible);
+    onVisibleChange?.(newVisible);
+  };
+
   useAccessibility({
     visible: mergedVisible,
-    setTriggerVisible,
     triggerRef: childRef,
-    onVisibleChange: props.onVisibleChange,
+    onVisibleChange: handleVisibleChange,
     autoFocus,
     overlayRef,
   });
@@ -91,14 +96,6 @@ function Dropdown(props: DropdownProps, ref) {
 
     if (onOverlayClick) {
       onOverlayClick(e);
-    }
-  };
-
-  const onVisibleChange = (newVisible: boolean) => {
-    const { onVisibleChange: onVisibleChangeProp } = props;
-    setTriggerVisible(newVisible);
-    if (typeof onVisibleChangeProp === 'function') {
-      onVisibleChangeProp(newVisible);
     }
   };
 
@@ -158,7 +155,7 @@ function Dropdown(props: DropdownProps, ref) {
       popupVisible={mergedVisible}
       stretch={getMinOverlayWidthMatchTrigger() ? 'minWidth' : ''}
       popup={getMenuElementOrLambda()}
-      onPopupVisibleChange={onVisibleChange}
+      onPopupVisibleChange={handleVisibleChange}
       onPopupClick={onClick}
       getPopupContainer={getPopupContainer}
     >

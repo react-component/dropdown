@@ -7,7 +7,6 @@ const { ESC, TAB } = KeyCode;
 
 interface UseAccessibilityProps {
   visible: boolean;
-  setTriggerVisible: (visible: boolean) => void;
   triggerRef: React.RefObject<any>;
   onVisibleChange?: (visible: boolean) => void;
   autoFocus?: boolean;
@@ -16,7 +15,6 @@ interface UseAccessibilityProps {
 
 export default function useAccessibility({
   visible,
-  setTriggerVisible,
   triggerRef,
   onVisibleChange,
   autoFocus,
@@ -25,12 +23,9 @@ export default function useAccessibility({
   const focusMenuRef = React.useRef<boolean>(false);
 
   const handleCloseMenuAndReturnFocus = () => {
-    if (visible && triggerRef.current) {
+    if (visible) {
       triggerRef.current?.focus?.();
-      setTriggerVisible(false);
-      if (typeof onVisibleChange === 'function') {
-        onVisibleChange(false);
-      }
+      onVisibleChange?.(false);
     }
   };
 
