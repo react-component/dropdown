@@ -26,7 +26,6 @@ export default function useAccessibility({
 
   const handleCloseMenuAndReturnFocus = () => {
     if (visible && triggerRef.current) {
-      console.log('triggerRef.current', triggerRef.current)
       triggerRef.current?.focus?.();
       setTriggerVisible(false);
       if (typeof onVisibleChange === 'function') {
