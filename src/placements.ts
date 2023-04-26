@@ -1,9 +1,9 @@
 const autoAdjustOverflow = {
   adjustX: 1,
   adjustY: 1,
-}
+};
 
-const targetOffset = [0, 0]
+const targetOffset = [0, 0];
 
 const placements = {
   topLeft: {
@@ -12,7 +12,7 @@ const placements = {
     offset: [0, -4],
     targetOffset,
   },
-  topCenter: {
+  top: {
     points: ['bc', 'tc'],
     overflow: autoAdjustOverflow,
     offset: [0, -4],
@@ -30,7 +30,7 @@ const placements = {
     offset: [0, 4],
     targetOffset,
   },
-  bottomCenter: {
+  bottom: {
     points: ['tc', 'bc'],
     overflow: autoAdjustOverflow,
     offset: [0, 4],
@@ -42,6 +42,6 @@ const placements = {
     offset: [0, 4],
     targetOffset,
   },
-}
+};
 
-export default placements
+export default placements;
