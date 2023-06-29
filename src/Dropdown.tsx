@@ -147,7 +147,7 @@ function Dropdown(props: DropdownProps, ref) {
 
   let triggerHideAction = hideAction;
   if (!triggerHideAction && trigger.indexOf('contextMenu') !== -1) {
-    triggerHideAction = ['click'];
+    triggerHideAction = ['click', 'contextMenu'];
   }
 
   return (
