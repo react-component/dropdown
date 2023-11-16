@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
     "declaration": true,
     "module": "esnext",
     "target": "esnext",
     "moduleResolution": "node",
     "jsx": "react",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@@/*": [".dumi/tmp/*"]
+    }
   },
   "include": ["./src", "./tests", "./typings/"],
   "typings": "./typings/index.d.ts",
