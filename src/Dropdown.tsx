@@ -23,6 +23,7 @@ export interface DropdownProps
     | 'mouseLeaveDelay'
     | 'onPopupAlign'
     | 'builtinPlacements'
+    | 'autoDestroy'
   > {
   minOverlayWidthMatchTrigger?: boolean;
   arrow?: boolean;
