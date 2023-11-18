@@ -9,7 +9,7 @@ exports[`dropdown simply works 1`] = `
   </button>
   <div
     class="rc-dropdown rc-dropdown-placement-bottomLeft"
-    style="left: -1000vw; top: -1000vh; box-sizing: border-box;"
+    style="--arrow-x: 0px; --arrow-y: 0px; left: -1000vw; top: -1000vh; box-sizing: border-box; min-width: 100px;"
   >
     <ul
       class="rc-menu rc-menu-root rc-menu-vertical"
@@ -32,6 +32,7 @@ exports[`dropdown simply works 1`] = `
       </li>
       <li
         class="rc-menu-item-divider"
+        role="separator"
       />
       <li
         class="rc-menu-item"
