@@ -139,21 +139,21 @@ Note: Additional props are passed into the underlying [rc-trigger](https://githu
 
 ## Development
 
-```
+```bash
 npm install
 npm start
 ```
 
 ## Test Case
 
-```
+```bash
 npm test
 npm run chrome-test
 ```
 
 ## Coverage
 
-```
+```bash
 npm run coverage
 ```
 

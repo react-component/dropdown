@@ -1,4 +1,8 @@
-# Multiple
+---
+title: multiple
+nav:
+  title: Demo
+  path: /demo
+---
 
-
-<code src="../examples/multiple.jsx" />
+<code src="../examples/multiple.jsx"></code>
