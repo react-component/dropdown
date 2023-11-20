@@ -1,3 +1,7 @@
-import Dropdown from './Dropdown'
+export type { TriggerProps } from '@rc-component/trigger';
+export type { DropdownProps } from './Dropdown';
+export type { OverlayProps } from './Overlay';
 
-export default Dropdown
+import Dropdown from './Dropdown';
+
+export default Dropdown;
