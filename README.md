@@ -2,13 +2,7 @@
 
 react dropdown component
 
-[![NPM version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
-[![Test coverage][coveralls-image]][coveralls-url]
-[![Dependencies][david-image]][david-url]
-[![DevDependencies][david-dev-image]][david-dev-url]
-[![npm download][download-image]][download-url]
-[![bundle size][bundlephobia-image]][bundlephobia-url]
+[![NPM version][npm-image]][npm-url] [![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![Dependencies][david-image]][david-url] [![DevDependencies][david-dev-image]][david-dev-url] [![npm download][download-image]][download-url] [![bundle size][bundlephobia-image]][bundlephobia-url] [![dumi][dumi-image]][dumi-url]
 
 [npm-image]: http://img.shields.io/npm/v/rc-dropdown.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/rc-dropdown
@@ -24,6 +18,8 @@ react dropdown component
 [download-url]: https://npmjs.org/package/rc-dropdown
 [bundlephobia-url]: https://bundlephobia.com/result?p=rc-dropdown
 [bundlephobia-image]: https://badgen.net/bundlephobia/minzip/rc-dropdown
+[dumi-image]: https://img.shields.io/badge/docs%20by-dumi-blue?style=flat-square
+[dumi-url]: https://github.com/umijs/dumi
 
 ## Screenshot
 
@@ -89,6 +85,12 @@ var Dropdown = require('rc-dropdown');
           <td>part of dropdown menu's animation css class name</td>
         </tr>
         <tr>
+          <td>placement</td>
+          <td>String</td>
+          <td>bottomLeft</td>
+          <td>Position of menu item. There are: top, topCenter, topRight, bottomLeft, bottom, bottomRight </td>
+        </tr>
+        <tr>
           <td>onVisibleChange</td>
           <td>Function</td>
           <td></td>
@@ -137,26 +139,25 @@ Note: Additional props are passed into the underlying [rc-trigger](https://githu
 
 ## Development
 
-```
+```bash
 npm install
 npm start
 ```
 
 ## Test Case
 
-```
+```bash
 npm test
 npm run chrome-test
 ```
 
 ## Coverage
 
-```
+```bash
 npm run coverage
 ```
 
 open coverage/ dir
-
 
 ## License
 

@@ -1,13 +1,29 @@
-import * as React from 'react';
-import Trigger, { TriggerProps } from 'rc-trigger';
+import type { TriggerProps } from '@rc-component/trigger';
+import Trigger from '@rc-component/trigger';
+import type {
+  ActionType,
+  AlignType,
+  AnimationType,
+  BuildInPlacements,
+} from '@rc-component/trigger/lib/interface';
 import classNames from 'classnames';
-import { AnimationType, AlignType, BuildInPlacements, ActionType } from 'rc-trigger/lib/interface';
+import { composeRef, supportRef } from 'rc-util/lib/ref';
+import type { ReactElement } from 'react';
+import React from 'react';
+import useAccessibility from './hooks/useAccessibility';
+import Overlay from './Overlay';
 import Placements from './placements';
 
 export interface DropdownProps
   extends Pick<
     TriggerProps,
-    'getPopupContainer' | 'children' | 'mouseEnterDelay' | 'mouseLeaveDelay'
+    | 'getPopupContainer'
+    | 'children'
+    | 'mouseEnterDelay'
+    | 'mouseLeaveDelay'
+    | 'onPopupAlign'
+    | 'builtinPlacements'
+    | 'autoDestroy'
   > {
   minOverlayWidthMatchTrigger?: boolean;
   arrow?: boolean;
@@ -20,7 +36,7 @@ export interface DropdownProps
   animation?: AnimationType;
   align?: AlignType;
   overlayStyle?: React.CSSProperties;
-  placement?: string;
+  placement?: keyof typeof Placements;
   placements?: BuildInPlacements;
   overlay?: (() => React.ReactElement) | React.ReactElement;
   trigger?: ActionType | ActionType[];
@@ -28,6 +44,7 @@ export interface DropdownProps
   showAction?: ActionType[];
   hideAction?: ActionType[];
   visible?: boolean;
+  autoFocus?: boolean;
 }
 
 function Dropdown(props: DropdownProps, ref) {
@@ -46,6 +63,10 @@ function Dropdown(props: DropdownProps, ref) {
     overlayStyle,
     visible,
     trigger = ['hover'],
+    autoFocus,
+    overlay,
+    children,
+    onVisibleChange,
     ...otherProps
   } = props;
 
@@ -53,59 +74,42 @@ function Dropdown(props: DropdownProps, ref) {
   const mergedVisible = 'visible' in props ? visible : triggerVisible;
 
   const triggerRef = React.useRef(null);
+  const overlayRef = React.useRef(null);
+  const childRef = React.useRef(null);
   React.useImperativeHandle(ref, () => triggerRef.current);
 
-  const getOverlayElement = (): React.ReactElement => {
-    const { overlay } = props;
-    let overlayElement: React.ReactElement;
-    if (typeof overlay === 'function') {
-      overlayElement = overlay();
-    } else {
-      overlayElement = overlay;
-    }
-    return overlayElement;
+  const handleVisibleChange = (newVisible: boolean) => {
+    setTriggerVisible(newVisible);
+    onVisibleChange?.(newVisible);
   };
 
-  const onClick = e => {
+  useAccessibility({
+    visible: mergedVisible,
+    triggerRef: childRef,
+    onVisibleChange: handleVisibleChange,
+    autoFocus,
+    overlayRef,
+  });
+
+  const onClick = (e) => {
     const { onOverlayClick } = props;
-    const overlayProps = getOverlayElement().props;
     setTriggerVisible(false);
 
     if (onOverlayClick) {
       onOverlayClick(e);
     }
-    if (overlayProps.onClick) {
-      overlayProps.onClick(e);
-    }
   };
 
-  const onVisibleChange = (visible: boolean) => {
-    const { onVisibleChange } = props;
-    setTriggerVisible(visible);
-    if (typeof onVisibleChange === 'function') {
-      onVisibleChange(visible);
-    }
-  };
-
-  const getMenuElement = () => {
-    const overlayElement = getOverlayElement();
-    const extraOverlayProps = {
-      prefixCls: `${prefixCls}-menu`,
-      onClick,
-    };
-    if (typeof overlayElement.type === 'string') {
-      delete extraOverlayProps.prefixCls;
-    }
-    return (
-      <>
-        {arrow && <div className={`${prefixCls}-arrow`} />}
-        {React.cloneElement(overlayElement, extraOverlayProps)}
-      </>
-    );
-  };
+  const getMenuElement = () => (
+    <Overlay
+      ref={overlayRef}
+      overlay={overlay}
+      prefixCls={prefixCls}
+      arrow={arrow}
+    />
+  );
 
   const getMenuElementOrLambda = () => {
-    const { overlay } = props;
     if (typeof overlay === 'function') {
       return getMenuElement;
     }
@@ -129,16 +133,18 @@ function Dropdown(props: DropdownProps, ref) {
     return `${prefixCls}-open`;
   };
 
-  const renderChildren = () => {
-    const { children } = props;
-    const childrenProps = children.props ? children.props : {};
-    const childClassName = classNames(childrenProps.className, getOpenClassName());
-    return triggerVisible && children
-      ? React.cloneElement(children, {
-          className: childClassName,
-        })
-      : children;
-  };
+  const childrenNode = React.cloneElement(children, {
+    className: classNames(
+      children.props?.className,
+      mergedVisible && getOpenClassName(),
+    ),
+    ref: supportRef(children)
+      ? composeRef(
+          childRef,
+          (children as ReactElement & { ref: React.Ref<HTMLElement> }).ref,
+        )
+      : undefined,
+  });
 
   let triggerHideAction = hideAction;
   if (!triggerHideAction && trigger.indexOf('contextMenu') !== -1) {
@@ -147,6 +153,7 @@ function Dropdown(props: DropdownProps, ref) {
 
   return (
     <Trigger
+      builtinPlacements={placements}
       {...otherProps}
       prefixCls={prefixCls}
       ref={triggerRef}
@@ -154,10 +161,9 @@ function Dropdown(props: DropdownProps, ref) {
         [`${prefixCls}-show-arrow`]: arrow,
       })}
       popupStyle={overlayStyle}
-      builtinPlacements={placements}
       action={trigger}
       showAction={showAction}
-      hideAction={triggerHideAction || []}
+      hideAction={triggerHideAction}
       popupPlacement={placement}
       popupAlign={align}
       popupTransitionName={transitionName}
@@ -165,10 +171,11 @@ function Dropdown(props: DropdownProps, ref) {
       popupVisible={mergedVisible}
       stretch={getMinOverlayWidthMatchTrigger() ? 'minWidth' : ''}
       popup={getMenuElementOrLambda()}
-      onPopupVisibleChange={onVisibleChange}
+      onPopupVisibleChange={handleVisibleChange}
+      onPopupClick={onClick}
       getPopupContainer={getPopupContainer}
     >
-      {renderChildren()}
+      {childrenNode}
     </Trigger>
   );
 }
