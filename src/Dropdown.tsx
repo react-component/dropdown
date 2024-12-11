@@ -7,8 +7,7 @@ import type {
   BuildInPlacements,
 } from '@rc-component/trigger/lib/interface';
 import classNames from 'classnames';
-import { composeRef, supportRef } from 'rc-util/lib/ref';
-import type { ReactElement } from 'react';
+import { composeRef, getNodeRef, supportRef } from 'rc-util/lib/ref';
 import React from 'react';
 import useAccessibility from './hooks/useAccessibility';
 import Overlay from './Overlay';
@@ -139,10 +138,7 @@ function Dropdown(props: DropdownProps, ref) {
       mergedVisible && getOpenClassName(),
     ),
     ref: supportRef(children)
-      ? composeRef(
-          childRef,
-          (children as ReactElement & { ref: React.Ref<HTMLElement> }).ref,
-        )
+      ? composeRef(childRef, getNodeRef(children))
       : undefined,
   });
 

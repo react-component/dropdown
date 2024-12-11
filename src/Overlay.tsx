@@ -1,11 +1,14 @@
-import React, { forwardRef, ReactElement, useMemo } from 'react';
+import { composeRef, getNodeRef, supportRef } from 'rc-util/lib/ref';
+import React, { forwardRef, useMemo } from 'react';
 import type { DropdownProps } from './Dropdown';
-import { composeRef, supportRef } from 'rc-util/lib/ref';
 
-export type OverlayProps = Pick<DropdownProps, 'overlay' | 'arrow' | 'prefixCls'>
+export type OverlayProps = Pick<
+  DropdownProps,
+  'overlay' | 'arrow' | 'prefixCls'
+>;
 
 const Overlay = forwardRef<HTMLElement, OverlayProps>((props, ref) => {
-  const {overlay, arrow, prefixCls} = props;
+  const { overlay, arrow, prefixCls } = props;
 
   const overlayNode = useMemo(() => {
     let overlayElement: React.ReactElement;
@@ -17,14 +20,16 @@ const Overlay = forwardRef<HTMLElement, OverlayProps>((props, ref) => {
     return overlayElement;
   }, [overlay]);
 
-  const composedRef = composeRef(ref, (overlayNode as ReactElement & {ref: React.Ref<HTMLElement>})?.ref);
+  const composedRef = composeRef(ref, getNodeRef(overlayNode));
 
   return (
     <>
       {arrow && <div className={`${prefixCls}-arrow`} />}
-      {React.cloneElement(overlayNode, { ref: supportRef(overlayNode) ? composedRef : undefined })}
+      {React.cloneElement(overlayNode, {
+        ref: supportRef(overlayNode) ? composedRef : undefined,
+      })}
     </>
-  )
+  );
 });
 
 export default Overlay;
