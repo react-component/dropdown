@@ -1,4 +1,4 @@
-import type { TriggerProps } from '@rc-component/trigger';
+import type { TriggerProps, TriggerRef } from '@rc-component/trigger';
 import Trigger from '@rc-component/trigger';
 import type {
   ActionType,
@@ -7,7 +7,7 @@ import type {
   BuildInPlacements,
 } from '@rc-component/trigger/lib/interface';
 import classNames from 'classnames';
-import { composeRef, getNodeRef, supportRef } from 'rc-util/lib/ref';
+import { composeRef, getNodeRef, supportRef } from '@rc-component/util/lib/ref';
 import React from 'react';
 import useAccessibility from './hooks/useAccessibility';
 import Overlay from './Overlay';
@@ -46,7 +46,10 @@ export interface DropdownProps
   autoFocus?: boolean;
 }
 
-function Dropdown(props: DropdownProps, ref) {
+const Dropdown: React.ForwardRefRenderFunction<TriggerRef, DropdownProps> = (
+  props,
+  ref,
+) => {
   const {
     arrow = false,
     prefixCls = 'rc-dropdown',
@@ -72,9 +75,10 @@ function Dropdown(props: DropdownProps, ref) {
   const [triggerVisible, setTriggerVisible] = React.useState<boolean>();
   const mergedVisible = 'visible' in props ? visible : triggerVisible;
 
-  const triggerRef = React.useRef(null);
-  const overlayRef = React.useRef(null);
-  const childRef = React.useRef(null);
+  const triggerRef = React.useRef<TriggerRef>(null);
+  const overlayRef = React.useRef<HTMLElement>(null);
+  const childRef = React.useRef<HTMLElement>(null);
+
   React.useImperativeHandle(ref, () => triggerRef.current);
 
   const handleVisibleChange = (newVisible: boolean) => {
@@ -174,6 +178,6 @@ function Dropdown(props: DropdownProps, ref) {
       {childrenNode}
     </Trigger>
   );
-}
+};
 
 export default React.forwardRef(Dropdown);

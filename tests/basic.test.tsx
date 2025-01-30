@@ -3,7 +3,7 @@ import { act, fireEvent } from '@testing-library/react';
 import type { MenuRef } from 'rc-menu';
 import Menu, { Divider, Item as MenuItem } from 'rc-menu';
 import { _rs } from 'rc-resize-observer';
-import { spyElementPrototypes } from 'rc-util/lib/test/domHook';
+import { spyElementPrototypes } from '@rc-component/util/lib/test/domHook';
 import type { HTMLAttributes } from 'react';
 import * as React from 'react';
 import { createRef, forwardRef, useImperativeHandle } from 'react';

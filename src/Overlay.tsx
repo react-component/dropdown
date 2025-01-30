@@ -1,4 +1,4 @@
-import { composeRef, getNodeRef, supportRef } from 'rc-util/lib/ref';
+import { composeRef, getNodeRef, supportRef } from '@rc-component/util/lib/ref';
 import React, { forwardRef, useMemo } from 'react';
 import type { DropdownProps } from './Dropdown';
 
