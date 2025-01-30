@@ -11,7 +11,7 @@ export async function sleep(timeout = 0) {
   });
 }
 
-function customRender(ui, options) {
+function customRender(ui: any, options: any = {}) {
   return render(ui, { wrapper: StrictMode, ...options });
 }
 

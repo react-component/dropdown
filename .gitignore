@@ -28,6 +28,7 @@ es
 coverage
 yarn.lock
 package-lock.json
+pnpm-lock.yaml
 
 # dumi
 .dumi/tmp
