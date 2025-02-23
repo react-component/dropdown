@@ -6,8 +6,8 @@ import type {
   AnimationType,
   BuildInPlacements,
 } from '@rc-component/trigger/lib/interface';
+import { composeRef, getNodeRef, supportRef } from '@rc-component/util/lib/ref';
 import classNames from 'classnames';
-import { composeRef, getNodeRef, supportRef } from 'rc-util/lib/ref';
 import React from 'react';
 import useAccessibility from './hooks/useAccessibility';
 import Overlay from './Overlay';
