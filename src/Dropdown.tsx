@@ -71,6 +71,7 @@ function Dropdown(props: DropdownProps, ref) {
 
   const [triggerVisible, setTriggerVisible] = React.useState<boolean>();
   const mergedVisible = 'visible' in props ? visible : triggerVisible;
+  const mergedMotionName = animation ?? transitionName;
 
   const triggerRef = React.useRef(null);
   const overlayRef = React.useRef(null);
@@ -162,8 +163,7 @@ function Dropdown(props: DropdownProps, ref) {
       hideAction={triggerHideAction}
       popupPlacement={placement}
       popupAlign={align}
-      popupTransitionName={transitionName}
-      popupAnimation={animation}
+      popupMotion={{ motionName: mergedMotionName }}
       popupVisible={mergedVisible}
       stretch={getMinOverlayWidthMatchTrigger() ? 'minWidth' : ''}
       popup={getMenuElementOrLambda()}
