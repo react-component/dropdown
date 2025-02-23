@@ -1,32 +1,32 @@
-import Menu, { Item as MenuItem, Divider } from 'rc-menu'
-import '../../assets/index.less'
-import React, { Component } from 'react'
-import Dropdown from 'rc-dropdown'
+import Dropdown from '@rc-component/dropdown';
+import Menu, { Divider, Item as MenuItem } from 'rc-menu';
+import React, { Component } from 'react';
+import '../../assets/index.less';
 
 class Test extends Component {
   state = {
     visible: false,
-  }
+  };
 
-  onVisibleChange = visible => {
-    console.log('visible', visible)
+  onVisibleChange = (visible) => {
+    console.log('visible', visible);
     this.setState({
       visible,
-    })
-  }
+    });
+  };
 
-  selected = []
+  selected = [];
 
   saveSelected = ({ selectedKeys }) => {
-    this.selected = selectedKeys
-  }
+    this.selected = selectedKeys;
+  };
 
   confirm = () => {
-    console.log(this.selected)
+    console.log(this.selected);
     this.setState({
       visible: false,
-    })
-  }
+    });
+  };
 
   render() {
     const menu = (
@@ -52,7 +52,7 @@ class Test extends Component {
           </button>
         </MenuItem>
       </Menu>
-    )
+    );
 
     return (
       <Dropdown
@@ -65,8 +65,8 @@ class Test extends Component {
       >
         <button>open</button>
       </Dropdown>
-    )
+    );
   }
 }
 
-export default Test
+export default Test;

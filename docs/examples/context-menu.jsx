@@ -1,7 +1,7 @@
-import Menu, { Item as MenuItem } from 'rc-menu'
-import '../../assets/index.less'
-import React from 'react'
-import Dropdown from 'rc-dropdown'
+import Dropdown from '@rc-component/dropdown';
+import Menu, { Item as MenuItem } from 'rc-menu';
+import React from 'react';
+import '../../assets/index.less';
 
 function ContextMenu() {
   const menu = (
@@ -9,7 +9,7 @@ function ContextMenu() {
       <MenuItem key="1">one</MenuItem>
       <MenuItem key="2">two</MenuItem>
     </Menu>
-  )
+  );
 
   return (
     <Dropdown
@@ -29,7 +29,7 @@ function ContextMenu() {
         Right click me!
       </div>
     </Dropdown>
-  )
+  );
 }
 
-export default ContextMenu
+export default ContextMenu;

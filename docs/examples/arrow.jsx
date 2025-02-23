@@ -1,7 +1,7 @@
-import Menu, { Item as MenuItem, Divider } from 'rc-menu';
-import '../../assets/index.less';
+import Dropdown from '@rc-component/dropdown';
+import Menu, { Divider, Item as MenuItem } from 'rc-menu';
 import React from 'react';
-import Dropdown from 'rc-dropdown';
+import '../../assets/index.less';
 
 function onSelect({ key }) {
   console.log(`${key} selected`);
