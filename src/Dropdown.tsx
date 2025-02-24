@@ -71,7 +71,9 @@ function Dropdown(props: DropdownProps, ref) {
 
   const [triggerVisible, setTriggerVisible] = React.useState<boolean>();
   const mergedVisible = 'visible' in props ? visible : triggerVisible;
-  const mergedMotionName = animation ?? transitionName;
+  const mergedMotionName = animation
+    ? `${prefixCls}-${animation}`
+    : transitionName;
 
   const triggerRef = React.useRef(null);
   const overlayRef = React.useRef(null);
