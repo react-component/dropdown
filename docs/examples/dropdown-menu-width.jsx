@@ -1,5 +1,5 @@
 import Dropdown from '@rc-component/dropdown';
-import Menu, { Item as MenuItem } from 'rc-menu';
+import Menu, { Item as MenuItem } from '@rc-component/menu';
 import React, { PureComponent } from 'react';
 import '../../assets/index.less';
 

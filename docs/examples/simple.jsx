@@ -1,6 +1,6 @@
 /* eslint-disable no-console,react/button-has-type */
 import Dropdown from '@rc-component/dropdown';
-import Menu, { Divider, Item as MenuItem } from 'rc-menu';
+import Menu, { Divider, Item as MenuItem } from '@rc-component/menu';
 import React from 'react';
 import '../../assets/index.less';
 

@@ -1,5 +1,5 @@
 import Dropdown from '@rc-component/dropdown';
-import Menu, { Divider, Item as MenuItem } from 'rc-menu';
+import Menu, { Divider, Item as MenuItem } from '@rc-component/menu';
 import React, { Component } from 'react';
 import '../../assets/index.less';
 

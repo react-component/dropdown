@@ -2,8 +2,8 @@
 import { _rs } from '@rc-component/resize-observer';
 import { spyElementPrototypes } from '@rc-component/util/lib/test/domHook';
 import { act, fireEvent } from '@testing-library/react';
-import type { MenuRef } from 'rc-menu';
-import Menu, { Divider, Item as MenuItem } from 'rc-menu';
+import type { MenuRef } from '@rc-component/menu';
+import Menu, { Divider, Item as MenuItem } from '@rc-component/menu';
 import type { HTMLAttributes } from 'react';
 import * as React from 'react';
 import { createRef, forwardRef, useImperativeHandle } from 'react';
