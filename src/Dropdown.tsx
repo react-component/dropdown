@@ -6,8 +6,8 @@ import type {
   AnimationType,
   BuildInPlacements,
 } from '@rc-component/trigger/lib/interface';
+import { composeRef, getNodeRef, supportRef } from '@rc-component/util/lib/ref';
 import classNames from 'classnames';
-import { composeRef, getNodeRef, supportRef } from 'rc-util/lib/ref';
 import React from 'react';
 import useAccessibility from './hooks/useAccessibility';
 import Overlay from './Overlay';
@@ -71,6 +71,9 @@ function Dropdown(props: DropdownProps, ref) {
 
   const [triggerVisible, setTriggerVisible] = React.useState<boolean>();
   const mergedVisible = 'visible' in props ? visible : triggerVisible;
+  const mergedMotionName = animation
+    ? `${prefixCls}-${animation}`
+    : transitionName;
 
   const triggerRef = React.useRef(null);
   const overlayRef = React.useRef(null);
@@ -162,8 +165,7 @@ function Dropdown(props: DropdownProps, ref) {
       hideAction={triggerHideAction}
       popupPlacement={placement}
       popupAlign={align}
-      popupTransitionName={transitionName}
-      popupAnimation={animation}
+      popupMotion={{ motionName: mergedMotionName }}
       popupVisible={mergedVisible}
       stretch={getMinOverlayWidthMatchTrigger() ? 'minWidth' : ''}
       popup={getMenuElementOrLambda()}
