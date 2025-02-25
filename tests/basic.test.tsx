@@ -1,17 +1,14 @@
 /* eslint-disable react/button-has-type,react/no-find-dom-node,react/no-render-return-value,object-shorthand,func-names,max-len */
+import type { MenuRef } from '@rc-component/menu';
+import Menu, { Divider, Item as MenuItem } from '@rc-component/menu';
 import { _rs } from '@rc-component/resize-observer';
 import { spyElementPrototypes } from '@rc-component/util/lib/test/domHook';
 import { act, fireEvent } from '@testing-library/react';
-import type { MenuRef } from '@rc-component/menu';
-import Menu, { Divider, Item as MenuItem } from '@rc-component/menu';
 import type { HTMLAttributes } from 'react';
 import * as React from 'react';
 import { createRef, forwardRef, useImperativeHandle } from 'react';
 import Dropdown from '../src';
 import { render, sleep } from './utils';
-
-// Fix prettier rm this
-console.log(!!React);
 
 async function waitForTime() {
   for (let i = 0; i < 10; i += 1) {
@@ -518,15 +515,18 @@ describe('dropdown', () => {
     expect(menuRef.current).toBeTruthy();
   });
 
-  it('should support trigger which not support focus', async () => {
+  it('should support trigger when child provide nativeElement', async () => {
     jest.useFakeTimers();
     const Button = forwardRef<any, HTMLAttributes<HTMLButtonElement>>(
       (props, ref) => {
+        const btnRef = createRef<HTMLButtonElement>();
         useImperativeHandle(ref, () => ({
           foo: () => {},
+          nativeElement: btnRef.current,
         }));
         return (
           <button
+            ref={btnRef}
             onClick={(e) => {
               props?.onClick?.(e);
             }}
