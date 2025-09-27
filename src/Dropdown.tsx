@@ -7,7 +7,7 @@ import type {
   BuildInPlacements,
 } from '@rc-component/trigger/lib/interface';
 import { composeRef, getNodeRef, supportRef } from '@rc-component/util/lib/ref';
-import classNames from 'classnames';
+import { clsx } from 'clsx';
 import React from 'react';
 import useAccessibility from './hooks/useAccessibility';
 import Overlay from './Overlay';
@@ -136,7 +136,7 @@ function Dropdown(props: DropdownProps, ref) {
   };
 
   const childrenNode = React.cloneElement(children, {
-    className: classNames(
+    className: clsx(
       children.props?.className,
       mergedVisible && getOpenClassName(),
     ),
@@ -156,7 +156,7 @@ function Dropdown(props: DropdownProps, ref) {
       {...otherProps}
       prefixCls={prefixCls}
       ref={triggerRef}
-      popupClassName={classNames(overlayClassName, {
+      popupClassName={clsx(overlayClassName, {
         [`${prefixCls}-show-arrow`]: arrow,
       })}
       popupStyle={overlayStyle}
