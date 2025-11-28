@@ -95,7 +95,7 @@ const Dropdown = React.forwardRef<TriggerRef, DropdownProps>((props, ref) => {
 
   const onClick = (e) => {
     const { onOverlayClick } = props;
-    setTriggerVisible(false);
+    onVisibleChange(false);
 
     if (onOverlayClick) {
       onOverlayClick(e);
