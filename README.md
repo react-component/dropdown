@@ -1,25 +1,27 @@
-# rc-dropdown
+# @rc-component/dropdown
 
-react dropdown component
+react dropdown component.
 
-[![NPM version][npm-image]][npm-url] [![build status][travis-image]][travis-url] [![Test coverage][coveralls-image]][coveralls-url] [![Dependencies][david-image]][david-url] [![DevDependencies][david-dev-image]][david-dev-url] [![npm download][download-image]][download-url] [![bundle size][bundlephobia-image]][bundlephobia-url] [![dumi][dumi-image]][dumi-url]
+[![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url] [![build status][github-actions-image]][github-actions-url] [![Codecov][codecov-image]][codecov-url] [![bundle size][bundlephobia-image]][bundlephobia-url] [![dumi][dumi-image]][dumi-url]
 
-[npm-image]: http://img.shields.io/npm/v/rc-dropdown.svg?style=flat-square
-[npm-url]: http://npmjs.org/package/rc-dropdown
-[travis-image]: https://img.shields.io/travis/react-component/dropdown.svg?style=flat-square
-[travis-url]: https://travis-ci.org/react-component/dropdown
-[coveralls-image]: https://img.shields.io/coveralls/react-component/dropdown.svg?style=flat-square
-[coveralls-url]: https://coveralls.io/r/react-component/dropdown?branch=master
+[npm-image]: https://img.shields.io/npm/v/@rc-component/dropdown.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/@rc-component/dropdown
+[travis-image]: https://img.shields.io/travis/react-component/dropdown/master?style=flat-square
+[travis-url]: https://travis-ci.com/react-component/dropdown
+[github-actions-image]: https://github.com/react-component/dropdown/actions/workflows/ci.yml/badge.svg
+[github-actions-url]: https://github.com/react-component/dropdown/actions/workflows/ci.yml
+[codecov-image]: https://img.shields.io/codecov/c/github/react-component/dropdown/master.svg?style=flat-square
+[codecov-url]: https://app.codecov.io/gh/react-component/dropdown
 [david-url]: https://david-dm.org/react-component/dropdown
 [david-image]: https://david-dm.org/react-component/dropdown/status.svg?style=flat-square
 [david-dev-url]: https://david-dm.org/react-component/dropdown?type=dev
 [david-dev-image]: https://david-dm.org/react-component/dropdown/dev-status.svg?style=flat-square
-[download-image]: https://img.shields.io/npm/dm/rc-dropdown.svg?style=flat-square
-[download-url]: https://npmjs.org/package/rc-dropdown
-[bundlephobia-url]: https://bundlephobia.com/result?p=rc-dropdown
-[bundlephobia-image]: https://badgen.net/bundlephobia/minzip/rc-dropdown
-[dumi-image]: https://img.shields.io/badge/docs%20by-dumi-blue?style=flat-square
+[download-image]: https://img.shields.io/npm/dm/@rc-component/dropdown.svg?style=flat-square
+[download-url]: https://npmjs.org/package/@rc-component/dropdown
+[bundlephobia-url]: https://bundlephobia.com/package/@rc-component/dropdown
+[bundlephobia-image]: https://badgen.net/bundlephobia/minzip/@rc-component/dropdown
 [dumi-url]: https://github.com/umijs/dumi
+[dumi-image]: https://img.shields.io/badge/docs%20by-dumi-blue?style=flat-square
 
 ## Screenshot
 
@@ -31,12 +33,12 @@ online example: http://react-component.github.io/dropdown/examples/
 
 ## install
 
-[![rc-dropdown](https://nodei.co/npm/rc-dropdown.png)](https://npmjs.org/package/rc-dropdown)
+[![@rc-component/dropdown](https://nodei.co/npm/@rc-component/dropdown.png)](https://npmjs.org/package/@rc-component/dropdown)
 
 ## Usage
 
 ```js
-var Dropdown = require('rc-dropdown');
+var Dropdown = require('@rc-component/dropdown');
 // use dropdown
 ```
 
@@ -161,4 +163,4 @@ open coverage/ dir
 
 ## License
 
-rc-dropdown is released under the MIT license.
+@rc-component/dropdown is released under the MIT license.

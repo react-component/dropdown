@@ -1,4 +1,4 @@
-import type { TriggerProps } from '@rc-component/trigger';
+import type { TriggerProps, TriggerRef } from '@rc-component/trigger';
 import Trigger from '@rc-component/trigger';
 import type {
   ActionType,
@@ -46,7 +46,7 @@ export interface DropdownProps
   autoFocus?: boolean;
 }
 
-function Dropdown(props: DropdownProps, ref) {
+const Dropdown = React.forwardRef<TriggerRef, DropdownProps>((props, ref) => {
   const {
     arrow = false,
     prefixCls = 'rc-dropdown',
@@ -135,13 +135,13 @@ function Dropdown(props: DropdownProps, ref) {
     return `${prefixCls}-open`;
   };
 
-  const childrenNode = React.cloneElement(children, {
+  const childrenNode = React.cloneElement(children as React.ReactElement, {
     className: clsx(
-      children.props?.className,
+      (children as React.ReactElement).props?.className,
       mergedVisible && getOpenClassName(),
     ),
     ref: supportRef(children)
-      ? composeRef(childRef, getNodeRef(children))
+      ? composeRef(childRef, getNodeRef(children as React.ReactElement))
       : undefined,
   });
 
@@ -169,13 +169,13 @@ function Dropdown(props: DropdownProps, ref) {
       popupVisible={mergedVisible}
       stretch={getMinOverlayWidthMatchTrigger() ? 'minWidth' : ''}
       popup={getMenuElementOrLambda()}
-      onPopupVisibleChange={handleVisibleChange}
+      onOpenChange={handleVisibleChange}
       onPopupClick={onClick}
       getPopupContainer={getPopupContainer}
     >
       {childrenNode}
     </Trigger>
   );
-}
+});
 
-export default React.forwardRef(Dropdown);
+export default Dropdown;
