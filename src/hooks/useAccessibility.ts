@@ -1,5 +1,4 @@
-import KeyCode from '@rc-component/util/lib/KeyCode';
-import raf from '@rc-component/util/lib/raf';
+import { KeyCode, raf } from '@rc-component/util';
 import * as React from 'react';
 
 const { ESC, TAB } = KeyCode;

@@ -2,7 +2,7 @@
 import type { MenuRef } from '@rc-component/menu';
 import Menu, { Divider, Item as MenuItem } from '@rc-component/menu';
 import { _rs } from '@rc-component/resize-observer';
-import { spyElementPrototypes } from '@rc-component/util/lib/test/domHook';
+import { spyElementPrototypes } from '@rc-component/util';
 import { act, fireEvent } from '@testing-library/react';
 import type { HTMLAttributes } from 'react';
 import * as React from 'react';
