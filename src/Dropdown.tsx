@@ -1,12 +1,12 @@
-import type { TriggerProps, TriggerRef } from '@rc-component/trigger';
-import Trigger from '@rc-component/trigger';
-import type {
-  ActionType,
-  AlignType,
-  AnimationType,
-  BuildInPlacements,
-} from '@rc-component/trigger/lib/interface';
-import { composeRef, getNodeRef, supportRef } from '@rc-component/util/lib/ref';
+import Trigger, {
+  type ActionType,
+  type AlignType,
+  type AnimationType,
+  type BuildInPlacements,
+  type TriggerProps,
+  type TriggerRef,
+} from '@rc-component/trigger';
+import { composeRef, getNodeRef, supportRef } from '@rc-component/util';
 import { clsx } from 'clsx';
 import React from 'react';
 import useAccessibility from './hooks/useAccessibility';
