@@ -134,22 +134,32 @@ const Dropdown = React.forwardRef<TriggerRef, DropdownProps>((props, ref) => {
     return `${prefixCls}-open`;
   };
 
-  const child = children as React.ReactElement;
+  const child = children as React.ReactNode;
+  const validChild = React.isValidElement<{ className?: string }>(child);
+  const elementChild = validChild ? child : null;
   const childClassName = clsx(
-    child.props?.className,
+    elementChild?.props.className,
     mergedVisible && getOpenClassName(),
   );
+  const triggerChildProps: React.HTMLAttributes<HTMLElement> &
+    React.RefAttributes<HTMLElement> = {
+    className: childClassName,
+    ref: composeRef(childRef, elementChild && getNodeRef(elementChild)),
+  };
 
-  const childrenNode = supportRef(child) ? (
-    React.cloneElement(child, {
-      className: childClassName,
-      ref: composeRef(childRef, getNodeRef(child)),
-    })
-  ) : (
-    <span className={childClassName} ref={childRef}>
-      {child}
-    </span>
-  );
+  const childrenNode =
+    elementChild && supportRef(elementChild) ? (
+      React.cloneElement(
+        elementChild as React.ReactElement<
+          React.HTMLAttributes<HTMLElement> & React.RefAttributes<HTMLElement>
+        >,
+        triggerChildProps,
+      )
+    ) : (
+      <span className={childClassName} ref={childRef}>
+        {child}
+      </span>
+    );
 
   let triggerHideAction = hideAction;
   if (!triggerHideAction && trigger.indexOf('contextMenu') !== -1) {
