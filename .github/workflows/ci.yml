@@ -4,5 +4,5 @@ on: ['push', 'pull_request']
 
 jobs:
   CI:
-    uses: react-component/rc-test/.github/workflows/test.yml@main
+    uses: react-component/rc-test/.github/workflows/test-utoo.yml@main
     secrets: inherit

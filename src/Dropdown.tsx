@@ -1,7 +1,6 @@
 import Trigger, {
   type ActionType,
   type AlignType,
-  type AnimationType,
   type BuildInPlacements,
   type TriggerProps,
   type TriggerRef,
@@ -32,7 +31,7 @@ export interface DropdownProps
   transitionName?: string;
   overlayClassName?: string;
   openClassName?: string;
-  animation?: AnimationType;
+  animation?: string;
   align?: AlignType;
   overlayStyle?: React.CSSProperties;
   placement?: keyof typeof Placements;
@@ -135,15 +134,22 @@ const Dropdown = React.forwardRef<TriggerRef, DropdownProps>((props, ref) => {
     return `${prefixCls}-open`;
   };
 
-  const childrenNode = React.cloneElement(children as React.ReactElement, {
-    className: clsx(
-      (children as React.ReactElement).props?.className,
-      mergedVisible && getOpenClassName(),
-    ),
-    ref: supportRef(children)
-      ? composeRef(childRef, getNodeRef(children as React.ReactElement))
-      : undefined,
-  });
+  const child = children as React.ReactElement;
+  const childClassName = clsx(
+    child.props?.className,
+    mergedVisible && getOpenClassName(),
+  );
+
+  const childrenNode = supportRef(child) ? (
+    React.cloneElement(child, {
+      className: childClassName,
+      ref: composeRef(childRef, getNodeRef(child)),
+    })
+  ) : (
+    <span className={childClassName} ref={childRef}>
+      {child}
+    </span>
+  );
 
   let triggerHideAction = hideAction;
   if (!triggerHideAction && trigger.indexOf('contextMenu') !== -1) {
