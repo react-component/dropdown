@@ -9,10 +9,17 @@
     "jsx": "react",
     "skipLibCheck": true,
     "paths": {
-      "@@/*": [".dumi/tmp/*"]
-    }
+      "@@/*": [
+        ".dumi/tmp/*"
+      ]
+    },
+    "ignoreDeprecations": "5.0"
   },
-  "include": ["./src", "./tests", "./typings/"],
+  "include": [
+    "./src",
+    "./tests",
+    "./typings/"
+  ],
   "typings": "./typings/index.d.ts",
   "exclude": [
     "node_modules",
