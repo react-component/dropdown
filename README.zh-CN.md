@@ -1,8 +1,7 @@
 <div align="center">
   <h1>@rc-component/dropdown</h1>
-  <p><sub>Ant Design 生态的一部分。</sub></p>
-  <img alt="Ant Design" height="32" src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg" />
-  <p>⬇️ React 下拉菜单基础组件，基于 trigger 和 menu 能力构建。</p>
+  <p><sub><img alt="Ant Design" height="14" src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg" style="vertical-align: -0.125em;" /> Ant Design 生态的一部分。</sub></p>
+  <p>🔽 ⬇️ React 下拉菜单基础组件，基于 trigger 和 menu 能力构建。</p>
 </div>
 
 <p align="center"><a href="./README.md">English</a> | 简体中文</p>
@@ -30,9 +29,9 @@
 ## 特性
 
 - Built on `@rc-component/trigger`.
-- 支持 hover, click, context menu, and custom trigger actions.
-- Accepts a React element or render function as dropdown overlay.
-- 支持 align point behavior and trigger-width matching.
+- 支持悬停、单击、上下文菜单和自定义触发操作。
+- 接受 React 元素或渲染函数作为下拉覆盖。
+- 支持对齐点行为和触发宽度匹配。
 
 ## 安装
 
@@ -66,26 +65,26 @@ npm start
 
 ## API
 
-Additional props are passed to the underlying [`@rc-component/trigger`](https://github.com/react-component/trigger) component.
+额外属性会透传给底层 [`@rc-component/trigger`](https://github.com/react-component/trigger) 组件。
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| alignPoint | Align popup to the click point | boolean | false |
-| animation | Popup animation name | string | - |
-| defaultVisible | Initial visible state | boolean | - |
-| getPopupContainer | Container where dropdown is rendered | `(node: HTMLElement) => HTMLElement` | `() => document.body` |
-| minOverlayWidthMatchTrigger | Whether overlay width should be at least trigger width | boolean | `true` unless `alignPoint` is set |
-| openClassName | Class name added to trigger when dropdown is open | string | `${prefixCls}-open` |
+| alignPoint | 将弹层窗口与点击点对齐 | boolean | false |
+| 动画片 | 弹层动画名称 | string | - |
+| defaultVisible | 初始可见状态 | boolean | - |
+| getPopupContainer | 呈现下拉列表的容器 | `(node: HTMLElement) => HTMLElement` | `() => document.body` |
+| minOverlayWidthMatchTrigger | 覆盖宽度是否至少应为触发宽度 | boolean | `true` 除非设置了 `alignPoint` |
+| openClassName | 打开下拉菜单时添加到触发器的className称 | string | `${prefixCls}-open` |
 | overlay | Dropdown overlay | `React.ReactElement \| (() => React.ReactElement)` | - |
-| overlayClassName | Additional overlay class name | string | - |
-| overlayStyle | Overlay style | `React.CSSProperties` | - |
+| overlayClassName | 附加覆盖className称 | string | - |
+| overlayStyle | 叠加样式 | `React.CSSProperties` | - |
 | placement | Dropdown placement | string | `bottomLeft` |
-| prefixCls | Component class name prefix | string | `rc-dropdown` |
-| transitionName | Popup transition class name | string | - |
-| trigger | Trigger action | `ActionType \| ActionType[]` | `['hover']` |
-| visible | Controlled visible state | boolean | - |
-| onOverlayClick | Callback when overlay is clicked | `(event: React.MouseEvent) => void` | - |
-| onVisibleChange | Callback when visibility changes | `(visible: boolean) => void` | - |
+| prefixCls | 组件className前缀 | string | `rc-dropdown` |
+| transitionName | 弹层过渡className称 | string | - |
+| 扳机 | 触发动作 | `ActionType \| ActionType[]` | `['hover']` |
+| 可见的 | 受控可见状态 | boolean | - |
+| onOverlayClick | 点击覆盖时的回调 | `(event: React.MouseEvent) => void` | - |
+| onVisibleChange | 可见性变化时的回调 | `(visible: boolean) => void` | - |
 
 ## 本地开发
 
@@ -108,8 +107,8 @@ npm run build
 npm run prepublishOnly
 ```
 
-The release flow is handled by `@rc-component/np` through the `rc-np` command after the package build.
+包构建完成后，发布流程由 `@rc-component/np` 通过 `rc-np` 命令处理。
 
 ## 许可证
 
-@rc-component/dropdown is released under the [MIT](./LICENSE) license.
+@rc-component/dropdown 基于 [MIT](./LICENSE) 许可证发布。
