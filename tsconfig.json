@@ -16,6 +16,7 @@
     "ignoreDeprecations": "5.0"
   },
   "include": [
+    ".fatherrc.ts",
     "./src",
     "./tests",
     "./typings/"
