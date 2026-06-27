@@ -1,10 +1,10 @@
 <div align="center">
   <h1>@rc-component/dropdown</h1>
-  <p><sub>Part of the Ant Design ecosystem.</sub></p>
-  <p>🔽 A trigger-driven dropdown component for React.</p>
+  <p><sub>Ant Design 生态的一部分。</sub></p>
+  <p>⬇️ React 下拉菜单基础组件，基于 trigger 和 menu 能力构建。</p>
 </div>
 
-<p align="center">English | <a href="./README.zh-CN.md">简体中文</a></p>
+<p align="center"><a href="./README.md">English</a> | 简体中文</p>
 
 
 <div align="center">
@@ -26,20 +26,20 @@
 [dumi-image]: https://img.shields.io/badge/docs%20by-dumi-blue?style=flat-square
 [dumi-url]: https://github.com/umijs/dumi
 
-## Highlights
+## 特性
 
 - Built on `@rc-component/trigger`.
-- Supports hover, click, context menu, and custom trigger actions.
+- 支持 hover, click, context menu, and custom trigger actions.
 - Accepts a React element or render function as dropdown overlay.
-- Supports align point behavior and trigger-width matching.
+- 支持 align point behavior and trigger-width matching.
 
-## Install
+## 安装
 
 ```bash
 npm install @rc-component/dropdown
 ```
 
-## Usage
+## 使用
 
 ```tsx | pure
 import Dropdown from '@rc-component/dropdown';
@@ -54,20 +54,20 @@ export default function App() {
 }
 ```
 
-## Examples
+## 示例
 
 ```bash
 npm install
 npm start
 ```
 
-Then open `http://localhost:8000`.
+然后打开 `http://localhost:8000`。
 
 ## API
 
 Additional props are passed to the underlying [`@rc-component/trigger`](https://github.com/react-component/trigger) component.
 
-| Property | Description | Type | Default |
+| 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | alignPoint | Align popup to the click point | boolean | false |
 | animation | Popup animation name | string | - |
@@ -86,7 +86,7 @@ Additional props are passed to the underlying [`@rc-component/trigger`](https://
 | onOverlayClick | Callback when overlay is clicked | `(event: React.MouseEvent) => void` | - |
 | onVisibleChange | Callback when visibility changes | `(visible: boolean) => void` | - |
 
-## Development
+## 本地开发
 
 ```bash
 npm install
@@ -101,7 +101,7 @@ npm run compile
 npm run build
 ```
 
-## Release
+## 发布
 
 ```bash
 npm run prepublishOnly
@@ -109,6 +109,6 @@ npm run prepublishOnly
 
 The release flow is handled by `@rc-component/np` through the `rc-np` command after the package build.
 
-## License
+## 许可证
 
 @rc-component/dropdown is released under the [MIT](./LICENSE) license.
