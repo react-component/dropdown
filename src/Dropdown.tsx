@@ -164,7 +164,7 @@ const Dropdown = React.forwardRef<TriggerRef, DropdownProps>((props, ref) => {
         triggerChildProps,
       )
     ) : (
-      <span className={!elementChild ? childClassName : undefined} ref={childRef}>
+      <span className={childClassName} ref={childRef}>
         {fallbackChild}
       </span>
     );
