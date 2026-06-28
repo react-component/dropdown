@@ -2,29 +2,18 @@
   <h1>@rc-component/dropdown</h1>
   <p><sub><img alt="Ant Design" height="14" src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg" style="vertical-align: -0.125em;" /> Part of the Ant Design ecosystem.</sub></p>
   <p>🔽 A trigger-driven dropdown component for React.</p>
+
+  <p>
+    <a href="https://npmjs.org/package/@rc-component/dropdown"><img alt="NPM version" src="https://img.shields.io/npm/v/@rc-component/dropdown.svg?style=flat-square"></a>
+    <a href="https://npmjs.org/package/@rc-component/dropdown"><img alt="npm downloads" src="https://img.shields.io/npm/dm/@rc-component/dropdown.svg?style=flat-square"></a>
+    <a href="https://github.com/react-component/dropdown/actions/workflows/ci.yml"><img alt="build status" src="https://github.com/react-component/dropdown/actions/workflows/ci.yml/badge.svg"></a>
+    <a href="https://app.codecov.io/gh/react-component/dropdown"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/react-component/dropdown/master.svg?style=flat-square"></a>
+    <a href="https://bundlephobia.com/package/@rc-component/dropdown"><img alt="bundle size" src="https://img.shields.io/bundlephobia/minzip/@rc-component/dropdown?style=flat-square"></a>
+    <a href="https://github.com/umijs/dumi"><img alt="dumi" src="https://img.shields.io/badge/docs%20by-dumi-blue?style=flat-square"></a>
+  </p>
 </div>
 
 <p align="center">English | <a href="./README.zh-CN.md">简体中文</a></p>
-
-<div align="center">
-
-[![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url] [![build status][github-actions-image]][github-actions-url] [![Codecov][codecov-image]][codecov-url] [![bundle size][bundlephobia-image]][bundlephobia-url] [![dumi][dumi-image]][dumi-url]
-
-</div>
-
-[npm-image]: https://img.shields.io/npm/v/@rc-component/dropdown.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/@rc-component/dropdown
-[github-actions-image]: https://github.com/react-component/dropdown/actions/workflows/ci.yml/badge.svg
-[github-actions-url]: https://github.com/react-component/dropdown/actions/workflows/ci.yml
-[codecov-image]: https://img.shields.io/codecov/c/github/react-component/dropdown/master.svg?style=flat-square
-[codecov-url]: https://app.codecov.io/gh/react-component/dropdown
-[download-image]: https://img.shields.io/npm/dm/@rc-component/dropdown.svg?style=flat-square
-[download-url]: https://npmjs.org/package/@rc-component/dropdown
-[bundlephobia-image]: https://img.shields.io/bundlephobia/minzip/%40rc-component%2Fdropdown?style=flat-square
-[bundlephobia-url]: https://bundlephobia.com/package/@rc-component/dropdown
-[dumi-image]: https://img.shields.io/badge/docs%20by-dumi-blue?style=flat-square
-[dumi-url]: https://github.com/umijs/dumi
-
 ## Highlights
 
 - Built on `@rc-component/trigger`.
