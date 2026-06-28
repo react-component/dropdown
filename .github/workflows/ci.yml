@@ -2,7 +2,10 @@ name: CI
 
 on: ['push', 'pull_request']
 
+permissions:
+  contents: read
 jobs:
   CI:
     uses: react-component/rc-test/.github/workflows/test-utoo.yml@main
-    secrets: inherit
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
