@@ -6,7 +6,6 @@
 
 <p align="center">English | <a href="./README.zh-CN.md">简体中文</a></p>
 
-
 <div align="center">
 
 [![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url] [![build status][github-actions-image]][github-actions-url] [![Codecov][codecov-image]][codecov-url] [![bundle size][bundlephobia-image]][bundlephobia-url] [![dumi][dumi-image]][dumi-url]
@@ -94,6 +93,8 @@ Additional props are passed to the underlying [`@rc-component/trigger`](https://
 npm install
 npm start
 ```
+
+The dumi site runs at `http://localhost:8000` by default.
 
 ```bash
 npm test
