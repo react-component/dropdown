@@ -31,7 +31,7 @@
     "compile": "father build && lessc assets/index.less assets/index.css",
     "coverage": "rc-test --coverage",
     "lint": "eslint src/ docs/examples/ --ext .tsx,.ts,.jsx,.js",
-    "prepare": "husky install && dumi setup",
+    "prepare": "husky && dumi setup",
     "prepublishOnly": "npm run compile && rc-np",
     "prettier": "prettier --write --ignore-unknown .",
     "start": "dumi dev",
@@ -39,9 +39,7 @@
     "tsc": "tsc --noEmit"
   },
   "lint-staged": {
-    "**/*.{js,jsx,tsx,ts,md,json}": [
-      "prettier --write --ignore-unknown"
-    ]
+    "*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
     "@rc-component/trigger": "^3.0.0",
