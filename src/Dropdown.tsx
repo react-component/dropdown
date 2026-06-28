@@ -134,29 +134,21 @@ const Dropdown = React.forwardRef<TriggerRef, DropdownProps>((props, ref) => {
     return `${prefixCls}-open`;
   };
 
-  const child = children as React.ReactNode;
-  const validChild = React.isValidElement<{ className?: string }>(child);
-  const elementChild = validChild ? child : null;
+  const elementChild = children as React.ReactElement<
+    React.HTMLAttributes<HTMLElement>
+  >;
   const childClassName = clsx(
-    elementChild?.props.className,
+    elementChild.props?.className,
     mergedVisible && getOpenClassName(),
   );
   const triggerChildProps: React.HTMLAttributes<HTMLElement> &
     React.RefAttributes<HTMLElement> = {
     className: childClassName,
-    ref: composeRef(childRef, elementChild && getNodeRef(elementChild)),
+    ref: composeRef(childRef, getNodeRef(elementChild)),
   };
-  const fallbackChild = elementChild
-    ? React.cloneElement(
-        elementChild as React.ReactElement<React.HTMLAttributes<HTMLElement>>,
-        {
-          className: childClassName,
-        },
-      )
-    : child;
 
   const childrenNode =
-    elementChild && supportRef(elementChild) ? (
+    supportRef(elementChild) ? (
       React.cloneElement(
         elementChild as React.ReactElement<
           React.HTMLAttributes<HTMLElement> & React.RefAttributes<HTMLElement>
@@ -165,7 +157,9 @@ const Dropdown = React.forwardRef<TriggerRef, DropdownProps>((props, ref) => {
       )
     ) : (
       <span className={childClassName} ref={childRef}>
-        {fallbackChild}
+        {React.cloneElement(elementChild, {
+          className: childClassName,
+        })}
       </span>
     );
 
