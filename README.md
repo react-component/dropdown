@@ -73,7 +73,7 @@ Additional props are passed to the underlying [`@rc-component/trigger`](https://
 | --- | --- | --- | --- |
 | alignPoint | Align popup to the click point | boolean | false |
 | animation | Popup animation name | string | - |
-| defaultVisible | Initial visible state | boolean | - |
+| arrow | Whether to show dropdown arrow | boolean | false |
 | getPopupContainer | Container where dropdown is rendered | `(node: HTMLElement) => HTMLElement` | `() => document.body` |
 | minOverlayWidthMatchTrigger | Whether overlay width should be at least trigger width | boolean | `true` unless `alignPoint` is set |
 | openClassName | Class name added to trigger when dropdown is open | string | `${prefixCls}-open` |
@@ -85,7 +85,7 @@ Additional props are passed to the underlying [`@rc-component/trigger`](https://
 | transitionName | Popup transition class name | string | - |
 | trigger | Trigger action | `ActionType \| ActionType[]` | `['hover']` |
 | visible | Controlled visible state | boolean | - |
-| onOverlayClick | Callback when overlay is clicked | `(event: React.MouseEvent) => void` | - |
+| onOverlayClick | Callback when overlay is clicked | `(event: Event) => void` | - |
 | onVisibleChange | Callback when visibility changes | `(visible: boolean) => void` | - |
 
 ## Development

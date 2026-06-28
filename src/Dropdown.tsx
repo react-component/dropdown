@@ -146,6 +146,14 @@ const Dropdown = React.forwardRef<TriggerRef, DropdownProps>((props, ref) => {
     className: childClassName,
     ref: composeRef(childRef, elementChild && getNodeRef(elementChild)),
   };
+  const fallbackChild = elementChild
+    ? React.cloneElement(
+        elementChild as React.ReactElement<React.HTMLAttributes<HTMLElement>>,
+        {
+          className: childClassName,
+        },
+      )
+    : child;
 
   const childrenNode =
     elementChild && supportRef(elementChild) ? (
@@ -156,8 +164,8 @@ const Dropdown = React.forwardRef<TriggerRef, DropdownProps>((props, ref) => {
         triggerChildProps,
       )
     ) : (
-      <span className={childClassName} ref={childRef}>
-        {child}
+      <span className={!elementChild ? childClassName : undefined} ref={childRef}>
+        {fallbackChild}
       </span>
     );
 

@@ -286,6 +286,19 @@ describe('dropdown', () => {
     ).toBeFalsy();
   });
 
+  it('should pass openClassName to child without ref support', () => {
+    const LegacyButton = (props: HTMLAttributes<HTMLButtonElement>) => (
+      <button {...props}>open</button>
+    );
+    const { container } = render(
+      <Dropdown overlay={<div style={{ width: 50 }}>Test</div>} visible>
+        <LegacyButton className="my-button" />
+      </Dropdown>,
+    );
+
+    expect(container.querySelector('.my-button')).toHaveClass('rc-dropdown-open');
+  });
+
   it('overlay callback', async () => {
     const overlay = <div style={{ width: 50 }}>Test</div>;
     const { container, baseElement } = render(

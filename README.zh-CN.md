@@ -28,7 +28,7 @@
 
 ## 特性
 
-- Built on `@rc-component/trigger`.
+- 基于 `@rc-component/trigger` 构建。
 - 支持悬停、单击、上下文菜单和自定义触发操作。
 - 接受 React 元素或渲染函数作为下拉覆盖。
 - 支持对齐点行为和触发宽度匹配。
@@ -72,20 +72,20 @@ npm start
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | alignPoint | 将弹层窗口与点击点对齐 | boolean | false |
-| 动画片 | 弹层动画名称 | string | - |
-| defaultVisible | 初始可见状态 | boolean | - |
+| animation | 弹层动画名称 | string | - |
+| arrow | 是否显示下拉箭头 | boolean | false |
 | getPopupContainer | 呈现下拉列表的容器 | `(node: HTMLElement) => HTMLElement` | `() => document.body` |
 | minOverlayWidthMatchTrigger | 覆盖宽度是否至少应为触发宽度 | boolean | `true` 除非设置了 `alignPoint` |
-| openClassName | 打开下拉菜单时添加到触发器的className称 | string | `${prefixCls}-open` |
-| overlay | Dropdown overlay | `React.ReactElement \| (() => React.ReactElement)` | - |
-| overlayClassName | 附加覆盖className称 | string | - |
+| openClassName | 打开下拉菜单时添加到触发器的类名 | string | `${prefixCls}-open` |
+| overlay | 下拉菜单内容 | `React.ReactElement \| (() => React.ReactElement)` | - |
+| overlayClassName | 附加弹层类名 | string | - |
 | overlayStyle | 叠加样式 | `React.CSSProperties` | - |
-| placement | Dropdown placement | string | `bottomLeft` |
-| prefixCls | 组件className前缀 | string | `rc-dropdown` |
-| transitionName | 弹层过渡className称 | string | - |
-| 扳机 | 触发动作 | `ActionType \| ActionType[]` | `['hover']` |
-| 可见的 | 受控可见状态 | boolean | - |
-| onOverlayClick | 点击覆盖时的回调 | `(event: React.MouseEvent) => void` | - |
+| placement | 下拉菜单位置 | string | `bottomLeft` |
+| prefixCls | 组件类名前缀 | string | `rc-dropdown` |
+| transitionName | 弹层过渡类名 | string | - |
+| trigger | 触发动作 | `ActionType \| ActionType[]` | `['hover']` |
+| visible | 受控可见状态 | boolean | - |
+| onOverlayClick | 点击下拉菜单内容时的回调 | `(event: Event) => void` | - |
 | onVisibleChange | 可见性变化时的回调 | `(visible: boolean) => void` | - |
 
 ## 本地开发
