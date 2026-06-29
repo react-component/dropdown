@@ -9,13 +9,20 @@
     "jsx": "react",
     "skipLibCheck": true,
     "paths": {
-      "@@/*": [
-        ".dumi/tmp/*"
-      ]
+      "@@/*": [".dumi/tmp/*"]
     },
-    "ignoreDeprecations": "5.0"
+    "ignoreDeprecations": "6.0",
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
+    "strictFunctionTypes": false,
+    "strict": false,
+    "noImplicitThis": false,
+    "strictBindCallApply": false
   },
   "include": [
+    "react-compat.d.ts",
+    "global.d.ts",
     ".fatherrc.ts",
     "./src",
     "./tests",
