@@ -1,143 +1,81 @@
-# @rc-component/dropdown
+<div align="center">
+  <h1>@rc-component/dropdown</h1>
+  <p><sub><img alt="Ant Design" height="14" src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg" style="vertical-align: -0.125em;" /> Part of the Ant Design ecosystem.</sub></p>
+  <p>🔽 A trigger-driven dropdown component for React.</p>
 
-react dropdown component.
+  <p>
+    <a href="https://npmjs.org/package/@rc-component/dropdown"><img alt="NPM version" src="https://img.shields.io/npm/v/@rc-component/dropdown.svg?style=flat-square"></a>
+    <a href="https://npmjs.org/package/@rc-component/dropdown"><img alt="npm downloads" src="https://img.shields.io/npm/dm/@rc-component/dropdown.svg?style=flat-square"></a>
+    <a href="https://github.com/react-component/dropdown/actions/workflows/ci.yml"><img alt="build status" src="https://github.com/react-component/dropdown/actions/workflows/ci.yml/badge.svg"></a>
+    <a href="https://app.codecov.io/gh/react-component/dropdown"><img alt="Codecov" src="https://img.shields.io/codecov/c/github/react-component/dropdown/master.svg?style=flat-square"></a>
+    <a href="https://bundlephobia.com/package/@rc-component/dropdown"><img alt="bundle size" src="https://img.shields.io/bundlephobia/minzip/@rc-component/dropdown?style=flat-square"></a>
+    <a href="https://github.com/umijs/dumi"><img alt="dumi" src="https://img.shields.io/badge/docs%20by-dumi-blue?style=flat-square"></a>
+  </p>
+</div>
 
-[![NPM version][npm-image]][npm-url] [![npm download][download-image]][download-url] [![build status][github-actions-image]][github-actions-url] [![Codecov][codecov-image]][codecov-url] [![bundle size][bundlephobia-image]][bundlephobia-url] [![dumi][dumi-image]][dumi-url]
+<p align="center">English | <a href="./README.zh-CN.md">简体中文</a></p>
 
-[npm-image]: https://img.shields.io/npm/v/@rc-component/dropdown.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/@rc-component/dropdown
-[travis-image]: https://img.shields.io/travis/react-component/dropdown/master?style=flat-square
-[travis-url]: https://travis-ci.com/react-component/dropdown
-[github-actions-image]: https://github.com/react-component/dropdown/actions/workflows/ci.yml/badge.svg
-[github-actions-url]: https://github.com/react-component/dropdown/actions/workflows/ci.yml
-[codecov-image]: https://img.shields.io/codecov/c/github/react-component/dropdown/master.svg?style=flat-square
-[codecov-url]: https://app.codecov.io/gh/react-component/dropdown
-[david-url]: https://david-dm.org/react-component/dropdown
-[david-image]: https://david-dm.org/react-component/dropdown/status.svg?style=flat-square
-[david-dev-url]: https://david-dm.org/react-component/dropdown?type=dev
-[david-dev-image]: https://david-dm.org/react-component/dropdown/dev-status.svg?style=flat-square
-[download-image]: https://img.shields.io/npm/dm/@rc-component/dropdown.svg?style=flat-square
-[download-url]: https://npmjs.org/package/@rc-component/dropdown
-[bundlephobia-url]: https://bundlephobia.com/package/@rc-component/dropdown
-[bundlephobia-image]: https://badgen.net/bundlephobia/minzip/@rc-component/dropdown
-[dumi-url]: https://github.com/umijs/dumi
-[dumi-image]: https://img.shields.io/badge/docs%20by-dumi-blue?style=flat-square
+## Highlights
 
-## Screenshot
+- Built on `@rc-component/trigger`.
+- Supports hover, click, context menu, and custom trigger actions.
+- Accepts a React element or render function as dropdown overlay.
+- Supports align point behavior and trigger-width matching.
 
-![](https://t.alipayobjects.com/images/rmsweb/T1bWpgXgBaXXXXXXXX.png)
+## Install
 
-## Example
-
-online example: http://react-component.github.io/dropdown/examples/
-
-## install
-
-[![@rc-component/dropdown](https://nodei.co/npm/@rc-component/dropdown.png)](https://npmjs.org/package/@rc-component/dropdown)
+```bash
+npm install @rc-component/dropdown
+```
 
 ## Usage
 
-```js
-var Dropdown = require('@rc-component/dropdown');
-// use dropdown
+```tsx | pure
+import Dropdown from '@rc-component/dropdown';
+import '@rc-component/dropdown/assets/index.css';
+
+export default function App() {
+  return (
+    <Dropdown overlay={<div>Dropdown content</div>} trigger={['click']}>
+      <button type="button">Open</button>
+    </Dropdown>
+  );
+}
 ```
+
+## Examples
+
+Run the local dumi site:
+
+```bash
+npm install
+npm start
+```
+
+Then open `http://localhost:8000`.
 
 ## API
 
-### props
+Additional props are passed to the underlying [`@rc-component/trigger`](https://github.com/react-component/trigger) component.
 
-<table class="table table-bordered table-striped">
-    <thead>
-    <tr>
-        <th style="width: 100px;">name</th>
-        <th style="width: 50px;">type</th>
-        <th style="width: 50px;">default</th>
-        <th>description</th>
-    </tr>
-    </thead>
-    <tbody>
-        <tr>
-          <td>overlayClassName</td>
-          <td>String</td>
-          <td></td>
-          <td>additional css class of root dom node</td>
-        </tr>
-        <tr>
-          <td>openClassName</td>
-          <td>String</td>
-          <td>`${prefixCls}-open`</td>
-          <td>className of trigger when dropdown is opened</td>
-        </tr>
-        <tr>
-          <td>prefixCls</td>
-          <td>String</td>
-          <td>rc-dropdown</td>
-          <td>prefix class name</td>
-        </tr>
-        <tr>
-          <td>transitionName</td>
-          <td>String</td>
-          <td></td>
-          <td>dropdown menu's animation css class name</td>
-        </tr>
-        <tr>
-          <td>animation</td>
-          <td>String</td>
-          <td></td>
-          <td>part of dropdown menu's animation css class name</td>
-        </tr>
-        <tr>
-          <td>placement</td>
-          <td>String</td>
-          <td>bottomLeft</td>
-          <td>Position of menu item. There are: top, topCenter, topRight, bottomLeft, bottom, bottomRight </td>
-        </tr>
-        <tr>
-          <td>onVisibleChange</td>
-          <td>Function</td>
-          <td></td>
-          <td>call when visible is changed</td>
-        </tr>
-        <tr>
-          <td>visible</td>
-          <td>boolean</td>
-          <td></td>
-          <td>whether tooltip is visible</td>
-        </tr>
-        <tr>
-          <td>defaultVisible</td>
-          <td>boolean</td>
-          <td></td>
-          <td>whether tooltip is visible initially</td>
-        </tr>
-        <tr>
-          <td>overlay</td>
-          <td>rc-menu</td>
-          <td></td>
-          <td><a href="https://github.com/react-component/menu">rc-menu</a> element</td>
-        </tr>
-        <tr>
-          <td>onOverlayClick</td>
-          <td>function(e)</td>
-          <td></td>
-          <td>call when overlay is clicked</td>
-        </tr>
-        <tr>
-          <td>minOverlayWidthMatchTrigger</td>
-          <td>boolean</td>
-          <td>true (false when set alignPoint)</td>
-          <td>whether overlay's width must not be less than trigger's </td>
-        </tr>
-        <tr>
-          <td>getPopupContainer</td>
-          <td>Function(menuDOMNode): HTMLElement</td>
-          <th>() => document.body</th>
-          <td>Where to render the DOM node of dropdown</td>
-        </tr>
-    </tbody>
-</table>
-
-Note: Additional props are passed into the underlying [rc-trigger](https://github.com/react-component/trigger) component. This can be useful for example, to display the dropdown in a separate [portal](https://reactjs.org/docs/portals.html)-driven window via the `getDocument()` rc-trigger prop.
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| alignPoint | Align popup to the click point | boolean | false |
+| animation | Popup animation name | string | - |
+| arrow | Whether to show dropdown arrow | boolean | false |
+| getPopupContainer | Container where dropdown is rendered | `(node: HTMLElement) => HTMLElement` | `() => document.body` |
+| minOverlayWidthMatchTrigger | Whether overlay width should be at least trigger width | boolean | `true` unless `alignPoint` is set |
+| openClassName | Class name added to trigger when dropdown is open | string | `${prefixCls}-open` |
+| overlay | Dropdown overlay | `React.ReactElement \| (() => React.ReactElement)` | - |
+| overlayClassName | Additional overlay class name | string | - |
+| overlayStyle | Overlay style | `React.CSSProperties` | - |
+| placement | Dropdown placement | string | `bottomLeft` |
+| prefixCls | Component class name prefix | string | `rc-dropdown` |
+| transitionName | Popup transition class name | string | - |
+| trigger | Trigger action | `ActionType \| ActionType[]` | `['hover']` |
+| visible | Controlled visible state | boolean | - |
+| onOverlayClick | Callback when overlay is clicked | `(event: Event) => void` | - |
+| onVisibleChange | Callback when visibility changes | `(visible: boolean) => void` | - |
 
 ## Development
 
@@ -146,21 +84,24 @@ npm install
 npm start
 ```
 
-## Test Case
+The dumi site runs at `http://localhost:8000` by default.
 
 ```bash
 npm test
-npm run chrome-test
+npm run tsc
+npm run lint
+npm run compile
+npm run build
 ```
 
-## Coverage
+## Release
 
 ```bash
-npm run coverage
+npm run prepublishOnly
 ```
 
-open coverage/ dir
+The release flow is handled by `@rc-component/np` through the `rc-np` command after the package build.
 
 ## License
 
-@rc-component/dropdown is released under the MIT license.
+@rc-component/dropdown is released under the [MIT](./LICENSE) license.

@@ -36,3 +36,4 @@ pnpm-lock.yaml
 .dumi/tmp-test
 .dumi/tmp-production
 .docs
+docs-dist
