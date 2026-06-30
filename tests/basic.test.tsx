@@ -1,9 +1,10 @@
+import { fireEvent } from '@testing-library/dom';
 /* eslint-disable react/button-has-type,react/no-find-dom-node,react/no-render-return-value,object-shorthand,func-names,max-len */
 import type { MenuRef } from '@rc-component/menu';
 import Menu, { Divider, Item as MenuItem } from '@rc-component/menu';
 import { _rs } from '@rc-component/resize-observer';
 import { spyElementPrototypes } from '@rc-component/util';
-import { act, fireEvent } from '@testing-library/react';
+import { act } from '@testing-library/react';
 import type { HTMLAttributes } from 'react';
 import * as React from 'react';
 import { createRef, forwardRef, useImperativeHandle } from 'react';
@@ -296,7 +297,9 @@ describe('dropdown', () => {
       </Dropdown>,
     );
 
-    expect(container.querySelector('.my-button')).toHaveClass('rc-dropdown-open');
+    expect(container.querySelector('.my-button')).toHaveClass(
+      'rc-dropdown-open',
+    );
   });
 
   it('overlay callback', async () => {
