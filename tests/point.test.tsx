@@ -1,6 +1,5 @@
-import { fireEvent } from '@testing-library/dom';
 /* eslint-disable react/button-has-type,react/no-render-return-value */
-import { act } from '@testing-library/react';
+import { act, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 import Dropdown from '../src';
 import { render } from './utils';
