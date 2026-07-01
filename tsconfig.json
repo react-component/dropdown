@@ -10,13 +10,7 @@
     "paths": {
       "@@/*": ["./.dumi/tmp/*"]
     },
-    "noImplicitAny": false,
-    "strictNullChecks": false,
-    "strictPropertyInitialization": false,
-    "strictFunctionTypes": false,
-    "strict": false,
-    "noImplicitThis": false,
-    "strictBindCallApply": false
+    "strict": false
   },
   "include": ["global.d.ts", ".fatherrc.ts", "./src", "./tests", "./typings/"],
   "typings": "./typings/index.d.ts",
