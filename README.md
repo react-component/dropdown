@@ -48,7 +48,7 @@ export default function App() {
 Run the local dumi site:
 
 ```bash
-npm install
+ut install
 npm start
 ```
 
@@ -80,7 +80,7 @@ Additional props are passed to the underlying [`@rc-component/trigger`](https://
 ## Development
 
 ```bash
-npm install
+ut install
 npm start
 ```
 
