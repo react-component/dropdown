@@ -18,14 +18,7 @@
     "noImplicitThis": false,
     "strictBindCallApply": false
   },
-  "include": [
-    "react-compat.d.ts",
-    "global.d.ts",
-    ".fatherrc.ts",
-    "./src",
-    "./tests",
-    "./typings/"
-  ],
+  "include": ["global.d.ts", ".fatherrc.ts", "./src", "./tests", "./typings/"],
   "typings": "./typings/index.d.ts",
   "exclude": [
     "node_modules",
