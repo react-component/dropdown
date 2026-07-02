@@ -99,6 +99,19 @@ describe('dropdown', () => {
     expect(onVisibleChange).toHaveBeenCalledWith(false);
   });
 
+  it('forwards ref to trigger', () => {
+    const ref = createRef<any>();
+    const { container } = render(
+      <Dropdown ref={ref} overlay={<div>Test</div>}>
+        <button className="my-button">open</button>
+      </Dropdown>,
+    );
+
+    expect(ref.current.nativeElement).toBe(
+      container.querySelector('.my-button'),
+    );
+  });
+
   it('simply works', async () => {
     let clicked;
 
@@ -296,7 +309,9 @@ describe('dropdown', () => {
       </Dropdown>,
     );
 
-    expect(container.querySelector('.my-button')).toHaveClass('rc-dropdown-open');
+    expect(container.querySelector('.my-button')).toHaveClass(
+      'rc-dropdown-open',
+    );
   });
 
   it('overlay callback', async () => {
