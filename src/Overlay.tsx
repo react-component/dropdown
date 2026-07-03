@@ -25,7 +25,7 @@ const Overlay = forwardRef<HTMLElement, OverlayProps>((props, ref) => {
   return (
     <>
       {arrow && <div className={`${prefixCls}-arrow`} />}
-      {React.cloneElement(overlayNode, {
+      {React.cloneElement(overlayNode as React.ReactElement<any>, {
         ref: supportRef(overlayNode) ? composedRef : undefined,
       })}
     </>

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`dropdown simply works 1`] = `
 <div>
@@ -9,7 +9,7 @@ exports[`dropdown simply works 1`] = `
   </button>
   <div
     class="rc-dropdown rc-dropdown-placement-bottomLeft"
-    style="--arrow-x: 0px; --arrow-y: 0px; left: -1000vw; top: -1000vh; box-sizing: border-box; min-width: 100px;"
+    style="--arrow-x: 0px; --arrow-y: 0px; left: -1000vw; top: -1000vh; right: auto; bottom: auto; box-sizing: border-box; min-width: 100px;"
   >
     <ul
       class="rc-menu rc-menu-root rc-menu-vertical"
