@@ -65,8 +65,9 @@ const Dropdown = React.forwardRef<TriggerRef, DropdownProps>((props, ref) => {
     overlay,
     children,
     onVisibleChange,
+    disabled,
     ...otherProps
-  } = props;
+  } = props as DropdownProps & { disabled?: boolean };
 
   const [triggerVisible, setTriggerVisible] = React.useState<boolean>();
   const mergedVisible = 'visible' in props ? visible : triggerVisible;
