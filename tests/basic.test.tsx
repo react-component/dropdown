@@ -407,6 +407,43 @@ describe('dropdown', () => {
     jest.useRealTimers();
   });
 
+  it('Shift+Tab should close the menu without moving focus into it', async () => {
+    jest.useFakeTimers();
+
+    const overlay = (
+      <Menu>
+        <MenuItem key="1">one</MenuItem>
+        <MenuItem key="2">two</MenuItem>
+      </Menu>
+    );
+    const { container, baseElement } = render(
+      <Dropdown trigger={['click']} overlay={overlay}>
+        <button className="my-button">open</button>
+      </Dropdown>,
+    );
+    const trigger = container.querySelector<HTMLButtonElement>('.my-button');
+
+    trigger.focus();
+    fireEvent.click(trigger);
+    await waitForTime();
+
+    const event = new KeyboardEvent('keydown', {
+      keyCode: 9,
+      shiftKey: true,
+      cancelable: true,
+    });
+    window.dispatchEvent(event);
+    await waitForTime();
+
+    expect(event.defaultPrevented).toBeFalsy();
+    expect(document.activeElement).toBe(trigger);
+    expect(baseElement.querySelector('.rc-dropdown')).toHaveClass(
+      'rc-dropdown-hidden',
+    );
+
+    jest.useRealTimers();
+  });
+
   it('Tab should close menu if overlay cannot be focused', async () => {
     jest.useFakeTimers();
 

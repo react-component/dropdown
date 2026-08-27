@@ -42,6 +42,11 @@ export default function useAccessibility({
         handleCloseMenuAndReturnFocus();
         break;
       case TAB: {
+        if (event.shiftKey) {
+          handleCloseMenuAndReturnFocus();
+          break;
+        }
+
         let focusResult: boolean = false;
         if (!focusMenuRef.current) {
           focusResult = focusMenu();
