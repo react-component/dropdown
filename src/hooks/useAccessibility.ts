@@ -28,7 +28,7 @@ export default function useAccessibility({
   };
 
   const focusMenu = (options?: FocusOptions) => {
-    const overlay = overlayRef.current;
+    const overlay = overlayRef?.current;
     if (!overlay?.focus) {
       return false;
     }
