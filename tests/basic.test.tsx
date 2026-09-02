@@ -492,9 +492,16 @@ describe('dropdown', () => {
 
     // Focus menu with Tab
     window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 })); // Tab
+    expect(document.activeElement).toHaveClass('rc-menu');
+    fireEvent.keyDown(document.activeElement, {
+      key: 'ArrowDown',
+      keyCode: 40,
+    });
+    await sleep(50);
+    expect(document.activeElement).toHaveTextContent('one');
 
     // Close menu with Tab
-    window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 })); // Tab
+    fireEvent.keyDown(document.activeElement, { key: 'Tab', keyCode: 9 });
     await sleep(200);
     expect(document.activeElement.className).toContain('my-button');
   });
