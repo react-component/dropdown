@@ -4,26 +4,26 @@ import * as React from 'react';
 const { ESC, TAB } = KeyCode;
 
 interface UseAccessibilityProps {
-  visible: boolean;
+  open: boolean;
   triggerRef: React.RefObject<any>;
-  onVisibleChange?: (visible: boolean) => void;
+  onOpenChange?: (open: boolean) => void;
   autoFocus?: boolean;
   overlayRef?: React.RefObject<any>;
 }
 
 export default function useAccessibility({
-  visible,
+  open,
   triggerRef,
-  onVisibleChange,
+  onOpenChange,
   autoFocus,
   overlayRef,
 }: UseAccessibilityProps) {
   const focusMenuRef = React.useRef<boolean>(false);
 
   const handleCloseMenuAndReturnFocus = () => {
-    if (visible) {
+    if (open) {
       triggerRef.current?.focus?.();
-      onVisibleChange?.(false);
+      onOpenChange?.(false);
     }
   };
 
@@ -58,7 +58,7 @@ export default function useAccessibility({
   };
 
   React.useEffect(() => {
-    if (visible) {
+    if (open) {
       window.addEventListener('keydown', handleKeyDown);
       if (autoFocus) {
         // FIXME: hack with raf
@@ -72,5 +72,5 @@ export default function useAccessibility({
     return () => {
       focusMenuRef.current = false;
     };
-  }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 }

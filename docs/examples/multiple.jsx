@@ -5,13 +5,13 @@ import '../../assets/index.less';
 
 class Test extends Component {
   state = {
-    visible: false,
+    open: false,
   };
 
-  onVisibleChange = (visible) => {
-    console.log('visible', visible);
+  onOpenChange = (open) => {
+    console.log('open', open);
     this.setState({
-      visible,
+      open,
     });
   };
 
@@ -24,7 +24,7 @@ class Test extends Component {
   confirm = () => {
     console.log(this.selected);
     this.setState({
-      visible: false,
+      open: false,
     });
   };
 
@@ -57,8 +57,8 @@ class Test extends Component {
     return (
       <Dropdown
         trigger={['click']}
-        onVisibleChange={this.onVisibleChange}
-        visible={this.state.visible}
+        onOpenChange={this.onOpenChange}
+        open={this.state.open}
         closeOnSelect={false}
         overlay={menu}
         animation="slide-up"

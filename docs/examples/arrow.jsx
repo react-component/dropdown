@@ -7,8 +7,8 @@ function onSelect({ key }) {
   console.log(`${key} selected`);
 }
 
-function onVisibleChange(visible) {
-  console.log(visible);
+function onOpenChange(open) {
+  console.log(open);
 }
 
 const menu = (
@@ -30,7 +30,7 @@ export default function Arrow() {
           trigger={['click']}
           overlay={menu}
           animation="slide-up"
-          onVisibleChange={onVisibleChange}
+          onOpenChange={onOpenChange}
         >
           <button style={{ width: 100 }}>open</button>
         </Dropdown>
@@ -42,7 +42,7 @@ export default function Arrow() {
           trigger={['click']}
           overlay={menu}
           animation="slide-up"
-          onVisibleChange={onVisibleChange}
+          onOpenChange={onOpenChange}
         >
           <button style={{ width: 100 }}>open</button>
         </Dropdown>
