@@ -77,7 +77,9 @@ Additional props are passed to the underlying [`@rc-component/trigger`](https://
 | onOverlayClick | Callback when overlay is clicked | `(event: Event) => void` | - |
 | onOpenChange | Callback when the open state changes | `(open: boolean) => void` | - |
 
-`visible` and `onVisibleChange` are deprecated aliases for `open` and `onOpenChange`. When both state props are provided, a defined `open` takes precedence. Both callbacks are called when provided. Clicking the overlay closes an uncontrolled dropdown and calls `onOverlayClick`, without calling either state-change callback.
+`visible` and `onVisibleChange` have been removed. Use `open` and `onOpenChange` instead. This is a breaking API change; callers must migrate when upgrading.
+
+Clicking the overlay closes an uncontrolled dropdown and calls `onOverlayClick`, without calling `onOpenChange`.
 
 ## Development
 

@@ -30,7 +30,5 @@ it('does not forward disabled to Trigger', () => {
   const triggerProps = mockTriggerRender.mock.calls[0][0];
   expect(triggerProps).not.toHaveProperty('disabled');
   expect(triggerProps).not.toHaveProperty('open');
-  expect(triggerProps).not.toHaveProperty('visible');
-  expect(triggerProps).not.toHaveProperty('onVisibleChange');
   expect(triggerProps).toHaveProperty('popupVisible', true);
 });

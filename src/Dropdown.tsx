@@ -26,8 +26,6 @@ export interface DropdownProps
   minOverlayWidthMatchTrigger?: boolean;
   arrow?: boolean;
   onOpenChange?: (open: boolean) => void;
-  /** @deprecated Use `onOpenChange` instead. */
-  onVisibleChange?: (visible: boolean) => void;
   onOverlayClick?: (e: Event) => void;
   prefixCls?: string;
   transitionName?: string;
@@ -44,8 +42,6 @@ export interface DropdownProps
   showAction?: ActionType[];
   hideAction?: ActionType[];
   open?: boolean;
-  /** @deprecated Use `open` instead. */
-  visible?: boolean;
   autoFocus?: boolean;
 }
 
@@ -64,24 +60,17 @@ const Dropdown = React.forwardRef<TriggerRef, DropdownProps>((props, ref) => {
     overlayClassName,
     overlayStyle,
     open,
-    visible,
     trigger = ['hover'],
     autoFocus,
     overlay,
     children,
     onOpenChange,
-    onVisibleChange,
     disabled,
     ...otherProps
   } = props as DropdownProps & { disabled?: boolean };
 
   const [triggerOpen, setTriggerOpen] = React.useState<boolean>();
-  let mergedOpen = triggerOpen;
-  if (open !== undefined) {
-    mergedOpen = open;
-  } else if ('visible' in props) {
-    mergedOpen = visible;
-  }
+  const mergedOpen = 'open' in props ? open : triggerOpen;
   const mergedMotionName = animation
     ? `${prefixCls}-${animation}`
     : transitionName;
@@ -94,7 +83,6 @@ const Dropdown = React.forwardRef<TriggerRef, DropdownProps>((props, ref) => {
   const handleOpenChange = (newOpen: boolean) => {
     setTriggerOpen(newOpen);
     onOpenChange?.(newOpen);
-    onVisibleChange?.(newOpen);
   };
 
   useAccessibility({

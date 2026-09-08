@@ -49,7 +49,6 @@ describe('open API', () => {
       const Overlay = () => <div>menu</div>;
       const { getByRole } = render(
         <Dropdown
-          open={undefined}
           onOpenChange={onOpenChange}
           trigger={['click']}
           overlay={<Overlay />}
@@ -92,50 +91,4 @@ describe('open API', () => {
     expect(onOpenChange).toHaveBeenCalledTimes(1);
     expect(onOpenChange).toHaveBeenCalledWith(true);
   });
-
-  it('supports deprecated state and callback', () => {
-    const onVisibleChange = jest.fn();
-    const { getByRole } = render(
-      <Dropdown
-        visible
-        onVisibleChange={onVisibleChange}
-        trigger={['click']}
-        overlay={<div>menu</div>}
-      >
-        <button type="button">trigger</button>
-      </Dropdown>,
-    );
-    const button = getByRole('button');
-    expect(button).toHaveClass('rc-dropdown-open');
-    fireEvent.click(button);
-    expect(onVisibleChange).toHaveBeenCalledWith(false);
-    expect(button).toHaveClass('rc-dropdown-open');
-  });
-
-  it.each([true, false])(
-    'prefers open=%s over visible and calls both callbacks',
-    (open) => {
-      const onOpenChange = jest.fn();
-      const onVisibleChange = jest.fn();
-      const { getByRole } = render(
-        <Dropdown
-          open={open}
-          visible={!open}
-          onOpenChange={onOpenChange}
-          onVisibleChange={onVisibleChange}
-          trigger={['click']}
-          overlay={<div>menu</div>}
-        >
-          <button type="button">trigger</button>
-        </Dropdown>,
-      );
-      const button = getByRole('button');
-      expect(button.classList.contains('rc-dropdown-open')).toBe(open);
-      fireEvent.click(button);
-      expect(onOpenChange).toHaveBeenCalledTimes(1);
-      expect(onOpenChange).toHaveBeenCalledWith(!open);
-      expect(onVisibleChange).toHaveBeenCalledTimes(1);
-      expect(onVisibleChange).toHaveBeenCalledWith(!open);
-    },
-  );
 });

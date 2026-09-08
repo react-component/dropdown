@@ -77,7 +77,9 @@ npm start
 | onOverlayClick | 点击下拉菜单内容时的回调 | `(event: Event) => void` | - |
 | onOpenChange | 可见性变化时的回调 | `(open: boolean) => void` | - |
 
-`visible` 和 `onVisibleChange` 已弃用，请改用 `open` 和 `onOpenChange`。同时传入两个状态属性时，已定义的 `open` 优先；同时传入两个回调时，两者都会调用。点击浮层会关闭非受控下拉菜单并调用 `onOverlayClick`，不会调用这两个状态变化回调。
+`visible` 和 `onVisibleChange` 已移除，请改用 `open` 和 `onOpenChange`。这是不兼容的 API 变更，调用方升级时需同步迁移。
+
+点击浮层会关闭非受控下拉菜单并调用 `onOverlayClick`，不会调用 `onOpenChange`。
 
 ## 本地开发
 
