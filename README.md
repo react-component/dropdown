@@ -73,9 +73,13 @@ Additional props are passed to the underlying [`@rc-component/trigger`](https://
 | prefixCls | Component class name prefix | string | `rc-dropdown` |
 | transitionName | Popup transition class name | string | - |
 | trigger | Trigger action | `ActionType \| ActionType[]` | `['hover']` |
-| visible | Controlled visible state | boolean | - |
+| open | Controlled open state | boolean | - |
 | onOverlayClick | Callback when overlay is clicked | `(event: Event) => void` | - |
-| onVisibleChange | Callback when visibility changes | `(visible: boolean) => void` | - |
+| onOpenChange | Callback when the open state changes | `(open: boolean) => void` | - |
+
+`visible` and `onVisibleChange` have been removed. Use `open` and `onOpenChange` instead. This is a breaking API change; callers must migrate when upgrading.
+
+Clicking the overlay closes an uncontrolled dropdown and calls `onOverlayClick`, without calling `onOpenChange`.
 
 ## Development
 

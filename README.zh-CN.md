@@ -73,9 +73,13 @@ npm start
 | prefixCls | 组件类名前缀 | string | `rc-dropdown` |
 | transitionName | 弹层过渡类名 | string | - |
 | trigger | 触发动作 | `ActionType \| ActionType[]` | `['hover']` |
-| visible | 受控可见状态 | boolean | - |
+| open | 受控可见状态 | boolean | - |
 | onOverlayClick | 点击下拉菜单内容时的回调 | `(event: Event) => void` | - |
-| onVisibleChange | 可见性变化时的回调 | `(visible: boolean) => void` | - |
+| onOpenChange | 可见性变化时的回调 | `(open: boolean) => void` | - |
+
+`visible` 和 `onVisibleChange` 已移除，请改用 `open` 和 `onOpenChange`。这是不兼容的 API 变更，调用方升级时需同步迁移。
+
+点击浮层会关闭非受控下拉菜单并调用 `onOverlayClick`，不会调用 `onOpenChange`。
 
 ## 本地开发
 

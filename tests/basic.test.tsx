@@ -62,9 +62,9 @@ describe('dropdown', () => {
     jest.clearAllTimers();
   });
 
-  it('default visible', () => {
+  it('default open', () => {
     const { container } = render(
-      <Dropdown overlay={<div className="check-for-visible">Test</div>} visible>
+      <Dropdown overlay={<div className="check-for-visible">Test</div>} open>
         <button className="my-button">open</button>
       </Dropdown>,
     );
@@ -76,14 +76,14 @@ describe('dropdown', () => {
     ).toBeTruthy();
   });
 
-  it('supports controlled visible prop', () => {
-    const onVisibleChange = jest.fn();
+  it('supports controlled open prop', () => {
+    const onOpenChange = jest.fn();
     const { container } = render(
       <Dropdown
         overlay={<div className="check-for-visible">Test</div>}
-        visible
+        open
         trigger={['click']}
-        onVisibleChange={onVisibleChange}
+        onOpenChange={onOpenChange}
       >
         <button className="my-button">open</button>
       </Dropdown>,
@@ -96,7 +96,7 @@ describe('dropdown', () => {
     ).toBeTruthy();
 
     fireEvent.click(container.querySelector('.my-button'));
-    expect(onVisibleChange).toHaveBeenCalledWith(false);
+    expect(onOpenChange).toHaveBeenCalledWith(false);
   });
 
   it('forwards ref to trigger', () => {
@@ -203,7 +203,7 @@ describe('dropdown', () => {
     const overlay = <div style={{ width: overlayWidth }}>Test</div>;
 
     const { container, baseElement } = render(
-      <Dropdown trigger={['click']} overlay={overlay} visible>
+      <Dropdown trigger={['click']} overlay={overlay} open>
         <button style={{ width: 100 }} className="my-button">
           open
         </button>
@@ -230,7 +230,7 @@ describe('dropdown', () => {
         trigger={['click']}
         overlay={overlay}
         minOverlayWidthMatchTrigger={false}
-        visible
+        open
       >
         <button style={{ width: 100 }} className="my-button">
           open
@@ -304,7 +304,7 @@ describe('dropdown', () => {
       <button {...props}>open</button>
     );
     const { container } = render(
-      <Dropdown overlay={<div style={{ width: 50 }}>Test</div>} visible>
+      <Dropdown overlay={<div style={{ width: 50 }}>Test</div>} open>
         <LegacyButton className="my-button" />
       </Dropdown>,
     );
@@ -509,7 +509,7 @@ describe('dropdown', () => {
           </Menu.SubMenu>
         </Menu>
       ),
-      visible: true,
+      open: true,
       getPopupContainer: (node) => node,
     };
 
@@ -530,7 +530,7 @@ describe('dropdown', () => {
           <Menu.Item key="1">foo</Menu.Item>
         </Menu>
       ),
-      visible: true,
+      open: true,
     };
 
     render(

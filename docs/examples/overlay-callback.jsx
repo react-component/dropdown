@@ -7,8 +7,8 @@ function onSelect({ key }) {
   console.log(`${key} selected`);
 }
 
-function onVisibleChange(visible) {
-  console.log(visible);
+function onOpenChange(open) {
+  console.log(open);
 }
 
 const menuCallback = () => (
@@ -29,7 +29,7 @@ export default function OverlayCallback() {
           trigger={['click']}
           overlay={menuCallback}
           animation="slide-up"
-          onVisibleChange={onVisibleChange}
+          onOpenChange={onOpenChange}
         >
           <button style={{ width: 100 }}>open</button>
         </Dropdown>

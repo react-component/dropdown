@@ -22,12 +22,13 @@ it('does not forward disabled to Trigger', () => {
   const runtimeProps = { disabled: true };
 
   render(
-    <Dropdown {...runtimeProps} visible overlay={<div />}>
+    <Dropdown {...runtimeProps} open overlay={<div />}>
       <button type="button">open</button>
     </Dropdown>,
   );
 
   const triggerProps = mockTriggerRender.mock.calls[0][0];
   expect(triggerProps).not.toHaveProperty('disabled');
+  expect(triggerProps).not.toHaveProperty('open');
   expect(triggerProps).toHaveProperty('popupVisible', true);
 });
