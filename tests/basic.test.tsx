@@ -586,6 +586,7 @@ describe('dropdown', () => {
 
   it('should support autoFocus', async () => {
     jest.useFakeTimers();
+    const focusSpy = jest.spyOn(HTMLElement.prototype, 'focus');
 
     const overlay = (
       <Menu>
@@ -613,6 +614,7 @@ describe('dropdown', () => {
         .classList.contains('rc-dropdown-hidden'),
     ).toBeFalsy();
     expect(document.activeElement.className).toContain('menu');
+    expect(focusSpy).toHaveBeenCalledWith({ preventScroll: true });
 
     // Close menu with Tab
     window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 })); // Tab
@@ -621,6 +623,7 @@ describe('dropdown', () => {
 
     expect(document.activeElement.className).toContain('my-button');
 
+    focusSpy.mockRestore();
     jest.useRealTimers();
   });
 

@@ -27,9 +27,9 @@ export default function useAccessibility({
     }
   };
 
-  const focusMenu = () => {
+  const focusMenu = (options?: FocusOptions) => {
     if (overlayRef.current?.focus) {
-      overlayRef.current.focus();
+      overlayRef.current.focus(options);
       focusMenuRef.current = true;
       return true;
     }
@@ -62,7 +62,7 @@ export default function useAccessibility({
       window.addEventListener('keydown', handleKeyDown);
       if (autoFocus) {
         // FIXME: hack with raf
-        raf(focusMenu, 3);
+        raf(() => focusMenu({ preventScroll: true }), 3);
       }
       return () => {
         window.removeEventListener('keydown', handleKeyDown);
