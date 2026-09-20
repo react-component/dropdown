@@ -492,12 +492,62 @@ describe('dropdown', () => {
 
     // Focus menu with Tab
     window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 })); // Tab
+    expect(document.activeElement).toHaveClass('rc-menu');
+    fireEvent.keyDown(document.activeElement, {
+      key: 'ArrowDown',
+      keyCode: 40,
+    });
+    await sleep(50);
+    expect(document.activeElement).toHaveTextContent('one');
 
     // Close menu with Tab
-    window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 })); // Tab
+    fireEvent.keyDown(document.activeElement, { key: 'Tab', keyCode: 9 });
     await sleep(200);
     expect(document.activeElement.className).toContain('my-button');
   });
+
+  it.each(['missing', 'unfocusable'])(
+    'focuses a tab target when the wrapped menu is %s',
+    async (menuState) => {
+      jest.useFakeTimers();
+      try {
+        const { container, baseElement } = render(
+          <Dropdown
+            trigger={['click']}
+            overlay={
+              <div>
+                {menuState === 'unfocusable' && <div role="menu" />}
+                <button tabIndex={0} className="custom-target">
+                  action
+                </button>
+              </div>
+            }
+          >
+            <button className="my-button">open</button>
+          </Dropdown>,
+        );
+        const trigger =
+          container.querySelector<HTMLButtonElement>('.my-button');
+        trigger.focus();
+        fireEvent.click(trigger);
+        await waitForTime();
+
+        const event = new KeyboardEvent('keydown', {
+          keyCode: 9,
+          cancelable: true,
+        });
+        act(() => {
+          window.dispatchEvent(event);
+        });
+        expect(document.activeElement).toBe(
+          baseElement.querySelector('.custom-target'),
+        );
+        expect(event.defaultPrevented).toBe(true);
+      } finally {
+        jest.useRealTimers();
+      }
+    },
+  );
 
   it('support Menu expandIcon', async () => {
     const props = {
@@ -584,50 +634,57 @@ describe('dropdown', () => {
     jest.useRealTimers();
   });
 
-  it('should support autoFocus', async () => {
-    jest.useFakeTimers();
-    const focusSpy = jest.spyOn(HTMLElement.prototype, 'focus');
+  it.each(['direct', 'wrapped'])(
+    'should support autoFocus for a %s menu',
+    async (mode) => {
+      jest.useFakeTimers();
+      const focusSpy = jest.spyOn(HTMLElement.prototype, 'focus');
 
-    try {
-      const overlay = (
-        <Menu>
-          <MenuItem key="1">
-            <span className="my-menuitem">one</span>
-          </MenuItem>
-          <MenuItem key="2">two</MenuItem>
-        </Menu>
-      );
-      const { container } = render(
-        <Dropdown autoFocus trigger={['click']} overlay={overlay}>
-          <button className="my-button">open</button>
-        </Dropdown>,
-      );
-      const trigger = container.querySelector('.my-button');
+      try {
+        const overlay = (
+          <Menu>
+            <MenuItem key="1">
+              <span className="my-menuitem">one</span>
+            </MenuItem>
+            <MenuItem key="2">two</MenuItem>
+          </Menu>
+        );
+        const { container } = render(
+          <Dropdown
+            autoFocus
+            trigger={['click']}
+            overlay={mode === 'wrapped' ? <div>{overlay}</div> : overlay}
+          >
+            <button className="my-button">open</button>
+          </Dropdown>,
+        );
+        const trigger = container.querySelector('.my-button');
 
-      // Open menu
-      fireEvent.click(trigger);
+        // Open menu
+        fireEvent.click(trigger);
 
-      await waitForTime();
+        await waitForTime();
 
-      expect(
-        container
-          .querySelector('.rc-dropdown')
-          .classList.contains('rc-dropdown-hidden'),
-      ).toBeFalsy();
-      expect(document.activeElement.className).toContain('menu');
-      expect(focusSpy).toHaveBeenCalledWith({ preventScroll: true });
+        expect(
+          container
+            .querySelector('.rc-dropdown')
+            .classList.contains('rc-dropdown-hidden'),
+        ).toBeFalsy();
+        expect(document.activeElement.className).toContain('menu');
+        expect(focusSpy).toHaveBeenLastCalledWith({ preventScroll: true });
 
-      // Close menu with Tab
-      window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 })); // Tab
+        // Close menu with Tab
+        window.dispatchEvent(new KeyboardEvent('keydown', { keyCode: 9 })); // Tab
 
-      await waitForTime();
+        await waitForTime();
 
-      expect(document.activeElement.className).toContain('my-button');
-    } finally {
-      focusSpy.mockRestore();
-      jest.useRealTimers();
-    }
-  });
+        expect(document.activeElement.className).toContain('my-button');
+      } finally {
+        focusSpy.mockRestore();
+        jest.useRealTimers();
+      }
+    },
+  );
 
   it('children cannot be given ref should not throw', () => {
     const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});

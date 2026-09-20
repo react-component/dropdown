@@ -28,12 +28,28 @@ export default function useAccessibility({
   };
 
   const focusMenu = (options?: FocusOptions) => {
-    if (overlayRef.current?.focus) {
-      overlayRef.current.focus(options);
-      focusMenuRef.current = true;
-      return true;
+    const overlay = overlayRef?.current;
+    if (!overlay?.focus) {
+      return false;
     }
-    return false;
+
+    const activeElement = document.activeElement;
+    overlay.focus(options);
+    if (document.activeElement === activeElement) {
+      for (const selector of ['[role="menu"]', '[tabindex]']) {
+        const focusTarget = overlay.querySelector?.(
+          selector,
+        ) as HTMLElement | null;
+        focusTarget?.focus(options);
+        if (document.activeElement !== activeElement) {
+          break;
+        }
+      }
+    }
+
+    const focused = document.activeElement !== activeElement;
+    focusMenuRef.current = focused;
+    return focused;
   };
 
   const handleKeyDown = (event) => {
