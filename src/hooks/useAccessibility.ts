@@ -36,9 +36,15 @@ export default function useAccessibility({
     const activeElement = document.activeElement;
     overlay.focus(options);
     if (document.activeElement === activeElement) {
-      const focusTarget = (overlay.querySelector?.('[role="menu"]') ??
-        overlay.querySelector?.('[tabindex]')) as HTMLElement | null;
-      focusTarget?.focus(options);
+      for (const selector of ['[role="menu"]', '[tabindex]']) {
+        const focusTarget = overlay.querySelector?.(
+          selector,
+        ) as HTMLElement | null;
+        focusTarget?.focus(options);
+        if (document.activeElement !== activeElement) {
+          break;
+        }
+      }
     }
 
     const focused = document.activeElement !== activeElement;

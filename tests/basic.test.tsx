@@ -506,6 +506,49 @@ describe('dropdown', () => {
     expect(document.activeElement.className).toContain('my-button');
   });
 
+  it.each(['missing', 'unfocusable'])(
+    'focuses a tab target when the wrapped menu is %s',
+    async (menuState) => {
+      jest.useFakeTimers();
+      try {
+        const { container, baseElement } = render(
+          <Dropdown
+            trigger={['click']}
+            overlay={
+              <div>
+                {menuState === 'unfocusable' && <div role="menu" />}
+                <button tabIndex={0} className="custom-target">
+                  action
+                </button>
+              </div>
+            }
+          >
+            <button className="my-button">open</button>
+          </Dropdown>,
+        );
+        const trigger =
+          container.querySelector<HTMLButtonElement>('.my-button');
+        trigger.focus();
+        fireEvent.click(trigger);
+        await waitForTime();
+
+        const event = new KeyboardEvent('keydown', {
+          keyCode: 9,
+          cancelable: true,
+        });
+        act(() => {
+          window.dispatchEvent(event);
+        });
+        expect(document.activeElement).toBe(
+          baseElement.querySelector('.custom-target'),
+        );
+        expect(event.defaultPrevented).toBe(true);
+      } finally {
+        jest.useRealTimers();
+      }
+    },
+  );
+
   it('support Menu expandIcon', async () => {
     const props = {
       overlay: (
