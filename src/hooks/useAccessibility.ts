@@ -52,11 +52,25 @@ export default function useAccessibility({
     return focused;
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     switch (event.keyCode) {
-      case ESC:
+      case ESC: {
+        // Let a nested menu handle Escape before closing the outer popup.
+        const overlay = overlayRef?.current;
+        const overlayElement = overlay?.list || overlay;
+        const rootMenu = overlayElement?.matches?.('[role="menu"]')
+          ? overlayElement
+          : overlayElement?.querySelector?.('[role="menu"]');
+        const targetMenu =
+          event.target instanceof Element
+            ? event.target.closest('[role="menu"]')
+            : null;
+        if (rootMenu && targetMenu && targetMenu !== rootMenu) {
+          break;
+        }
         handleCloseMenuAndReturnFocus();
         break;
+      }
       case TAB: {
         let focusResult: boolean = false;
         if (!focusMenuRef.current) {
