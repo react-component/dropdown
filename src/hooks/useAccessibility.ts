@@ -75,13 +75,25 @@ export default function useAccessibility({
 
   React.useEffect(() => {
     if (open) {
-      window.addEventListener('keydown', handleKeyDown);
+      const handleCapture = (event: KeyboardEvent) => {
+        if (event.keyCode === ESC) {
+          handleKeyDown(event);
+        }
+      };
+      const handleBubble = (event: KeyboardEvent) => {
+        if (event.keyCode !== ESC) {
+          handleKeyDown(event);
+        }
+      };
+      window.addEventListener('keydown', handleCapture, true);
+      window.addEventListener('keydown', handleBubble);
       if (autoFocus) {
         // FIXME: hack with raf
         raf(() => focusMenu({ preventScroll: true }), 3);
       }
       return () => {
-        window.removeEventListener('keydown', handleKeyDown);
+        window.removeEventListener('keydown', handleCapture, true);
+        window.removeEventListener('keydown', handleBubble);
         focusMenuRef.current = false;
       };
     }
