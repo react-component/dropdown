@@ -55,7 +55,8 @@ export default function useAccessibility({
   const handleKeyDown = (event: KeyboardEvent) => {
     switch (event.keyCode) {
       case ESC: {
-        // Let a nested menu handle Escape before closing the outer popup.
+        // Portaled popup submenus own Escape. Inline mode submenus retain
+        // outer close/focus, even when popup containers are customized.
         const overlay = overlayRef?.current;
         const overlayElement = overlay?.list || overlay;
         const rootMenu = overlayElement?.matches?.('[role="menu"]')
@@ -65,7 +66,17 @@ export default function useAccessibility({
           event.target instanceof Element
             ? event.target.closest('[role="menu"]')
             : null;
-        if (rootMenu && targetMenu && targetMenu !== rootMenu) {
+        const inlineSubmenu =
+          rootMenu?.contains(targetMenu) &&
+          Array.from(targetMenu?.classList || []).some((className) =>
+            className.endsWith('-inline'),
+          );
+        if (
+          rootMenu &&
+          targetMenu &&
+          targetMenu !== rootMenu &&
+          !inlineSubmenu
+        ) {
           break;
         }
         handleCloseMenuAndReturnFocus();
