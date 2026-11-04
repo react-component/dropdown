@@ -52,11 +52,36 @@ export default function useAccessibility({
     return focused;
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: KeyboardEvent) => {
     switch (event.keyCode) {
-      case ESC:
+      case ESC: {
+        // Portaled popup submenus own Escape. Inline mode submenus retain
+        // outer close/focus, even when popup containers are customized.
+        const overlay = overlayRef?.current;
+        const overlayElement = overlay?.list || overlay;
+        const rootMenu = overlayElement?.matches?.('[role="menu"]')
+          ? overlayElement
+          : overlayElement?.querySelector?.('[role="menu"]');
+        const targetMenu =
+          event.target instanceof Element
+            ? event.target.closest('[role="menu"]')
+            : null;
+        const inlineSubmenu =
+          rootMenu?.contains(targetMenu) &&
+          Array.from(targetMenu?.classList || []).some((className) =>
+            className.endsWith('-inline'),
+          );
+        if (
+          rootMenu &&
+          targetMenu &&
+          targetMenu !== rootMenu &&
+          !inlineSubmenu
+        ) {
+          break;
+        }
         handleCloseMenuAndReturnFocus();
         break;
+      }
       case TAB: {
         let focusResult: boolean = false;
         if (!focusMenuRef.current) {
